@@ -1,0 +1,26 @@
+@startuml
+object Bell
+
+Bell : id 
+Bell : state 
+
+object Door
+
+Door : id 
+Door : state
+
+object MotionSensor
+
+MotionSensor : id 
+MotionSensor : count 
+
+object Lamp
+
+Lamp : id 
+Lamp : state 
+Lamp : luminocity
+
+Bell -[hidden]> Door
+Door -[hidden]> MotionSensor
+MotionSensor -[hidden]> Lamp
+@enduml
