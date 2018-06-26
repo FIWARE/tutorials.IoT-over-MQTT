@@ -48,6 +48,10 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # What is MQTT?
 
+> "With the technology at our disposal, the possibilities are unbounded. All we need to do is make sure we keep talking."
+>
+> — Stephen Hawking
+
 MQTT is publish-subscribe-based messaging protocol used in the Internet of Things. It works on top of the TCP/IP
 protocol, and is designed for connections with remote locations where a "small code footprint" is required or the
 network bandwidth is limited. The goal is to provide a protocol, which is bandwidth-efficient and uses little
