@@ -4,6 +4,9 @@ const monitor = require('../lib/monitoring');
 const Store = require('../controllers/store');
 const _ = require('lodash');
 
+
+const TRANSPORT = (process.env.DUMMY_DEVICES_TRANSPORT || 'HTTP');
+
 // Error handler for async functions 
 function catchErrors(fn) {
 	return (req, res, next) => {
@@ -31,7 +34,8 @@ router.get('/', function(req, res) {
 
 // Render the monitoring page
 router.get('/device/monitor', function(req, res) {
-	res.render('device-monitor', { title: 'UltraLight IoT Devices' });
+	const traffic = (TRANSPORT === 'HTTP' ? 'Northbound Traffic' : 'MQTT Messages');
+	res.render('device-monitor', { title: 'UltraLight IoT Devices', traffic:  traffic});
 });
 
 router.post('/device/command', Store.sendCommand);

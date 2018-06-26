@@ -19,7 +19,6 @@
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache();
 const _ = require('lodash');
-const monitor = require('../lib/monitoring');
 const request = require("request");
 const debug = require('debug')('proxy:server');
 
@@ -108,7 +107,8 @@ function processHttpLampCommand(req, res) {
 }
 
 function processMqttMessage(topic, message) {
-	monitor( 'northbound' ,  'MQTT ' + topic + '  ' + message);
+	const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
+	SOCKET_IO.emit( 'mqtt' , mqttBrokerUrl + topic + '  ' + message);
 	const path = topic.split("/");
 	if (path.pop() === 'cmd'){
 		const keyValuePairs = message.split('|') || [''];
@@ -236,7 +236,7 @@ function setDeviceState(deviceId, state, isSensor = true){
 			  	debug( debugText +  " " + error.code)
 			  } 
 			});
-			monitor( 'northbound' ,  debugText + '  ' + state);
+			SOCKET_IO.emit( 'http' ,  debugText + '  ' + state);
 		}
 		if (UL_TRANSPORT === 'MQTT') {
 			const topic = '/' + UL_API_KEY + '/' +  deviceId + '/attrs'

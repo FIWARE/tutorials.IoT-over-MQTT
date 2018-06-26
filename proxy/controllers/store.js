@@ -17,6 +17,7 @@ const request = require("request");
 // context broker. It is best to do this with an environment
 // variable (with a fallback if necessary)
 defaultClient.basePath = process.env.CONTEXT_BROKER || 'http://localhost:1026/v2';
+const nsgiLdPrefix =  (process.env.NGSI_LD_PREFIX !== undefined) ? process.env.NGSI_LD_PREFIX : 'urn:ngsi-ld:';
 
 
 // This function receives the details of a store from the context
@@ -141,7 +142,7 @@ function sendCommand(req) {
 	}
 
 	const options = { method: 'PATCH',
-		url: defaultClient.basePath + '/entities/' + id + '/attrs',
+		url: defaultClient.basePath + '/entities/' + nsgiLdPrefix + id + '/attrs',
 		headers: { 
 			'Content-Type': 'application/json',
 		 	'fiware-servicepath': '/',
