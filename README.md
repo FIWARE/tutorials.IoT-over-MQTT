@@ -499,7 +499,7 @@ curl -iX POST \
      "apikey":      "4jggokgpepnvsb2uv4s40d59ov",
      "cbroker":     "http://orion:1026",
      "entity_type": "Thing",
-     "resource":    "/iot/d"
+     "resource":    ""
    }
  ]
 }'
@@ -564,7 +564,8 @@ posting an MQTT message to the following **topic**
 
 ```console
 docker run -it --rm --name mqtt-publisher --network \
-  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|0" -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
+  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|0" \
+  -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
 * The value of the `-m` parameter defines the message. This is in UltraLight syntax.
@@ -576,10 +577,15 @@ The **topic** must be in the following form:
 /<api-key>/<device-id>/attrs
 ```
 
+A similar HTTP request was made in a previous tutorial (before the IoT Agent was connected)
+and when the door was unlocked, and you will have seen the state of each motion sensor changing
+and a Northbound HTTP requests logged in the device monitor.
 
-A similar request was made using HTTP in a previous tutorial (before the IoT Agent was connected)
-and when the door was unlocked, you will have seen the state of each motion sensor changing
-and a Northbound request will be logged in the device monitor.
+When running using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics**
+and the device monitor will be configured to display all MQTT **messages** sent to each **topic** -
+effectively it is showing the list messages received and sent by Mosquitto.
+
+
 
 With an the IoT Agent connected via MQTT, the service group has defined the **topic** which the agent is subscribed to.
 Since the api-key matches the root of the **topic**, the MQTT message from the **Motion Sensor** is passed to the IoT Agent
