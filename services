@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+#  Command Line Interface to start all services associated with the Getting-Started Tutorial
+#
+#  For this tutorial the commands are merely a convenience script to run docker-compose
+#
+
+set -e
+
+if (( $# != 1 )); then
+    echo "Illegal number of parameters"
+    echo "usage: services [start|stop]"
+    exit 1
+fi
+
+command="$1"
+case "${command}" in
+	"help")
+        echo "usage: services [start|stop]"
+        ;;
+    "start")
+		echo -e "Starting five containers \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1;30mContext-Provider\033[0m, \033[1;30mMosquitto\033[0m MQTT broker and a \033[1;30mMongoDB\033[0m database."
+		echo -e "\033[1;34mOrion\033[0m is the context broker"
+		echo -e "\033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
+		echo -e "\033[1;30mContext-Provider\033[0m acts as a series of dummy IoT Sensors over MQTT"
+		echo -e "\033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
+		echo ""
+		docker-compose -p fiware up -d --remove-orphans
+		sleep 2
+		echo "loading data"
+		./import-data
+		;;
+	"stop")
+		echo "stopping containers"
+		docker-compose -p fiware down
+		echo "removing volumes"
+		docker volume prune --force
+		;;
+	"create")
+		echo "Obtaining Mongo DB image"
+		docker pull mongo:3.6
+		echo "Obtaining Latest Orion Image"
+		docker pull fiware/orion
+		echo "Obtaining Latest Mosquitto Message Broker"
+		docker pull eclipse-mosquitto
+		echo "recreate Context-Providers proxy"
+		docker build -t fiware/cp-web-app ./proxy
+		;;
+esac
+
+
+
