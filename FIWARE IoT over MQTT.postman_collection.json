@@ -94,7 +94,7 @@
 								"services"
 							]
 						},
-						"description": "Invoking group provision is always the the first step in connecting devices since it is always necessary to\nsupply an authentication key with each measurement and the IoT Agent will not initially know which URL \nthe context broker is responding on.\n\nIt is possible to set up default commands and attributes for all devices as well, but this\nis not done within this tutorial as we will be provisioning each device separately.\n\nThis example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices\nwill be sending messages to the `IOTA_HTTP_PORT` (where the IoT Agent is listening for **Northbound** communications)\n\nIn the example the IoT Agent is informed that the `/iot/d` endpoint will be used and that devices will authenticate\nthemselves by including the token `4jggokgpepnvsb2uv4s40d59ov`. For an UltraLight IoT Agent this means devices will\nbe sending GET or POST requests to: \n\n```\nhttp://iot-agent:7896/iot/d?i=<device_id>&k=4jggokgpepnvsb2uv4s40d59ov\n```\n\nWhich should be familiar UltraLight 2.0 syntax from the previous tutorial.\n\nWhen a measurement from an IoT device is received on the resource url it needs to be interpreted and passed\nto the context broker. The `entity_type` attribute provides a default `type` for each device which has made a \nrequest (in this case anonymous devices will be known as `Thing` entities. Furthermore the location of the \ncontext broker is required, so that the IoT Agent can pass on any measurements received to the correct location."
+						"description": "Invoking group provision is always the the first step in connecting devices. For MQTT communication, provisioning supplies the authentication key so the IoT Agent will know which **topic** it must\nsubscribe to.\n\nIt is possible to set up default commands and attributes for all devices as well, but this\nis not done within this tutorial as we will be provisioning each device separately.\n\nThis example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices\nwill be communicating by sending messages to the `/4jggokgpepnvsb2uv4s40d59ov` **topic**\n\nThe `resource` attribute is left blank since HTTP communication is not being used."
 					},
 					"response": []
 				},
@@ -202,7 +202,7 @@
 								"devices"
 							]
 						},
-						"description": "Provisioning an actuator is similar to provisioning a sensor. This time an `endpoint` attribute holds\nthe location where the IoT Agent needs to send the UltraLight command and the `commands` array includes\na list of each command that can be invoked. The example below provisions a bell with the `deviceId=bell001`.\nThe endpoint is `http://context-provider:3001/iot/bell001` and it can accept the `ring` command."
+						"description": "Provisioning an actuator is similar to provisioning a sensor. The `transport` attribute defines the communications\nprotocol to be used. For MQTT communications, the `endpoint` attribute  is not required as there is no HTTP url \nwhere the device is listening for commands.  The array of commands\nis mapped to directly to messages sent to the  `/<api-key>/<device-id>/cmd` **topic** \nThe `commands` array includes a list of each command that can be invoked. \n\nThe example below provisions a bell with the `deviceId=bell001`."
 					},
 					"response": []
 				},
@@ -316,7 +316,7 @@
 								"devices"
 							]
 						},
-						"description": "Provisioning  a device which offers both commands and measurements is merely a matter of making an HTTP POST request\nwith both `attributes` and `command` attributes in the body of the request.\n\nThis example provisions a smart door with four commands `lock`, `unlock`, `open` and `close` and maps a single attribute."
+						"description": "Provisioning  a device which offers both commands and measurements is merely a matter of \nmaking an HTTP POST request with both `attributes` and `command` attributes in the body of the \nrequest. Once again the `transport=MQTT` attribute defines the communications protocol to be used, \nand no `endpoint` attribute is required as there is no HTTP url where the device is listening \nfor commands."
 					},
 					"response": []
 				},

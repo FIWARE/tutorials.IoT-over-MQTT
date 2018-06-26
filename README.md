@@ -6,7 +6,7 @@
 
 This tutorial uses introduces the use of the MQTT protocol across IoT devices connecting to FIWARE. The [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT Agent
 created in the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent) is reconfigured to
-communicate with a set of dummy IoT devices using MQTT
+communicate with a set of dummy IoT devices using MQTT via a [Mosquitto](https://mosquitto.org/) message broker
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as [Postman documentation](http://fiware.github.io/tutorials.IoT-Agent/)
 
@@ -16,7 +16,36 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Contents
 
-TBD
+- [What is MQTT?](#what-is-mqtt)
+- [Architecture](#architecture)
+  * [Mosquitto Configuration](#mosquitto-configuration)
+  * [Dummy IoT Devices Configuration](#dummy-iot-devices-configuration)
+  * [IoT Agent for UltraLight 2.0 Configuration](#iot-agent-for-ultralight-20-configuration)
+- [Prerequisites](#prerequisites)
+  * [Docker and Docker Compose](#docker-and-docker-compose)
+  * [Cygwin for Windows](#cygwin-for-windows)
+- [Start Up](#start-up)
+- [Provisioning an IoT Agent (UltraLight over MQTT)](#provisioning-an-iot-agent-ultralight-over-mqtt)
+  * [Checking Mosquitto Health](#checking-mosquitto-health)
+    + [Start an MQTT Subscriber (:one:st Terminal)](#start-an-mqtt-subscriber-onest-terminal)
+    + [Start an MQTT Publisher (:two:nd Terminal)](#start-an-mqtt-publisher-twond-terminal)
+    + [Stop an MQTT Subscriber (:one:st Terminal)](#stop-an-mqtt-subscriber-onest-terminal)
+    + [Show Mosquitto Log](#show-mosquitto-log)
+  * [Checking the IoT Agent Service Health](#checking-the-iot-agent-service-health)
+  * [Connecting IoT Devices](#connecting-iot-devices)
+    + [Provisioning a Service Group for MQTT](#provisioning-a-service-group-for-mqtt)
+    + [Provisioning a Sensor](#provisioning-a-sensor)
+    + [Provisioning an Actuator](#provisioning-an-actuator)
+    + [Provisioning a Smart Door](#provisioning-a-smart-door)
+    + [Provisioning a Smart Lamp](#provisioning-a-smart-lamp)
+  * [Enabling Context Broker Commands](#enabling-context-broker-commands)
+    + [Registering a Bell Command](#registering-a-bell-command)
+    + [Ringing the Bell](#ringing-the-bell)
+    + [Registering Smart Door Commands](#registering-smart-door-commands)
+    + [Opening the Smart Door](#opening-the-smart-door)
+    + [Registering Smart Lamp Commands](#registering-smart-lamp-commands)
+    + [Switching on the Smart Lamp](#switching-on-the-smart-lamp)
+- [Next Steps](#next-steps)
 
 # What is MQTT?
 
@@ -29,6 +58,17 @@ The [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent) used HTTP
 the devices and the IoT Agent. HTTP uses a request/response paradigm where each device connects directly to the IoT Agent.
 MQTT is different in that publish-subscribe is event-driven and pushes messages to clients. It requires an additional
 central communication point (known as the MQTT broker) which it is in charge of dispatching all messages between the senders and the rightful receivers. Each client that publishes a message to the broker, includes a **topic** into the message. The **topic** is the routing information for the broker. Each client that wants to receive messages subscribes to a certain **topic** and the broker delivers all messages with the matching **topic** to the client. Therefore the clients don’t have to know each other, they only communicate over the **topic**. This architecture enables highly scalable solutions without dependencies between the data producers and the data consumers.
+
+A summary of the differences between the two transport protocols can be seen below:
+
+
+| HTTP Transport | MQTT Transport |
+|------| -----|
+| ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/http.png)     | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/mqtt.png)     |
+| IoT Agent communicates with IoT devices **directly** | IoT Agent communicates  with IoT devices **indirectly** via MQTT Broker|
+| [Request-Response](https://en.wikipedia.org/wiki/Request%E2%80%93response) Paradigm| [Publish-Subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Paradigm|
+| IoT Devices must always be ready to receive communication |IoT Devices choose when to receive communication |
+|Higher Power Requirement | Low Power Requirement
 
 
 The UltraLight 2.0 IoT Agent will only send or interpret messages using the [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) syntax,
@@ -106,7 +146,7 @@ The necessary configuration information for wiring up the Mosquitto MQTT Broker,
 
 The `mosquitto` container is listening on two ports: 
 
-* Port `3000` is exposed so we can post MQTT topics
+* Port `1883` is exposed so we can post MQTT topics
 * Port `9001` is the standard port for HTTP/Websocket communications
 
 The attached volume is a [configuration file](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/osquitto/mosquitto.conf) used to increase the debug level of the MQTT Message Broker.
@@ -128,7 +168,7 @@ The attached volume is a [configuration file](https://github.com/Fiware/tutorial
         - "3001:3001"
     environment:
         - "DEBUG=proxy:*"
-        - "PORT=3000"
+        - "WEB_APP_PORT=3000"
         - "DUMMY_DEVICES_PORT=3001"
         - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
         - "DUMMY_DEVICES_TRANSPORT=MQTT"
@@ -146,9 +186,10 @@ The `context-provider` container is driven by environment variables as shown:
 | Key |Value|Description|
 |-----|-----|-----------|
 |DEBUG|`proxy:*`| Debug flag used for logging |
-|PORT|`3000`|Port used by web-app which displays the dummy device data |
+|WEB_APP_PORT|`3000`|Port used by web-app which displays the dummy device data |
 |DUMMY_DEVICES_PORT|`3001`|Port used by the dummy IoT devices to receive commands |
 |DUMMY_DEVICES_API_KEY|`4jggokgpepnvsb2uv4s40d59ov`| Random security key used for UltraLight interactions - used to ensure the integrity of interactions between the devices and the IoT Agent |
+|DUMMY_DEVICES_TRANSPORT|`MQTT`| The transport protocol used by the dummy IoT devices |
 
 The other `context-provider` container configuration values described in the YAML file are not used in this tutorial.
 
@@ -293,7 +334,7 @@ Open a **new terminal**, and create a new running `mqtt-subscriber` Docker conta
 
 ```console
 docker run -it --rm --name mqtt-subscriber \
-  --network fiware_default efrecon/mqtt-client sub -h mosquitto -t "#"
+  --network fiware_default efrecon/mqtt-client sub -h mosquitto -t "/#"
 ```
 
 The terminal will then be ready to receive events
@@ -307,7 +348,7 @@ Open a **new terminal**, and run a  `mqtt-publisher` Docker container to send a 
 
 ```console
 docker run -it --rm --name mqtt-publisher \
-  --network fiware_default efrecon/mqtt-client pub -h mosquitto -m "HELLO WORLD" -t "test"
+  --network fiware_default efrecon/mqtt-client pub -h mosquitto -m "HELLO WORLD" -t "/test"
 ```
 
 #### :one:st terminal - Result:
@@ -431,17 +472,18 @@ guaranteed that that there is no overlap within `<device-id>`s used. The use of 
 `fiware-servicepath` headers can ensure that this is always the case, and allows the context broker to identify
 the original source of the context data.
 
-### Provisioning a Service Group
+### Provisioning a Service Group for MQTT
 
-Invoking group provision is always the first step in connecting devices since it is always necessary to
-supply an authentication key with each measurement and the IoT Agent will not initially know which URL the 
-context broker is responding on.
+Invoking group provision is always the the first step in connecting devices. For MQTT communication, provisioning supplies the authentication key so the IoT Agent will know which **topic** it must
+subscribe to.
 
-It is also possible to set up default commands and attributes for all anonymous devices as well, but this
+It is possible to set up default commands and attributes for all devices as well, but this
 is not done within this tutorial as we will be provisioning each device separately.
 
 This example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices
-will be sending messages to the `IOTA_HTTP_PORT` (where the IoT Agent is listening for **Northbound** communications)
+will be communicating by sending messages to the `/4jggokgpepnvsb2uv4s40d59ov` **topic**
+
+The `resource` attribute is left blank since HTTP communication is not being used.
 
 #### :two: Request:
 
@@ -463,20 +505,6 @@ curl -iX POST \
 }'
 ```
 
-In the example the IoT Agent is informed that the `/iot/d` endpoint will be used and that devices will authenticate
-themselves by including the token `4jggokgpepnvsb2uv4s40d59ov`. For an UltraLight IoT Agent this means devices will
-be sending GET or POST requests to: 
-
-```
-http://iot-agent:7896/iot/d?i=<device_id>&k=4jggokgpepnvsb2uv4s40d59ov
-```
-
-Which should be familiar UltraLight 2.0 syntax from the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Sensors).
-
-When a measurement from an IoT device is received on the resource url it needs to be interpreted and passed
-to the context broker. The `entity_type` attribute provides a default `type` for each device which has made a 
-request (in this case anonymous devices will be known as `Thing` entities. Furthermore the location of the 
-context broker is required, so that the IoT Agent can pass on any measurements received to the correct location.
 
 
 ### Provisioning a Sensor
@@ -509,6 +537,7 @@ curl -iX POST \
      "entity_name": "urn:ngsd-ld:Motion:001",
      "entity_type": "Motion",
      "protocol":    "PDI-IoTA-UltraLight",
+     "transport":   "MQTT",
      "timezone":    "Europe/Berlin",
      "attributes": [
        { "object_id": "c", "name": "count", "type": "Integer" }
@@ -523,10 +552,13 @@ curl -iX POST \
 ```
 In the request we are associating the device `motion001` with the URN `urn:ngsd-ld:Motion:001`
 and mapping the device reading `c` with the context attribute `count` (which is defined as an `Integer`)
-A `refStore` is defined as a `static_attribute`, placing the device within **Store** `urn:ngsi-ld:Store:001`
+A `refStore` is defined as a `static_attribute`, placing the device within **Store** `urn:ngsi-ld:Store:001`.
+
+The addition of the `transport=MQTT` attribute in the body of the request is sufficient to tell the IoT Agent that
+it should subscribe to the `/<api-key>/<device-id>` **topic** to receive measurements.
 
 You can simulate a dummy IoT device measurement coming from the **Motion Sensor** device `motion001`, by 
-posting an MQTT message to the following topic
+posting an MQTT message to the following **topic**
 
 #### :four: MQTT Request:
 
@@ -536,9 +568,9 @@ docker run -it --rm --name mqtt-publisher --network \
 ```
 
 * The value of the `-m` parameter defines the message. This is in UltraLight syntax.
-* The value of the `-t` parameter defines the topic. 
+* The value of the `-t` parameter defines the **topic**. 
 
-The topic must be in the following form:
+The **topic** must be in the following form:
 
 ```
 /<api-key>/<device-id>/attrs
@@ -549,8 +581,8 @@ A similar request was made using HTTP in a previous tutorial (before the IoT Age
 and when the door was unlocked, you will have seen the state of each motion sensor changing
 and a Northbound request will be logged in the device monitor.
 
-With an the IoT Agent connected via MQTT, the service group has defined the topic which the agent is subscribed to.
-Since the api-key matches the root of the topic, the MQTT message from the **Motion Sensor** is passed to the IoT Agent
+With an the IoT Agent connected via MQTT, the service group has defined the **topic** which the agent is subscribed to.
+Since the api-key matches the root of the **topic**, the MQTT message from the **Motion Sensor** is passed to the IoT Agent
 which has previously subscribed.
 
 Because we have specifically provisioned the device (`motion001`) - the IoT Agent is able to map attributes 
@@ -597,10 +629,13 @@ IoT Agent was started up.
 
 ### Provisioning an Actuator
 
-Provisioning an actuator is similar to provisioning a sensor. This time an `endpoint` attribute holds
-the location where the IoT Agent needs to send the UltraLight command and the `commands` array includes
-a list of each command that can be invoked. The example below provisions a bell with the `deviceId=bell001`.
-The endpoint is `http://context-provider:3001/iot/bell001` and it can accept the `ring` command.
+Provisioning an actuator is similar to provisioning a sensor. The `transport=MQTT` attribute defines the communications
+protocol to be used. For MQTT communications, the `endpoint` attribute  is not required as there is no HTTP url 
+where the device is listening for commands.  The array of commands
+is mapped to directly to messages sent to the  `/<api-key>/<device-id>/cmd` **topic** 
+The `commands` array includes a list of each command that can be invoked. 
+
+The example below provisions a bell with the `deviceId=bell001`.
 
 #### :six: Request:
 
@@ -617,8 +652,7 @@ curl -iX POST \
       "entity_name": "urn:ngsi-ld:Bell:001",
       "entity_type": "Bell",
       "protocol": "PDI-IoTA-UltraLight",
-      "transport": "HTTP",
-      "endpoint": "http://context-provider:3001/iot/bell001",
+      "transport": "MQTT",
       "commands": [ 
         { "name": "ring", "type": "command" }
        ],
@@ -723,8 +757,11 @@ The `TimeInstant` shows last the time any command associated with the entity has
 
 ### Provisioning a Smart Door
 
-Provisioning  a device which offers both commands and measurements is merely a matter of making an HTTP POST request
-with both `attributes` and `command` attributes in the body of the request.
+Provisioning  a device which offers both commands and measurements is merely a matter of 
+making an HTTP POST request with both `attributes` and `command` attributes in the body of the 
+request. Once again the `transport=MQTT` attribute defines the communications protocol to be used, 
+and no `endpoint` attribute is required as there is no HTTP url where the device is listening 
+for commands.
 
 #### :nine: Request:
 
@@ -741,8 +778,7 @@ curl -iX POST \
       "entity_name": "urn:ngsi-ld:Door:001",
       "entity_type": "Door",
       "protocol": "PDI-IoTA-UltraLight",
-      "transport": "HTTP",
-      "endpoint": "http://context-provider:3001/iot/door001",
+      "transport": "MQTT",
       "commands": [ 
         {"name": "unlock","type": "command"},
         {"name": "open","type": "command"},
@@ -785,8 +821,7 @@ curl -iX POST \
       "entity_name": "urn:ngsi-ld:Lamp:001",
       "entity_type": "Lamp",
       "protocol": "PDI-IoTA-UltraLight",
-      "transport": "HTTP",
-      "endpoint": "http://context-provider:3001/iot/lamp001",
+      "transport": "MQTT",
       "commands": [ 
         {"name": "on","type": "command"},
         {"name": "off","type": "command"}
@@ -825,6 +860,15 @@ are available. In other words we need to register the IoT Agent as a [Context Pr
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
 switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending UltraLight 2.0
 requests directly the IoT devices as we did in the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Sensors)
+
+
+All the communications leaving and arriving at the North port of the IoT Agent use the standard NGSI syntax. The
+transport protocol used between the IoT devices and the is irrelevant to this layer of communication. Effectively
+the IoT Agent is offering a simplified facade pattern of well-known endpoints to actuate any device.
+
+Therefore this section of registering and invoking commands **duplicates** the instructions found in the 
+[previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent)
+
 
 
 
@@ -1015,6 +1059,7 @@ You can find out by reading the other tutorials in this series:
 
 &nbsp; 201. [Introduction to IoT Sensors](https://github.com/Fiware/tutorials.IoT-Sensors)<br/>
 &nbsp; 202. [Provisioning an IoT Agent](https://github.com/Fiware/tutorials.IoT-Agent)<br/>
+&nbsp; 203. [IoT over MQTT](https://github.com/Fiware/tutorials.IoT-over-MQTT)<br/>
 &nbsp; 250. [Introduction to Fast-RTPS and Micro-RTPS ](https://github.com/Fiware/tutorials.Fast-RTPS-Micro-RTPS)<br/>
 
 &nbsp; 301. [Persisting Context Data](https://github.com/Fiware/tutorials.Historic-Context)<br/>
