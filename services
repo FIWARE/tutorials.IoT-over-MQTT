@@ -41,6 +41,8 @@ case "${command}" in
 		docker pull mongo:3.6
 		echo "Obtaining Latest Orion Image"
 		docker pull fiware/orion
+		echo "Obtaining Latest UltraLight IoT Agent"
+		docker pull fiware/iotagent-ul
 		echo "Obtaining Latest Mosquitto Message Broker"
 		docker pull eclipse-mosquitto
 		echo "recreate Context-Providers proxy"
