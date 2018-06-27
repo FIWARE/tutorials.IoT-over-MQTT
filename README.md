@@ -12,6 +12,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/acfd27a941ed57a0cae5)
 
+* このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
 # Contents
 
@@ -231,7 +232,7 @@ necessary configuration can be seen below:
         - "IOTA_MQTT_PORT=1883"
 ```
 
-The `iot-agent` container relies on the precence of the Orion Context Broker and uses a MongoDB database to hold device information such as device URLs and Keys. The container is listening on two ports: 
+The `iot-agent` container relies on the presence of the Orion Context Broker and uses a MongoDB database to hold device information such as device URLs and Keys. The container is listening on two ports: 
 
 * Port `7896` is exposed to receive Ultralight measurements over HTTP from the Dummy IoT devices
 * Port `4041` is exposed purely for tutorial access - so that cUrl or Postman can make provisioning commands
@@ -327,9 +328,9 @@ using MQTT. This section of the tutorial requires several open terminals.
 
 ### Start an MQTT Subscriber (:one:st Terminal)
 
-Eventually once we have wired by the system correctly, IoT Agent will subscribe to all relevent events to listen for
+Eventually once we have wired by the system correctly, IoT Agent will subscribe to all relevant events to listen for
 northbound traffic in the form of sensor measurements. It therefore will need to make a subscription
-across all topics. Similarly an accuator must subscribe to a single topic to receive events which effect itself when 
+across all topics. Similarly an actuator must subscribe to a single topic to receive events which effect itself when 
 commands are sent southbound. To check that the lines of communication are open, we can subscribe to a given topic,
 and see that we are able to receive something when a message is published.
 
@@ -440,7 +441,7 @@ The response will look similar to the following:
 >
 >```console
 >curl -X GET \
-  'http://$(docker-machine ip default):4041/version'
+>  'http://$(docker-machine ip default):4041/version'
 >```
 >
 > Alternatively run all your curl commands from within the container network:
@@ -477,7 +478,7 @@ the original source of the context data.
 
 ### Provisioning a Service Group for MQTT
 
-Invoking group provision is always the the first step in connecting devices. For MQTT communication, provisioning supplies the authentication key so the IoT Agent will know which **topic** it must
+Invoking group provision is always the first step in connecting devices. For MQTT communication, provisioning supplies the authentication key so the IoT Agent will know which **topic** it must
 subscribe to.
 
 It is possible to set up default commands and attributes for all devices as well, but this
@@ -590,7 +591,7 @@ effectively it is showing the list messages received and sent by Mosquitto.
 
 
 
-With an the IoT Agent connected via MQTT, the service group has defined the **topic** which the agent is subscribed to.
+With the IoT Agent connected via MQTT, the service group has defined the **topic** which the agent is subscribed to.
 Since the api-key matches the root of the **topic**, the MQTT message from the **Motion Sensor** is passed to the IoT Agent
 which has previously subscribed.
 
@@ -761,7 +762,7 @@ curl -X GET \
 }
 ```
 
-The `TimeInstant` shows last the time any command associated with the entity has been invoked. the result of `ring` command can be see in the value of the `ring_info` attribute.
+The `TimeInstant` shows last the time any command associated with the entity has been invoked. The result of `ring` command can be seen in the value of the `ring_info` attribute.
 
 
 ### Provisioning a Smart Door
@@ -872,7 +873,7 @@ requests directly the IoT devices as we did in the [previous tutorial](https://g
 
 
 All the communications leaving and arriving at the North port of the IoT Agent use the standard NGSI syntax. The
-transport protocol used between the IoT devices and the is irrelevant to this layer of communication. Effectively
+transport protocol used between the IoT devices and the IoT Agent is irrelevant to this layer of communication. Effectively
 the IoT Agent is offering a simplified facade pattern of well-known endpoints to actuate any device.
 
 Therefore this section of registering and invoking commands **duplicates** the instructions found in the 
