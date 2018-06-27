@@ -508,7 +508,7 @@
 										"attrs"
 									]
 								},
-								"description": "To invoke the `ring` command, the `ring` attribute must be updated in the context.\n\nIf you are viewing the device monitor page, you can also see the state of the bell change.\n\n![](https://fiware.github.io/tutorials.IoT-Agent/img/bell-ring.gif)\n\nNote that the response returns a **404** since the context broker was unable to update the\nattribute directly - it was fowarded to the IoT Agent."
+								"description": "To invoke the `ring` command, the `ring` attribute must be updated in the context.\n\nIf you are viewing the device monitor page, you can also see the state of the bell change.\n\n![](https://fiware.github.io/tutorials.IoT-Agent/img/bell-ring.gif)"
 							},
 							"response": []
 						},
@@ -667,7 +667,7 @@
 										"attrs"
 									]
 								},
-								"description": "To invoke the `open` command, the `open` attribute must be updated in the context.\n\nNote that the response returns a **404** since the context broker was unable to update the\nattribute directly - it was fowarded to the IoT Agent."
+								"description": "To invoke the `open` command, the `open` attribute must be updated in the context."
 							},
 							"response": []
 						},
@@ -826,7 +826,7 @@
 										"attrs"
 									]
 								},
-								"description": "To switch on the **Smart Lamp**, the `on` attribute must be updated in the context.\n\nNote that the response returns a **404** since the context broker was unable to update the\nattribute directly - it was fowarded to the IoT Agent."
+								"description": "To switch on the **Smart Lamp**, the `on` attribute must be updated in the context."
 							},
 							"response": []
 						},
