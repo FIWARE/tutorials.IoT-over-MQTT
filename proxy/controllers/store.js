@@ -158,6 +158,8 @@ function sendCommand(req) {
 	});	
 }
 
+
+
 // This is a promise to make an HTTP PATCH request to the /v2/entities/<entity-id>/attr end point
 function updateExistingEntityAttributes(entityId, body, opts, headers = {}) {
 	return new Promise(function(resolve, reject) {
