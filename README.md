@@ -69,10 +69,10 @@ A summary of the differences between the two transport protocols can be seen bel
 | HTTP Transport | MQTT Transport |
 |------| -----|
 | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/http.png)     | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/mqtt.png)     |
-| IoT Agent communicates with IoT devices **directly** | IoT Agent communicates  with IoT devices **indirectly** via MQTT Broker|
+| IoT Agent communicates with IoT devices **directly** | IoT Agent communicates  with IoT devices **indirectly** via an MQTT Broker|
 | [Request-Response](https://en.wikipedia.org/wiki/Request%E2%80%93response) Paradigm| [Publish-Subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Paradigm|
 | IoT Devices must always be ready to receive communication |IoT Devices choose when to receive communication |
-|Higher Power Requirement | Low Power Requirement
+|Higher Power Requirement | Low Power Requirement |
 
 
 The UltraLight 2.0 IoT Agent will only send or interpret messages using the [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) syntax,
@@ -97,7 +97,7 @@ The state of each device can be seen on the UltraLight device monitor web-page f
 This application builds on the components created in [previous tutorials](https://github.com/Fiware/tutorials.IoT-Agent/). It
 will make use of two FIWARE components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) and the [IoT Agent for UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/). Usage of the Orion Context Broker is sufficient for an application to qualify as *“Powered by FIWARE”*.
 Both the Orion Context Broker and the IoT Agent rely on open source [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold. We will also be using the dummy IoT devices created in the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent/) 
-Additionally will add an instance of the [Mosquitto](https://mosquitto.org/) MQTT broker which is open source and available under the EPL/EDL.
+Additionally we will add an instance of the [Mosquitto](https://mosquitto.org/) MQTT broker which is open source and available under the EPL/EDL.
 
 
 Therefore the overall architecture will consist of the following elements:
@@ -1063,5 +1063,6 @@ You can find out by reading the other tutorials in this series:
 &nbsp; 203. [IoT over MQTT](https://github.com/Fiware/tutorials.IoT-over-MQTT)<br/>
 &nbsp; 250. [Introduction to Fast-RTPS and Micro-RTPS ](https://github.com/Fiware/tutorials.Fast-RTPS-Micro-RTPS)<br/>
 
-&nbsp; 301. [Persisting Context Data](https://github.com/Fiware/tutorials.Historic-Context)<br/>
-&nbsp; 302. [Querying Time Series Data](https://github.com/Fiware/tutorials.Short-Term-History)<br/>
+&nbsp; 301. [Persisting Context Data (Mongo-DB, MySQL, PostgreSQL)](https://github.com/Fiware/tutorials.Historic-Context)<br/>
+&nbsp; 302. [Querying Time Series Data (Mongo-DB)](https://github.com/Fiware/tutorials.Short-Term-History)<br/>
+&nbsp; 303. [Querying Time Series Data (Crate-DB)](https://github.com/Fiware/tutorials.Time-Series-Data)<br/>
