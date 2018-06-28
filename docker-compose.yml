@@ -97,7 +97,7 @@ services:
       - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
       - "CONTEXT_BROKER=http://orion:1026/v2" # URL of the context broker to update context
       - "MQTT_BROKER_URL=mqtt://mosquitto"
-      - "WUNDERGROUND_KEY_ID=<ADD_YOUR_KEY_ID>"
+      - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
       - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
       - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
 

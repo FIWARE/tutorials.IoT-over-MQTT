@@ -120,7 +120,7 @@ curl -X POST \
 #   },
 #   "provider": {
 #     "http": {
-#       "url": "http://context-provider:3000/proxy/weather/number/temperature:temp_c,relativeHumidity:relative_humidity/Germany%2FBerlin"
+#       "url": "http://context-provider:3000/proxy/weather/number/temperature:temp,relativeHumidity:humidity/berlin%2cde"
 #     },
 #      "legacyForwarding": true
 #   }

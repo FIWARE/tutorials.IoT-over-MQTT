@@ -4,7 +4,7 @@ const router = express.Router();
 const StaticNGSIProxy = require('../controllers/static');
 const RandomNGSIProxy = require('../controllers/random');
 const TwitterNGSIProxy = require('../controllers/twitter');
-const WeatherNGSIProxy = require('../controllers/wunderground');
+const WeatherNGSIProxy = require('../controllers/openweathermap');
 
 router.get('/random', RandomNGSIProxy.healthCheck);
 router.get('/static', StaticNGSIProxy.healthCheck);

@@ -4,7 +4,7 @@ const router = express.Router();
 const StaticNGSIProxy = require('../controllers/static');
 const RandomNGSIProxy = require('../controllers/random');
 const TwitterNGSIProxy = require('../controllers/twitter');
-const WeatherNGSIProxy = require('../controllers/wunderground');
+const WeatherNGSIProxy = require('../controllers/openweathermap');
 
 router.post('/random/:type/:mapping/queryContext', RandomNGSIProxy.queryContext);
 router.post('/static/:type/:mapping/queryContext', StaticNGSIProxy.queryContext);
@@ -36,11 +36,11 @@ router.post(
 	'/weather/temperature/queryContext',
 	(req, res, next) => {
 		req.params.type = 'number';
-		req.params.mapping = 'temperature:temp_c';
-		req.params.queryString = 'Germany/Berlin';
+		req.params.mapping = 'temperature:temp';
+		req.params.queryString = 'berlin,de';
 		next();
 	},
-	StaticNGSIProxy.queryContext
+	WeatherNGSIProxy.queryContext
 );
 
 // Convenience endpoints for humidity readings
@@ -68,11 +68,11 @@ router.post(
 	'/weather/relativeHumidity/queryContext',
 	(req, res, next) => {
 		req.params.type = 'number';
-		req.params.mapping = 'relativeHumidity:relative_humidity';
-		req.params.queryString = 'Germany/Berlin';
+		req.params.mapping = 'relativeHumidity:humidity';
+		req.params.queryString = 'berlin,de';
 		next();
 	},
-	StaticNGSIProxy.queryContext
+	WeatherNGSIProxy.queryContext
 );
 
 // Convenience endpoints for weather conditions readings
@@ -100,11 +100,11 @@ router.post(
 	'/weather/weatherConditions/queryContext',
 	(req, res, next) => {
 		req.params.type = 'number';
-		req.params.mapping = 'temperature:temp_c,relativeHumidity:relative_humidity';
-		req.params.queryString = 'Germany/Berlin';
+		req.params.mapping = 'temperature:temp,relativeHumidity:humidity';
+		req.params.queryString = 'berlin,de';
 		next();
 	},
-	StaticNGSIProxy.queryContext
+	WeatherNGSIProxy.queryContext
 );
 
 // Convenience endpoints for tweets readings

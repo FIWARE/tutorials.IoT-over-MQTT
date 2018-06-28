@@ -17,8 +17,8 @@ The following NGSI v1 endpoints are supported
 * `/weather/<type>/<mapping>/<queryString>/<attr>/queryContext`
   Retrieves the Weather data for the `queryString` location and maps the data from the given `attr` to the entity response.
 
-  For Example `/proxy/weather/number/Germany%2FBerlin/wind_gust_mph/queryContext` will read the  `wind_gust_speed` value from Berlin.
-  and `/proxy/weather/number/Egypt%2FCairo/temp_c/queryContext` will read the  `temp_c` value from Cairo.
+  For Example `/proxy/weather/number/berlin%2cde/wind_speed/queryContext` will read the  `wind_speed` value from Berlin.
+  and `/proxy/weather/number/cairo%2ceg/temp/queryContext` will read the  `temp` value from Cairo.
 
 
 ## Mappings
@@ -31,10 +31,10 @@ The mapping path element is assumes that mappings are defined in the path as fol
 
 * `temperature`
   + `temperature` NGSI attribute maps to `temperature` attribute on the API data
-* `temperature:temp_c`
-  + `temperature` NGSI attribute maps to `temp_c` attribute on the API data
-* `temperature:temp_c,windSpeed:wind_speed`
-  + `temperature` NGSI attribute maps to `temp_c` attribute on the API data
+* `temperature:temp`
+  + `temperature` NGSI attribute maps to `temp` attribute on the API data
+* `temperature:temp,windSpeed:wind_speed`
+  + `temperature` NGSI attribute maps to `temp` attribute on the API data
   + `windSpeed` NGSI attribute maps to `wind_speed` attribute on the API data
 
 For the full guidelines see:
@@ -81,7 +81,7 @@ The following health check endpoints are supported:
 
 All Keys and Secrets must be passed in using Environment variables. The following  variables **must** be provided
 
-* `WUNDERGROUND_KEY_ID=<ADD_YOUR_KEY_ID>`
+* `OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>`
 * `TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>`
 * `TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>`
 
