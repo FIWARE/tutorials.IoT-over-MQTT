@@ -104,8 +104,8 @@ Therefore the overall architecture will consist of the following elements:
 
 * The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
 * The FIWARE [IoT Agent for UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/) which will:
- + receive southbound requests using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert them to  [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) MQTT topics for the MQTT Broker
- + listen to the **MQTT Broker** on registered topics to send measurements northbound
+  + receive southbound requests using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert them to  [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) MQTT topics for the MQTT Broker
+  + listen to the **MQTT Broker** on registered topics to send measurements northbound
 * The [Mosquitto](https://mosquitto.org/) **MQTT Broker** which acts as a central communication point, passing 
   MQTT topics between the **IoT Agent** and IoT devices as necessary.
 * The underlying [MongoDB](https://www.mongodb.com/) database :
