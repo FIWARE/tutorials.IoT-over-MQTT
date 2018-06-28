@@ -25,16 +25,14 @@ case "${command}" in
 		echo -e "\033[1;30mContext-Provider\033[0m acts as a series of dummy IoT Sensors over MQTT"
 		echo -e "\033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
 		echo ""
-		docker-compose -p fiware up -d --remove-orphans
+		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
 		sleep 2
 		echo "loading data"
 		./import-data
 		;;
 	"stop")
 		echo "stopping containers"
-		docker-compose -p fiware down
-		echo "removing volumes"
-		docker volume prune --force
+		docker-compose --log-level ERROR -p fiware down -v --remove-orphans
 		;;
 	"create")
 		echo "Obtaining Mongo DB image"

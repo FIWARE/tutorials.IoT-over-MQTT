@@ -6,15 +6,15 @@ services:
     hostname: mosquitto
     container_name: mosquitto
     expose:
-        - "1883"
-        - "9001"
+      - "1883"
+      - "9001"
     ports:
-        - "1883:1883"
-        - "9001:9001"
+      - "1883:1883"
+      - "9001:9001"
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     networks:
-        - default
+      - default
 
 
   mongo-db:
@@ -22,12 +22,14 @@ services:
     hostname: mongo-db
     container_name: db-mongo
     expose:
-        - "27017"
+      - "27017"
     ports:
-        - "27017:27017"
+      - "27017:27017"
     networks:
-        - default
+      - default
     command: --bind_ip_all --smallfiles
+    volumes:
+      - mongo-db:/data
 
   orion:
     image: fiware/orion:1.14.0
@@ -37,11 +39,11 @@ services:
       - mongo-db
       - context-provider
     networks:
-        - default
+      - default
     expose:
-        - "1026"
+      - "1026"
     ports:
-        - "1026:1026"
+      - "1026:1026"
     command: -dbhost mongo-db -logLevel DEBUG
 
   iot-agent:
@@ -49,56 +51,59 @@ services:
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
-        - mongo-db
-        - mosquitto
+      - mongo-db
+      - mosquitto
     networks:
-        - default
+      - default
     expose:
-        - "4041"
-        - "7896"
+      - "4041"
+      - "7896"
     ports:
-        - "4041:4041"
-        - "7896:7896"
+      - "4041:4041"
+      - "7896:7896"
     environment:
-        - "IOTA_CB_HOST=orion" # name of the context broker to update context
-        - "IOTA_CB_PORT=1026" # port the context broker listens on to update context
-        - "IOTA_NORTH_PORT=4041"
-        - "IOTA_REGISTRY_TYPE=mongodb" #Whether to hold IoT device info in memory or in a database
-        - "IOTA_LOG_LEVEL=DEBUG" #The log level of the IoT Agent
-        - "IOTA_TIMESTAMP=true"
-        - "IOTA_MONGO_HOST=mongo-db" # The host name of ongoDB
-        - "IOTA_MONGO_PORT=27017" # The port mongoDB is listening on
-        - "IOTA_MONGO_DB=iotagentul" # The name of the database used in mongoDB
-        - "IOTA_MQTT_HOST=mosquitto" # The host name of the MQTT Broker
-        - "IOTA_MQTT_PORT=1883" # The port the MQTT Broker is listening on to receive topics 
-        - "IOTA_PROVIDER_URL=http://iot-agent:4041"
+      - "IOTA_CB_HOST=orion" # name of the context broker to update context
+      - "IOTA_CB_PORT=1026" # port the context broker listens on to update context
+      - "IOTA_NORTH_PORT=4041"
+      - "IOTA_REGISTRY_TYPE=mongodb" #Whether to hold IoT device info in memory or in a database
+      - "IOTA_LOG_LEVEL=DEBUG" #The log level of the IoT Agent
+      - "IOTA_TIMESTAMP=true"
+      - "IOTA_MONGO_HOST=mongo-db" # The host name of ongoDB
+      - "IOTA_MONGO_PORT=27017" # The port mongoDB is listening on
+      - "IOTA_MONGO_DB=iotagentul" # The name of the database used in mongoDB
+      - "IOTA_MQTT_HOST=mosquitto" # The host name of the MQTT Broker
+      - "IOTA_MQTT_PORT=1883" # The port the MQTT Broker is listening on to receive topics 
+      - "IOTA_PROVIDER_URL=http://iot-agent:4041"
 
   context-provider:
     image: fiware/cp-web-app:latest
     hostname: context-provider
     container_name: context-provider
     networks:
-        - default
+      - default
     expose:
-        - "3000"
-        - "3001"
+      - "3000"
+      - "3001"
     ports:
-        - "3000:3000"
-        - "3001:3001"
+      - "3000:3000"
+      - "3001:3001"
     environment:
-        - "DEBUG=proxy:*"
-        - "WEB_APP_PORT=3000" # Port used by the content provider proxy and web-app for viewing data
-        - "IOTA_HTTP_HOST=iot-agent"
-        - "IOTA_HTTP_PORT=7896"
-        - "DUMMY_DEVICES_PORT=3001" # Port used by the dummy IOT devices to receive commands
-        - "DUMMY_DEVICES_TRANSPORT=MQTT" # Default transport used by dummy IoT devices
-        - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
-        - "CONTEXT_BROKER=http://orion:1026/v2" # URL of the context broker to update context
-        - "MQTT_BROKER_URL=mqtt://mosquitto"
-        - "WUNDERGROUND_KEY_ID=<ADD_YOUR_KEY_ID>"
-        - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
-        - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
+      - "DEBUG=proxy:*"
+      - "WEB_APP_PORT=3000" # Port used by the content provider proxy and web-app for viewing data
+      - "IOTA_HTTP_HOST=iot-agent"
+      - "IOTA_HTTP_PORT=7896"
+      - "DUMMY_DEVICES_PORT=3001" # Port used by the dummy IOT devices to receive commands
+      - "DUMMY_DEVICES_TRANSPORT=MQTT" # Default transport used by dummy IoT devices
+      - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
+      - "CONTEXT_BROKER=http://orion:1026/v2" # URL of the context broker to update context
+      - "MQTT_BROKER_URL=mqtt://mosquitto"
+      - "WUNDERGROUND_KEY_ID=<ADD_YOUR_KEY_ID>"
+      - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
+      - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
 
 
 networks:
   default:
+
+volumes:
+  mongo-db:
