@@ -9,14 +9,14 @@ set -e
 
 if (( $# != 1 )); then
     echo "Illegal number of parameters"
-    echo "usage: services [start|stop]"
+    echo "usage: services [create|start|stop]"
     exit 1
 fi
 
 command="$1"
 case "${command}" in
 	"help")
-        echo "usage: services [start|stop]"
+        echo "usage: services [create|start|stop]"
         ;;
     "start")
 		echo -e "Starting five containers \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1;30mContext-Provider\033[0m, \033[1;30mMosquitto\033[0m MQTT broker and a \033[1;30mMongoDB\033[0m database."
@@ -45,6 +45,11 @@ case "${command}" in
 		docker pull eclipse-mosquitto
 		echo "recreate Context-Providers proxy"
 		docker build -t fiware/cp-web-app ./proxy
+		;;
+	*)
+		echo "Command not Found."
+		echo "usage: services [create|start|stop]"
+		exit 127;
 		;;
 esac
 
