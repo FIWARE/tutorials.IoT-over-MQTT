@@ -43,8 +43,8 @@ case "${command}" in
 		docker pull fiware/iotagent-ul
 		echo "Obtaining Latest Mosquitto Message Broker"
 		docker pull eclipse-mosquitto
-		echo "recreate Context-Providers proxy"
-		docker build -t fiware/cp-web-app ./proxy
+		echo "Obtaining Tutorial Context-Provider"
+		docker pull fiware/tutorials.context-provider
 		;;
 	*)
 		echo "Command not Found."

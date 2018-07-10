@@ -1,9 +1,0 @@
-{
-  "extends": "tamia",
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "rules": {
-    "valid-jsdoc": 0
-  }
-}
