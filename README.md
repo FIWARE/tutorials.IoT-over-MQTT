@@ -1049,3 +1049,8 @@ Want to learn how to add more complexity to your application by adding advanced 
 You can find out by reading the other [tutorials in this series](https://fiware-tutorials.readthedocs.io/en/latest)
 
 
+---
+
+## License
+
+[MIT](LICENSE) © FIWARE Foundation e.V.
