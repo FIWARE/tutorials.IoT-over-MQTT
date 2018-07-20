@@ -216,10 +216,8 @@ necessary configuration can be seen below:
         - default
     expose:
         - "4041"
-        - "7896"
     ports:
         - "4041:4041"
-        - "7896:7896"
     environment:
         - "IOTA_CB_HOST=orion"
         - "IOTA_CB_PORT=1026"
@@ -235,9 +233,8 @@ necessary configuration can be seen below:
         - "IOTA_MQTT_PORT=1883"
 ```
 
-The `iot-agent` container relies on the presence of the Orion Context Broker and uses a MongoDB database to hold device information such as device URLs and Keys. The container is listening on two ports:
+The `iot-agent` container relies on the presence of the Orion Context Broker and uses a MongoDB database to hold device information such as device URLs and Keys. The container is listening on a single port:
 
-* Port `7896` is exposed to receive Ultralight measurements over HTTP from the Dummy IoT devices
 * Port `4041` is exposed purely for tutorial access - so that cUrl or Postman can make provisioning commands
   without being part of the same network.
 
@@ -495,6 +492,9 @@ This example provisions an anonymous group of devices. It tells the IoT Agent th
 will be communicating by sending messages to the `/4jggokgpepnvsb2uv4s40d59ov` **topic**
 
 The `resource` attribute is left blank since HTTP communication is not being used.
+The URL location of  `cbroker` is an optional attribute - if it is not provided, the IoT
+Agent uses the default context broker URL as defined in the configuration file, however
+it has been added here for completeness.
 
 #### :two: Request:
 
@@ -575,7 +575,7 @@ posting an MQTT message to the following **topic**
 
 ```console
 docker run -it --rm --name mqtt-publisher --network \
-  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|0" \
+  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|1" \
   -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
@@ -588,9 +588,10 @@ The **topic** must be in the following form:
 /<api-key>/<device-id>/attrs
 ```
 
-A similar HTTP request was made in a previous tutorial (before the IoT Agent was connected)
-and when the door was unlocked, and you will have seen the state of each motion sensor changing
-and a Northbound HTTP requests logged in the device monitor.
+> **Note** In the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent), when testing HTTP connectivity
+> between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count`
+> value. This time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to
+> an MQTT topic.
 
 When running using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics**
 and the device monitor will be configured to display all MQTT **messages** sent to each **topic** -
@@ -682,9 +683,10 @@ curl -iX POST \
 '
 ```
 
-A command can be invoked within IoT Agent by amending the context of the device using the NGSI v1 `/v1/updateContext` endpoint.
-This will endpoint will eventually be invoked by the context broker once we have wired it up. To test the configuration you
-can run the command directly as shown:
+Before we wire-up the context broker, we can test that a command can be sent from the IoT Agent to a
+device by making a REST request directly to the IoT Agent's North Port using the `/v1/updateContext` endpoint.
+It is this endpoint that will eventually be invoked by the context broker once we have connected it up.
+To test the configuration you can run the command directly as shown:
 
 #### :seven: Request:
 
