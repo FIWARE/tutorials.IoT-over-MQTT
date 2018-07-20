@@ -26,9 +26,9 @@ case "${command}" in
 		echo -e "\033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
 		echo ""
 		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
-		sleep 2
 		echo "loading data"
 		./import-data
+		echo "Now open http://localhost:3000/device/monitor"
 		;;
 	"stop")
 		echo "stopping containers"
