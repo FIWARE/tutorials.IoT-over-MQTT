@@ -197,10 +197,8 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
         - default
     expose:
         - "4041"
-        - "7896"
     ports:
         - "4041:4041"
-        - "7896:7896"
     environment:
         - "IOTA_CB_HOST=orion"
         - "IOTA_CB_PORT=1026"
@@ -216,9 +214,8 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
         - "IOTA_MQTT_PORT=1883"
 ```
 
-`iot-agent` コンテナは、Orion Context Broker の 存在に依存し、そのようなデバイスの URLs 及び Keys としてデバイス情報を保持するために MongoDB データベースを使用します。コンテナは 2つのポートで待機しています :
+`iot-agent` コンテナは、Orion Context Broker の 存在に依存し、そのようなデバイスの URLs 及び Keys としてデバイス情報を保持するために MongoDB データベースを使用します。コンテナは 1つのポートで待機しています :
 
-* ポート `7896` は、ダミー IoT デバイスから HTTP 経由で Ultralight の測定値を受けるために公開されています
 * ポート 4041 は、チュートリアルのアクセスのためだけに公開されているため、cUrl または Postman は同じネットワーク以外からも、プロビジョニング・コマンドを作成できます
 
 `iot-agent` コンテナは、次のように環境変数によって設定値を指定できます :
@@ -443,7 +440,7 @@ IoT Agent は、IoT デバイスと Context Broker との間のミドルウェ�
 
 この例では、匿名のデバイス・グループをプロビジョニングします。IoT Agent に、一連のデバイスが `/4jggokgpepnvsb2uv4s40d59ov` トピックにメッセージを送信して通信することを通知します。
 
-HTTP 通信が使用されていないため、`resource` 属性は空白のままになります。
+HTTP 通信が使用されていないため、`resource` 属性は空白のままになります。`cbroker` の URL の場所はオプションの属性です。IoT Agent が提供されていない場合、 IoT Agentは設定ファイルで定義されているデフォルトの context broker URLを使用しますが、完全性のためにここに追加されています。
 
 #### :two: リクエスト :
 
@@ -517,7 +514,7 @@ curl -iX POST \
 
 ```console
 docker run -it --rm --name mqtt-publisher --network \
-  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|0" \
+  fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|1" \
   -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
@@ -530,7 +527,7 @@ docker run -it --rm --name mqtt-publisher --network \
 /<api-key>/<device-id>/attrs
 ```
 
-IoT Agent が接続される前の、以前のチュートリアルで同様の HTTP リクエストが行われました。ドアのロックが解除され、各**モーション・センサ**の状態が変化し、ノース・バウンドの HTTP リクエストがデバイス・モニタに記録されていることがわかります。
+> **注** [以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent)で、モーション・センサと IoT Agent との間の HTTP 接続性をテストするとき、同様の ダミー HTTP リクエストが送られて、`count` 値が更新されました。今回は、IoT Agent が MQTT トピックをリッスンするように構成されており、MQTT トピックにダミー・メッセージをポストする必要があります。
 
 MQTT トランスポート・プロトコルを使用して実行する場合、IoT Agent は MQTT **トピック**をサブスクライブし、デバイス・モニタは各**トピック**に送信されたすべての MQTT **メッセージ**を表示するように構成されます。効果的に Mosquitto が送受信するリスト・メッセージを表示します。
 
@@ -604,7 +601,7 @@ curl -iX POST \
 '
 ```
 
-コマンドは、NGSI v1 `/v1/updateContext` エンドポイントを使用してデバイスのコンテキストを修正することによって、IoT Agent 内で呼び出すことができます。このエンドポイントは、最終的に Context Broker によって呼び出されます。設定をテストするには、次のようにコマンドを直接実行します :
+Context Brokerを接続する前に、`/v1/updateContext` エンドポイントを使用して、IoT Agent のノース・ポートに直接 REST リクエストを行うことで、IoT Agent からデバイスにコマンドを送信できることをテストできます。Context Broker に接続すると、最終的に Context Broker によって呼び出されるのは、このエンドポイントです。設定をテストするには、次のようにコマンドを直接実行します :
 
 #### :seven: リクエスト :
 
