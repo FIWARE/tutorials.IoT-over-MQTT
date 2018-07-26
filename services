@@ -20,15 +20,16 @@ case "${command}" in
         ;;
     "start")
 		echo -e "Starting five containers \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1;30mContext-Provider\033[0m, \033[1;30mMosquitto\033[0m MQTT broker and a \033[1;30mMongoDB\033[0m database."
-		echo -e "\033[1;34mOrion\033[0m is the context broker"
-		echo -e "\033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
-		echo -e "\033[1;30mContext-Provider\033[0m acts as a series of dummy IoT Sensors over MQTT"
-		echo -e "\033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
+		echo -e "- \033[1;34mOrion\033[0m is the context broker"
+		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
+		echo -e "- \033[1;30mContext-Provider\033[0m acts as a series of dummy IoT Sensors over MQTT"
+		echo -e "- \033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
 		echo ""
 		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
 		echo "loading data"
 		./import-data
-		echo "Now open http://localhost:3000/device/monitor"
+		echo ""
+		echo -e "Now open \033[4mhttp://localhost:3000/device/monitor\033[0m"
 		;;
 	"stop")
 		echo "stopping containers"
