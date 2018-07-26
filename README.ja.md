@@ -130,7 +130,7 @@ Mosquitto MQTT Broker, IoT デバイス, IoT Agent を接続するために必�
         - "9001:9001"
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-    
+
 ```
 
 `mosquitto` コンテナは、2つのポートでリッスンしています :
@@ -231,7 +231,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 |IOTA_MONGO_HOST|`context-db`| mongoDB のホスト名 - デバイス情報を保持するために使用 |
 |IOTA_MONGO_PORT|`27017`| mongoDB はリッスンしているポート |
 |IOTA_MONGO_DB|`iotagentul`| mongoDB で使用されるデータベースの名前 |
-|IOTA_PROVIDER_URL|`http://iot-agent:4041`| コマンドが登録されたときに Context Broker に渡された URL。Context Broker がデバイスにコマンドを発行したときに転送 URL の場所として使用 | 
+|IOTA_PROVIDER_URL|`http://iot-agent:4041`| コマンドが登録されたときに Context Broker に渡された URL。Context Broker がデバイスにコマンドを発行したときに転送 URL の場所として使用 |
 |IOTA_MQTT_HOST|`mosquitto`| MQTT Broker のホスト名 |
 |IOTA_MQTT_PORT|`1883`| MQTT Broker がトピックを受信するためにリッスンしているポート |
 
@@ -242,7 +242,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 # 前提条件
 
 <a name="docker-and-docker-compose"></a>
-## Docker と Docker Compose 
+## Docker と Docker Compose
 
 物事を単純にするために、両方のコンポーネントが [Docker](https://www.docker.com) を使用して実行されます。**Docker** は、さまざまコンポーネントをそれぞれの環境に分離することを可能にするコンテナ・テクノロジです。
 
@@ -251,6 +251,15 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 * Docker Linux にインストールするには、[こちら](https://docs.docker.com/install/)の手順に従ってください
 
 **Docker Compose** は、マルチコンテナ Docker アプリケーションを定義して実行するためのツールです。[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Getting-Started/master/docker-compose.yml) ファイルは、アプリケーションのために必要なサービスを構成するために使用します。つまり、すべてのコンテナ・サービスは1つのコマンドで呼び出すことができます。Docker Compose は、デフォルトで Docker for Windows とDocker for Mac の一部としてインストールされますが、Linux ユーザは[ここ](https://docs.docker.com/compose/install/)に記載されている手順に従う必要があります。
+
+次のコマンドを使用して、現在の **Docker** バージョンと **Docker Compose** バージョンを確認できます :
+
+```console
+docker-compose -v
+docker version
+```
+
+Docker バージョン 18.03 以降と Docker Compose 1.21 以上を使用していることを確認し、必要に応じてアップグレードしてください。
 
 <a name="cygwin-for-windows"></a>
 ## Cygwin for Windows
@@ -268,19 +277,19 @@ git clone git@github.com:Fiware/tutorials.IoT-over-MQTT.git
 cd tutorials.IoT-over-MQTT
 
 ./services create
-``` 
+```
 
 その後、リポジトリ内で提供される [services](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/services) Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期化することができます :
 
 ```console
 ./services start
-``` 
+```
 
 >:information_source: **注:** クリーンアップをやり直したい場合は、次のコマンドを使用して再起動することができます :
 >
 >```console
 >./services stop
->``` 
+>```
 >
 
 
@@ -368,7 +377,7 @@ docker logs --tail 10 mosquitto
 
 <a name="checking-the-iot-agent-service-health"></a>
 ## IoT Agent Service Health の確認
- 
+
 IoT Agent が動作しているかどうかは、公開されているポートに対して HTTP リクエストを行うことで確認できます :
 
 #### :one: リクエスト :
@@ -393,7 +402,7 @@ curl -X GET \
 >**`Failed to connect to localhost port 4041: Connection refused` のレスポンスを受け取ったらどうしますか？**
 >
 > `Connection refused` レスポンスを受け取った場合、IoT Agent がこのチュートリアルで期待される場所には見つかりません。各 cUrl コマンドの URL とポートを正しい IP アドレスで置き換える必要があります。すべての cUrl コマンドのチュートリアルでは、`localhost:4041` で IoT Agent が使用可能であると想定しています。
-> 
+>
 >以下の対策を試してください :
 > * Docker コンテナが動作していることを確認するには、次のようにしてください :
 >
@@ -474,7 +483,7 @@ curl -iX POST \
 * `lazy` 属性はリクエストに応じて送信されます。IoT Agent は測定結果を返すようにデバイスに通知します
 * `static_attributes` は、Context Broker に渡されるデバイスに関する静的なデータ(リレーションシップなど)を示す名前です
 
->**注 :** 個別 id　が必要でないか、または集約されたデータが十分である場合は、`attributes` は個別にではなくプロビジョニング・サービス内で定義できます。
+>**注 :** 個別 id が必要でないか、または集約されたデータが十分である場合は、`attributes` は個別にではなくプロビジョニング・サービス内で定義できます。
 
 #### :three: リクエスト :
 
@@ -552,7 +561,7 @@ curl -X GET \
 {
     "id": "urn:ngsd-ld:Motion:001", "type": "Motion",
     "TimeInstant": {
-        "type": "ISO8601","value": "2018-05-25T10:51:32.00Z", 
+        "type": "ISO8601","value": "2018-05-25T10:51:32.00Z",
         "metadata": {}
     },
     "count": {
@@ -569,7 +578,7 @@ curl -X GET \
 <a name="provisioning-an-actuator"></a>
 ### アクチュエータのプロビジョニング
 
-アクチュエータのプロビジョニングは、センサのプロビジョニングと同様です。`transport=MQTT` 属性は、使用される通信プロトコルを定義します。MQTT 通信の場合、`endpoint` は、デバイスがコマンドをリッスンしている HTTP url がないため、属性は不要です。コマンドのアレイは、`/<api-key>/<device-id>/cmd` **トピック**に送信されるメッセージに直接マップされます 。`commands` アレイには、呼び出すことができる各コマンドのリストが含まれています。
+アクチュエータのプロビジョニングは、センサのプロビジョニングと同様です。`transport=MQTT` 属性は、使用される通信プロトコルを定義します。MQTT 通信の場合、`endpoint` は、デバイスがコマンドをリッスンしている HTTP url がないため、属性は不要です。コマンドのアレイは、`/<api-key>/<device-id>/cmd` **トピック**に送信されるメッセージに直接マップされます。`commands` アレイには、呼び出すことができる各コマンドのリストが含まれています。
 
 以下の例では、`deviceId = bell001` のベルがプロビジョニングされています。
 
@@ -589,7 +598,7 @@ curl -iX POST \
       "entity_type": "Bell",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
-      "commands": [ 
+      "commands": [
         { "name": "ring", "type": "command" }
        ],
        "static_attributes": [
@@ -709,7 +718,7 @@ curl -iX POST \
       "entity_type": "Door",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
-      "commands": [ 
+      "commands": [
         {"name": "unlock","type": "command"},
         {"name": "open","type": "command"},
         {"name": "close","type": "command"},
@@ -751,7 +760,7 @@ curl -iX POST \
       "entity_type": "Lamp",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
-      "commands": [ 
+      "commands": [
         {"name": "on","type": "command"},
         {"name": "off","type": "command"}
        ],
