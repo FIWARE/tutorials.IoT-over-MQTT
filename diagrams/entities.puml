@@ -1,4 +1,11 @@
 @startuml
+
+skinparam object {
+  BackgroundColor #f5f5f5
+  ArrowColor #4c4c4c
+  BorderColor #5dc0cf
+}
+
 object Bell
 
 Bell : id 
