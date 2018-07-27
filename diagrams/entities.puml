@@ -27,7 +27,10 @@ Lamp : id
 Lamp : state 
 Lamp : luminocity
 
-Bell -[hidden]> Door
-Door -[hidden]> MotionSensor
-MotionSensor -[hidden]> Lamp
+object Thing
+
+Thing -up-> Bell
+Thing -up-> Door
+Thing -up-> MotionSensor
+Thing -up-> Lamp
 @enduml
