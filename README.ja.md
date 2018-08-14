@@ -157,7 +157,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
         - "3000:3000"
         - "3001:3001"
     environment:
-        - "DEBUG=proxy:*"
+        - "DEBUG=tutorial:*"
         - "WEB_APP_PORT=3000"
         - "DUMMY_DEVICES_PORT=3001"
         - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
@@ -173,7 +173,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 
 | キー | 値 | 説明 |
 |-----|-----|-----------|
-|DEBUG|`proxy:*`| ロギングに使用するデバッグ・フラグ |
+|DEBUG|`tutorial:*`| ロギングに使用するデバッグ・フラグ |
 |WEB_APP_PORT|`3000`| ダミー・デバイスのデータを表示する web-app が使用するポート |
 |DUMMY_DEVICES_PORT|`3001`| コマンドを受信するためにダミー IoT デバイスが使用するポート |
 |DUMMY_DEVICES_API_KEY|`4jggokgpepnvsb2uv4s40d59ov`| UltraLightインタラクションに使用されるランダムなセキュリティキー - デバイスとIoT Agent 間のインタラクションの完全性を保証するために使用されます |

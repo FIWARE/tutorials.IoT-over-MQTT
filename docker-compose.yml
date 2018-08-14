@@ -86,7 +86,7 @@ services:
       - "3000:3000"
       - "3001:3001"
     environment:
-      - "DEBUG=proxy:*"
+      - "DEBUG=tutorial:*"
       - "WEB_APP_PORT=3000" # Port used by the content provider proxy and web-app for viewing data
       - "IOTA_HTTP_HOST=iot-agent"
       - "IOTA_HTTP_PORT=7896"
