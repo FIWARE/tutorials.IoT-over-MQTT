@@ -19,7 +19,7 @@ curl -X POST \
   'http://orion:1026/v2/op/update' \
   -H 'Content-Type: application/json' \
   -g -d '{
-  "actionType": "APPEND",
+  "actionType": "append",
   "entities": [
   	{
   		"id":"urn:ngsi-ld:Store:001","type":"Store",
@@ -158,7 +158,7 @@ curl -X POST \
   'http://orion:1026/v2/op/update' \
   -H 'Content-Type: application/json' \
   -g -d '{
-  "actionType": "APPEND",
+  "actionType": "append",
   "entities": [
 	{
   		"id":"urn:ngsi-ld:Shelf:unit001","type":"Shelf",
