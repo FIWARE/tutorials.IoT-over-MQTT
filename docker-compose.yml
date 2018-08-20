@@ -47,7 +47,7 @@ services:
     command: -dbhost mongo-db -logLevel DEBUG
 
   iot-agent:
-    image: fiware/iotagent-ul:1.6.0
+    image: fiware/iotagent-ul
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
