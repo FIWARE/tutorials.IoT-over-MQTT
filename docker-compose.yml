@@ -32,12 +32,11 @@ services:
       - mongo-db:/data
 
   orion:
-    image: fiware/orion:1.14.0
+    image: fiware/orion
     hostname: orion
     container_name: fiware-orion
     depends_on:
       - mongo-db
-      - context-provider
     networks:
       - default
     expose:
@@ -77,6 +76,9 @@ services:
     image: fiware/tutorials.context-provider
     hostname: context-provider
     container_name: context-provider
+    depends_on:
+      - orion
+      - iot-agent
     networks:
       - default
     expose:
