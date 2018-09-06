@@ -72,15 +72,18 @@ services:
       - "IOTA_MQTT_PORT=1883" # The port the MQTT Broker is listening on to receive topics 
       - "IOTA_PROVIDER_URL=http://iot-agent:4041"
 
-  context-provider:
+ tutorial:
     image: fiware/tutorials.context-provider
-    hostname: context-provider
-    container_name: context-provider
+    hostname: tutorial
+    container_name: fiware-tutorial
     depends_on:
       - orion
       - iot-agent
     networks:
-      - default
+      default:
+        aliases:
+          - iot-sensors
+          - context-provider
     expose:
       - "3000"
       - "3001"

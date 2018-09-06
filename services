@@ -19,10 +19,10 @@ case "${command}" in
         echo "usage: services [create|start|stop]"
         ;;
     "start")
-		echo -e "Starting five containers \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1;30mContext-Provider\033[0m, \033[1;30mMosquitto\033[0m MQTT broker and a \033[1;30mMongoDB\033[0m database."
+		echo -e "Starting five containers \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1;30mTutorial\033[0m, \033[1;30mMosquitto\033[0m MQTT broker and a \033[1;30mMongoDB\033[0m database."
 		echo -e "- \033[1;34mOrion\033[0m is the context broker"
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
-		echo -e "- \033[1;30mContext-Provider\033[0m acts as a series of dummy IoT Sensors over MQTT"
+		echo -e "- \033[1;30mTutorial\033[0m acts as a series of dummy IoT Sensors over MQTT"
 		echo -e "- \033[1;30mMosquitto\033[0m acts as an MQTT Message Broker"
 		echo ""
 		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
@@ -44,7 +44,7 @@ case "${command}" in
 		docker pull fiware/iotagent-ul
 		echo "Obtaining Latest Mosquitto Message Broker"
 		docker pull eclipse-mosquitto
-		echo "Obtaining Tutorial Context-Provider"
+		echo "Obtaining Tutorial Application"
 		docker pull fiware/tutorials.context-provider
 		;;
 	*)
