@@ -10,6 +10,7 @@ set -e
 curl () {
   docker run --network fiware_default --rm appropriate/curl -s \
     "$@"
+  printf "."
 }
 
 #
