@@ -144,10 +144,10 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 ## ダミー IoT デバイスの設定
 
 ```yaml
-  context-provider:
+  tutorial:
     image: fiware/tutorials.context-provider
-    hostname: context-provider
-    container_name: context-provider
+    hostname: iot-sensors
+    container_name: fiware-tutorial
     networks:
         - default
     expose:
@@ -164,12 +164,12 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
         - "DUMMY_DEVICES_TRANSPORT=MQTT"
 ```
 
-`context-provider` コンテナは、2つのポートでリッスンしています :
+`tutorial` コンテナは、2つのポートでリッスンしています :
 
 * ポート `3000` が公開されているので、ダミー IoT デバイスを表示する Web ページが表示されます
 * ポート `3001` はチュートリアルのアクセスのためだけに公開されているため、cUrl または Postman は同じネットワーク以外からも、UltraLight コマンドを作成できます
 
-`context-provider` コンテナは、次のように環境変数によって設定値を指定できます :
+`tutorial` コンテナは、次のように環境変数によって設定値を指定できます :
 
 | キー | 値 | 説明 |
 |-----|-----|-----------|
@@ -179,7 +179,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 |DUMMY_DEVICES_API_KEY|`4jggokgpepnvsb2uv4s40d59ov`| UltraLightインタラクションに使用されるランダムなセキュリティキー - デバイスとIoT Agent 間のインタラクションの完全性を保証するために使用されます |
 |DUMMY_DEVICES_TRANSPORT|`MQTT`| ダミー IoT デバイスによって使用されるトランスポート・プロトコル |
 
-このチュートリアルでは、YAML ファイルで記述されている他の `context-provider` コンテナの設定値は使用しません。
+このチュートリアルでは、YAML ファイルで記述されている他の `tutorial` コンテナの設定値は使用しません。
 
 <a name="iot-agent-for-ultralight-20-configuration"></a>
 ## IoT Agent for UltraLight 2.0 の設定
