@@ -3,7 +3,7 @@
 [![FIWARE IoT Agents](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.IoT-over-MQTT.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
-[![NGSI v2](https://img.shields.io/badge/NGSI-v2-blue.svg)](http://fiware.github.io/context.Orion/api/v2/stable/)
+[![NGSI v2](https://img.shields.io/badge/NGSI-v2-blue.svg)](https://fiware-ges.github.io/core.Orion/api/v2/stable/)
 [![UltraLight 2.0](https://img.shields.io/badge/Ultralight-2.0-5dc0cf.svg)](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 
 
@@ -56,7 +56,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 >
 > — Stephen Hawking
 
-MQTT is publish-subscribe-based messaging protocol used in the Internet of Things. It works on top of the TCP/IP
+MQTT is a publish-subscribe-based messaging protocol used in the internet of Things. It works on top of the TCP/IP
 protocol, and is designed for connections with remote locations where a "small code footprint" is required or the
 network bandwidth is limited. The goal is to provide a protocol, which is bandwidth-efficient and uses little
 battery power.
@@ -91,7 +91,7 @@ It is available licensed under EPL/EDL. More information can be found at https:/
 #### Device Monitor
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](https://github.com/Fiware/tutorials.IoT-Sensors)
-The state of each device can be seen on the UltraLight device monitor web-page found at: `http://localhost:3000/device/monitor`
+The state of each device can be seen on the UltraLight device monitor web page found at: `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-over-MQTT/img/device-monitor.png)
 
@@ -183,7 +183,7 @@ The attached volume is a [configuration file](https://github.com/Fiware/tutorial
 
 The `tutorial` container is listening on two ports:
 
-* Port `3000` is exposed so we can see the web-page displaying the Dummy IoT devices.
+* Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
 * Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make UltraLight commands
   without being part of the same network.
 
@@ -249,11 +249,11 @@ The `iot-agent` container is driven by environment variables as shown:
 |IOTA_REGISTRY_TYPE|`mongodb`| Whether to hold IoT device info in memory or in a database |
 |IOTA_LOG_LEVEL|`DEBUG`|The log level of the IoT Agent |
 |IOTA_TIMESTAMP|`true`| Whether to supply timestamp information with each measurement received from attached devices |
-|IOTA_MONGO_HOST|`context-db`| The host name of mongoDB - used for holding device information |
+|IOTA_MONGO_HOST|`context-db`| The hostname of mongoDB - used for holding device information |
 |IOTA_MONGO_PORT|`27017`| The port mongoDB is listening on |
 |IOTA_MONGO_DB|`iotagentul`| The name of the database used in mongoDB |
 |IOTA_PROVIDER_URL|`http://iot-agent:4041`| URL passed to the Context Broker when commands are registered, used as a forwarding URL location when the Context Broker issues a command to a device |
-|IOTA_MQTT_HOST|`mosquitto`| The host name of the MQTT Broker  |
+|IOTA_MQTT_HOST|`mosquitto`| The hostname of the MQTT Broker  |
 |IOTA_MQTT_PORT|`1883`| The port the MQTT Broker is listening on to receive topics |
 
 As you can see, use of the MQTT transport is driven by only two environment variables `IOTA_MQTT_HOST` and `IOTA_MQTT_PORT`
@@ -285,7 +285,7 @@ Please ensure that you are using Docker version 18.03 or higher and Docker Compo
 
 ## Cygwin for Windows
 
-We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/) to provide a command line functionality similar to a Linux distribution on Windows.
+We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 
 # Start Up
@@ -302,7 +302,7 @@ cd tutorials.IoT-over-MQTT
 
 
 
-Thereafter, all services can be initialized from the command line by running the [services](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/services) Bash script provided within the repository:
+Thereafter, all services can be initialized from the command-line by running the [services](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/services) Bash script provided within the repository:
 
 ```console
 ./services start
@@ -459,9 +459,9 @@ The response will look similar to the following:
 ## Connecting IoT Devices
 
 The IoT Agent acts as a middleware between the IoT devices and the context broker. It therefore
-needs to be able to create context data entities with unique ids.  Once a service has been provisioned
+needs to be able to create context data entities with unique IDs.  Once a service has been provisioned
 and an unknown device makes a measurement the IoT Agent add this to the context using the supplied
-`<device-id>` (unless the device is recognized and can be mapped to a known id.
+`<device-id>` (unless the device is recognized and can be mapped to a known ID.
 
 There is no guarantee that every supplied IoT device `<device-id>` will always be unique, therefore
 all provisioning requests to the IoT Agent require two mandatory headers:
@@ -476,7 +476,7 @@ data would not be siloed - for example data from a  **Smart Bin** within a park 
 of a refuse truck to alter the route of the truck in an efficient manner.
 
 The **Smart Bin** and **GPS Unit** are likely to come from different manufacturers and it cannot be
-guaranteed that that there is no overlap within `<device-id>`s used. The use of the  `fiware-service` and
+guaranteed that  there is no overlap within `<device-id>`s used. The use of the  `fiware-service` and
 `fiware-servicepath` headers can ensure that this is always the case, and allows the context broker to identify
 the original source of the context data.
 
@@ -640,7 +640,7 @@ The response shows that the **Motion Sensor** device with `id=motion001` has bee
 IoT Agent and mapped to the entity `id=urn:ngsd-ld:Motion:001`. This new entity has been created within the context data.
 The `c`  attribute from the dummy device measurement request has been mapped to the more meaningful `count` attribute
 within the context. As you will notice, a `TimeInstant` attribute has been added to both the entity and the
-meta data of the attribute - this represents the last time the entity and attribute have been updated, and is
+metadata of the attribute - this represents the last time the entity and attribute have been updated, and is
 automatically added to each new entity because the `IOTA_TIMESTAMP`  environment variable was set when the
 IoT Agent was started up.
 
@@ -779,7 +779,7 @@ The `TimeInstant` shows last the time any command associated with the entity has
 Provisioning  a device which offers both commands and measurements is merely a matter of
 making an HTTP POST request with both `attributes` and `command` attributes in the body of the
 request. Once again the `transport=MQTT` attribute defines the communications protocol to be used,
-and no `endpoint` attribute is required as there is no HTTP url where the device is listening
+and no `endpoint` attribute is required as there is no HTTP URL where the device is listening
 for commands.
 
 #### :nine: Request:
