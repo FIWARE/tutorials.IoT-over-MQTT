@@ -4,12 +4,12 @@
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.IoT-over-MQTT.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/fiware.svg)](https://stackoverflow.com/questions/tagged/fiware)
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-blue.svg)](https://fiware-ges.github.io/core.Orion/api/v2/stable/)
-[![UltraLight 2.0](https://img.shields.io/badge/Ultralight-2.0-5dc0cf.svg)](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+[![UltraLight 2.0](https://img.shields.io/badge/Ultralight-2.0-5dc0cf.svg)](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 <br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 
-このチュートリアルでは、FIWARE に接続する IoT デバイスでの MQTT プロトコルの使用を紹介します。[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent) で作成した、[UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT Agent は、[Mosquitto](https://mosquitto.org/) message brokerを介して MQTT を使用して一連のダミー IoT デバイスと通信するように再構成されます。
+このチュートリアルでは、FIWARE に接続する IoT デバイスでの MQTT プロトコルの使用を紹介します。[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent) で作成した、[UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT Agent は、[Mosquitto](https://mosquitto.org/) message brokerを介して MQTT を使用して一連のダミー IoT デバイスと通信するように再構成されます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/acfd27a941ed57a0cae5)
 
@@ -70,7 +70,7 @@ MQTTは、IoT (Internet of Things) で使用される、パブリッシュ・サ
 | より高い消費電力要件 | 低消費電力要件 |
 
 
-UltraLight 2.0 IoT Agent は、[UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) 構文を使用してメッセージを送信または解釈するだけですが、複数の**転送**メカニズムを使用してメッセージを送受信するために使用できます。したがって、同じ FIWARE Generic Enabler を使用して、より幅広い範囲の IoT デバイスに接続することができます。
+UltraLight 2.0 IoT Agent は、[UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) 構文を使用してメッセージを送信または解釈するだけですが、複数の**転送**メカニズムを使用してメッセージを送受信するために使用できます。したがって、同じ FIWARE Generic Enabler を使用して、より幅広い範囲の IoT デバイスに接続することができます。
 
 #### Mosquitto MQTT Broker
 
@@ -86,19 +86,19 @@ UltraLight 2.0 IoT Agent は、[UltraLight 2.0](http://fiware-iotagent-ul.readth
 <a name="architecture"></a>
 # アーキテクチャ
 
-このアプリケーションは、[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent/)で作成したコンポーネントに基づいています。[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) と [IoT Agent for UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/) の 2つの FIWARE コンポーネントを使用します。アプリケーションが *“Powered by FIWARE”* と認定されるには、Orion Context Broker を使用するだけで十分です。Orion Context Broker と IoT Agent はオープンソースの [MongoDB](https://www.mongodb.com/) 技術を利用して、保持している情報の永続性を保ちます。 また、前回のチュートリアルで作成したダミー IoT デバイスも使用します。また、オープンソースで、EPL/EDL で入手できる [Mosquitto](https://mosquitto.org/) ブローカのインスタンスを追加します。
+このアプリケーションは、[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent/)で作成したコンポーネントに基づいています。[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) と [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) の 2つの FIWARE コンポーネントを使用します。アプリケーションが *“Powered by FIWARE”* と認定されるには、Orion Context Broker を使用するだけで十分です。Orion Context Broker と IoT Agent はオープンソースの [MongoDB](https://www.mongodb.com/) 技術を利用して、保持している情報の永続性を保ちます。 また、前回のチュートリアルで作成したダミー IoT デバイスも使用します。また、オープンソースで、EPL/EDL で入手できる [Mosquitto](https://mosquitto.org/) ブローカのインスタンスを追加します。
 
 したがって、全体的なアーキテクチャは次の要素で構成されます :
 
 * FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) は、[NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用してリクエストを受信します
-* FIWARE [IoT Agent for UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/) は以下を行います :
-   + [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用してサウス・バウンド・リクエストを受信し、MQTT Broker 用の [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) の**トピック**に変換します
+* FIWARE [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) は以下を行います :
+   + [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用してサウス・バウンド・リクエストを受信し、MQTT Broker 用の [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) の**トピック**に変換します
    + 登録された**トピック**について **MQTT Broker** をリッスンし、測定値をノース・バウンドに送信します
 * [Mosquitto](https://mosquitto.org/) **MQTT Broker** は、必要に応じて MQTT トピックを IoT Agent と IoT デ バイスの間でやりとりする中央通信ポイントとして機能します
 * [MongoDB](https://www.mongodb.com/) データベース :
    + **Orion Context Broker** が、データ・エンティティ、サブスクリプション、レジストレーションなどのコンテキスト・データ情報を保持するために使用します
    + **IoT Agent** がデバイスの URLs や Keys などのデバイス情報を保持するために使用します
-* MQTT 上で動作する [UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) プロトコルを使用して、[ダミー IoT デバイス](https://github.com/Fiware/tutorials.IoT-Sensors)のセットとして機能するWebサーバー
+* MQTT 上で動作する [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) プロトコルを使用して、[ダミー IoT デバイス](https://github.com/Fiware/tutorials.IoT-Sensors)のセットとして機能するWebサーバー
 * このチュートリアルでは、**コンテキスト・プロバイダの NGSI proxy** は使用しません。これは以下を行います :
    + [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用してリクエストを受信します
    + 独自の API を独自のフォーマットで使用して、公開されているデータ・ソースへのリクエストを行います
@@ -186,7 +186,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 <a name="iot-agent-for-ultralight-20-configuration"></a>
 ## IoT Agent for UltraLight 2.0 の設定
 
-[IoT Agent for UltraLight 2.0](http://fiware-iotagent-ul.readthedocs.io/en/latest/) は 、Docker コンテナ内でインスタンス化できます。公式の Docker イメージは、Docker Hub からタグ付けされた `fiware/iotagent-ul` です。必要な構成を以下に示します :
+[IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) は 、Docker コンテナ内でインスタンス化できます。公式の Docker イメージは、Docker Hub からタグ付けされた `fiware/iotagent-ul` です。必要な構成を以下に示します :
 
 ```yaml
   iot-agent:
