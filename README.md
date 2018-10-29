@@ -766,7 +766,7 @@ started up.
 Provisioning an actuator is similar to provisioning a sensor. The
 `transport=MQTT` attribute defines the communications protocol to be used. For
 MQTT communications, the `endpoint` attribute is not required as there is no
-HTTP url where the device is listening for commands. The array of commands is
+HTTP URL where the device is listening for commands. The array of commands is
 mapped to directly to messages sent to the `/<api-key>/<device-id>/cmd`
 **topic** The `commands` array includes a list of each command that can be
 invoked.
