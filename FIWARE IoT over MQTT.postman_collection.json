@@ -118,7 +118,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n \"devices\": [\n   {\n     \"device_id\":   \"motion001\",\n     \"entity_name\": \"urn:ngsd-ld:Motion:001\",\n     \"entity_type\": \"Motion\",\n     \"protocol\":    \"PDI-IoTA-UltraLight\",\n     \"transport\":   \"MQTT\",\n     \"timezone\":    \"Europe/Berlin\",\n     \"attributes\": [\n       { \"object_id\": \"c\", \"name\":\"count\", \"type\":\"Integer\"}\n      ],\n      \"static_attributes\": [\n         {\"name\":\"refStore\", \"type\": \"Relationship\",\"value\": \"urn:ngsi-ld:Store:001\"}\n      ]\n   }\n ]\n}\n"
+							"raw": "{\n \"devices\": [\n   {\n     \"device_id\":   \"motion001\",\n     \"entity_name\": \"urn:ngsi-ld:Motion:001\",\n     \"entity_type\": \"Motion\",\n     \"protocol\":    \"PDI-IoTA-UltraLight\",\n     \"transport\":   \"MQTT\",\n     \"timezone\":    \"Europe/Berlin\",\n     \"attributes\": [\n       { \"object_id\": \"c\", \"name\":\"count\", \"type\":\"Integer\"}\n      ],\n      \"static_attributes\": [\n         {\"name\":\"refStore\", \"type\": \"Relationship\",\"value\": \"urn:ngsi-ld:Store:001\"}\n      ]\n   }\n ]\n}\n"
 						},
 						"url": {
 							"raw": "http://{{iot-agent}}/iot/devices",
@@ -131,7 +131,7 @@
 								"devices"
 							]
 						},
-						"description": "It is common good practice to use URNs following the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf) when creating entities. Furthermore it is easier to understand\nmeaningful names when defining data attributes. These mappings can be defined by provisioning a device individually.\n\nThree types of meaasurement attributes can be provisioned:\n\n* `attributes` are active readings from the device\n* `lazy` attributes are only sent on request -  The IoT Agent will inform the device to return the measurement\n* `static_attributes` are as the name suggests static data about the device (such as relationships) passed on \n  to the context broker.\n\n>**Note**: in the case where individual `id`s are not required, or aggregated data is sufficient \n> the `attributes` can be defined within the provisioning service rather than individually.\n\nIn the request we are assiociating the device `motion001` with the URN `urn:ngsd-ld:Motion:001`\nand mapping the device reading `c` with the context attribute `count` (which is defined as an `Integer`)\nA `refStore` is defined as a `static_attribute`, placing the device within **Store** `urn:ngsi-ld:Store:001`"
+						"description": "It is common good practice to use URNs following the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf) when creating entities. Furthermore it is easier to understand\nmeaningful names when defining data attributes. These mappings can be defined by provisioning a device individually.\n\nThree types of meaasurement attributes can be provisioned:\n\n* `attributes` are active readings from the device\n* `lazy` attributes are only sent on request -  The IoT Agent will inform the device to return the measurement\n* `static_attributes` are as the name suggests static data about the device (such as relationships) passed on \n  to the context broker.\n\n>**Note**: in the case where individual `id`s are not required, or aggregated data is sufficient \n> the `attributes` can be defined within the provisioning service rather than individually.\n\nIn the request we are assiociating the device `motion001` with the URN `urn:ngsi-ld:Motion:001`\nand mapping the device reading `c` with the context attribute `count` (which is defined as an `Integer`)\nA `refStore` is defined as a `static_attribute`, placing the device within **Store** `urn:ngsi-ld:Store:001`"
 					},
 					"response": []
 				},
@@ -154,7 +154,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{orion}}/v2/entities/urn:ngsd-ld:Motion:001",
+							"raw": "http://{{orion}}/v2/entities/urn:ngsi-ld:Motion:001",
 							"protocol": "http",
 							"host": [
 								"{{orion}}"
@@ -162,10 +162,10 @@
 							"path": [
 								"v2",
 								"entities",
-								"urn:ngsd-ld:Motion:001"
+								"urn:ngsi-ld:Motion:001"
 							]
 						},
-						"description": "To make a dummy measurement, send a topic to the **MQTT Broker** as shown.\n\n```\ndocker run -it --rm --name mqtt-publisher --network \\\n  fiware_default efrecon/mqtt-client pub -h mosquitto -m \"c|1\" -t \"/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs\"\n```\n\n\nThen make the context data request.\n\nThis example returns the data for the `Motion` entity with the `id=urn:ngsd-ld:Motion:001` within the context data.\n\nThe response shows that the device with `id=motion001` has been successfully identifed by the IoT Agent and mapped to the\nentity `id=urn:ngsd-ld:Motion:001`. This new entity has been created within the context data. The `c` \nattribute from the dummy device measurement request has been mapped to the more meaningful `count` attribute\nwithin the context. As you will notice, a `TimeInstant` attribute has been added to both the entity and the\nmeta data of the attribute - this represents the last time the entity and attribute have been updated, and is\nautomatically added to each new entity because the `IOTA_TIMESTAMP`  environment variable was set when the\nIoT Agent was started up."
+						"description": "To make a dummy measurement, send a topic to the **MQTT Broker** as shown.\n\n```\ndocker run -it --rm --name mqtt-publisher --network \\\n  fiware_default efrecon/mqtt-client pub -h mosquitto -m \"c|1\" -t \"/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs\"\n```\n\n\nThen make the context data request.\n\nThis example returns the data for the `Motion` entity with the `id=urn:ngsi-ld:Motion:001` within the context data.\n\nThe response shows that the device with `id=motion001` has been successfully identifed by the IoT Agent and mapped to the\nentity `id=urn:ngsi-ld:Motion:001`. This new entity has been created within the context data. The `c` \nattribute from the dummy device measurement request has been mapped to the more meaningful `count` attribute\nwithin the context. As you will notice, a `TimeInstant` attribute has been added to both the entity and the\nmeta data of the attribute - this represents the last time the entity and attribute have been updated, and is\nautomatically added to each new entity because the `IOTA_TIMESTAMP`  environment variable was set when the\nIoT Agent was started up."
 					},
 					"response": []
 				},

@@ -673,7 +673,7 @@ curl -iX POST \
  "devices": [
    {
      "device_id":   "motion001",
-     "entity_name": "urn:ngsd-ld:Motion:001",
+     "entity_name": "urn:ngsi-ld:Motion:001",
      "entity_type": "Motion",
      "protocol":    "PDI-IoTA-UltraLight",
      "transport":   "MQTT",
@@ -690,7 +690,7 @@ curl -iX POST \
 '
 ```
 
-リクエストでは、デバイス `motion001` を URN `urn:ngsd-ld:Motion:001` に関連付け
+リクエストでは、デバイス `motion001` を URN `urn:ngsi-ld:Motion:001` に関連付け
 、コンテキスト属性 `ccount` (これは `Integer` と定義されています) を持つ デバイ
 ス読み込み `c` をマッピングします。`refStore` は `static_attribute` として定義さ
 れ、デバイスを **Store** `urn:ngsi-ld:Store:001` 内に配置します。
@@ -747,7 +747,7 @@ Context Broker からエンティティ・データを取得することによ�
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/urn:ngsd-ld:Motion:001?type=Motion' \
+  'http://localhost:1026/v2/entities/urn:ngsi-ld:Motion:001?type=Motion' \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /'
 ```
@@ -756,7 +756,7 @@ curl -X GET \
 
 ```json
 {
-    "id": "urn:ngsd-ld:Motion:001",
+    "id": "urn:ngsi-ld:Motion:001",
     "type": "Motion",
     "TimeInstant": {
         "type": "ISO8601",
@@ -777,7 +777,7 @@ curl -X GET \
 ```
 
 レスポンスは、`id=motion001` の**モーション・センサ**のデバイスが IoT Agent によ
-って正常に識別され、エンティティ `id=urn:ngsd-ld:Motion:001` にマッピングされて
+って正常に識別され、エンティティ `id=urn:ngsi-ld:Motion:001` にマッピングされて
 いることを示します。この新しいエンティティは、コンテキスト・データ内で作成されま
 した。ダミー IoT デバイスの測定リクエストからの `c` 属性は、コンテキスト内のより
 意味のある `count` 属性にマップされています。お気づきのように、`TimeInstant` 属
