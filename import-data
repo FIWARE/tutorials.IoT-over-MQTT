@@ -51,55 +51,57 @@ curl -X POST \
 #
 # Add Weather and Twitter Responses for Store 1 using random values
 #
-# curl -X POST \
-#   'http://orion:1026/v2/registrations' \
-#   -H 'Content-Type: application/json' \
-#   -d '{
-#   "description": "Store:001 - Random Temperature and Humidity",
-#   "dataProvided": {
-#     "entities": [
-#       {
-#         "id": "urn:ngsi-ld:Store:001",
-#         "type": "Store"
-#       }
-#     ],
-#     "attrs": [
-#       "temperature",
-#       "relativeHumidity"
-#     ]
-#   },
-#   "provider": {
-#     "http": {
-#       "url": "http://context-provider:3000/proxy/random/number/temperature,relativeHumidity"
-#     },
-#      "legacyForwarding": true
-#   }
-# }'
-# curl -X POST \
-#   'http://orion:1026/v2/registrations' \
-#   -H 'Content-Type: application/json' \
-#   -d '{
-#   "description": "Store:001 - Lorem Ipsum Tweets",
-#   "dataProvided": {
-#     "entities": [
-#       {
-#         "id": "urn:ngsi-ld:Store:001",
-#         "type": "Store"
-#       }
-#     ],
-#     "attrs": [
-#       "tweets"
-#     ]
-#   },
-#   "provider": {
-#     "http": {
-#       "url": "http://context-provider:3000/proxy/random/list/tweets"
-#     },
-#      "legacyForwarding": true
-#   }
-# }'
+curl -X POST \
+  http://orion:1026/v2/registrations \
+  -H 'Content-Type: application/json' \
+  -d '{
+   "description": "Weather Conditions",   
+   "dataProvided": {
+     "entities": [
+       {
+         "id" : "urn:ngsi-ld:Store:001",
+         "type": "Store"
+       }
+     ],
+     "attrs": [
+      "temperature", "relativeHumidity"
+    ]
+   },
+   "provider": {
+     "http": {
+       "url": "http://context-provider:3000/proxy/v1/random/weatherConditions"
+     },
+     "legacyForwarding": true
+   },
+   "status": "active"
+}'
 
-#
+curl -X POST \
+  http://orion:1026/v2/registrations \
+  -H 'Content-Type: application/json' \
+  -d '{
+   "description": "Tweeting Cat Facts",
+   "dataProvided": {
+     "entities": [
+       {
+         "id" : "urn:ngsi-ld:Store:001",
+         "type": "Store"
+       }
+     ],
+     "attrs": [
+      "tweets"
+    ]
+   },
+   "provider": {
+     "http": {
+       "url": "http://context-provider:3000/proxy/v1/catfacts/tweets"
+     },
+     "legacyForwarding": true
+   },
+   "status": "active"
+}'
+
+
 # Add Weather and Twitter Responses for Store 2 using real sources
 #
 # curl -X POST \
