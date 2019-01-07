@@ -24,7 +24,10 @@ available as
 
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
-# Contents
+## Contents
+
+<details>
+<summary><strong>Details</strong></summary>
 
 -   [What is MQTT?](#what-is-mqtt)
 -   [Architecture](#architecture)
@@ -56,6 +59,8 @@ available as
         -   [Registering Smart Lamp Commands](#registering-smart-lamp-commands)
         -   [Switching on the Smart Lamp](#switching-on-the-smart-lamp)
 -   [Next Steps](#next-steps)
+
+</details>
 
 # What is MQTT?
 

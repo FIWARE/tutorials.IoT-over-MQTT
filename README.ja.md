@@ -18,7 +18,10 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/acfd27a941ed57a0cae5)
 
-# 内容
+## 内容
+
+<details>
+<summary>詳細 <b>(クリックして拡大)</b></summary>
 
 -   [MQTT とは何ですか？](#what-is-mqtt)
 -   [アーキテクチャ](#architecture)
@@ -50,6 +53,8 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
         -   [スマート・ランプのコマンドを登録](#registering-smart-lamp-commands)
         -   [スマート・ランプの電源をオン](#switching-on-the-smart-lamp)
 -   [次のステップ](#next-steps)
+
+</details>
 
 <a name="what-is-mqtt"></a>
 
