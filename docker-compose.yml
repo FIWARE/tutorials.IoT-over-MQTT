@@ -1,6 +1,5 @@
 version: "3.1"
 services:
-
   mosquitto:
     image: eclipse-mosquitto
     hostname: mosquitto
@@ -15,7 +14,6 @@ services:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     networks:
       - default
-
 
   mongo-db:
     image: mongo:3.6
@@ -71,14 +69,14 @@ services:
       - "IOTA_MONGO_PORT=27017" # The port mongoDB is listening on
       - "IOTA_MONGO_DB=iotagentul" # The name of the database used in mongoDB
       - "IOTA_MQTT_HOST=mosquitto" # The host name of the MQTT Broker
-      - "IOTA_MQTT_PORT=1883" # The port the MQTT Broker is listening on to receive topics 
+      - "IOTA_MQTT_PORT=1883" # The port the MQTT Broker is listening on to receive topics
       - "IOTA_PROVIDER_URL=http://iot-agent:4041"
     healthcheck:
       test: curl --fail -s http://localhost:4041/iot/about || exit 1
 
   tutorial:
     image: tutorials
-      #fiware/tutorials.context-provider
+    #fiware/tutorials.context-provider
     hostname: tutorial
     container_name: fiware-tutorial
     depends_on:
