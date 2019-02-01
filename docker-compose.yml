@@ -32,7 +32,7 @@ services:
       - mongo-db:/data
 
   orion:
-    image: fiware/orion:2.1.0
+    image: fiware/orion:2.0.0
     hostname: orion
     container_name: fiware-orion
     depends_on:
@@ -48,7 +48,7 @@ services:
       test: curl --fail -s http://localhost:1026/version || exit 1
 
   iot-agent:
-    image: fiware/iotagent-ul:1.8.0
+    image: fiware/iotagent-ul:1.7.0
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -77,7 +77,8 @@ services:
       test: curl --fail -s http://localhost:4041/iot/about || exit 1
 
   tutorial:
-    image: fiware/tutorials.context-provider
+    image: tutorials
+      #fiware/tutorials.context-provider
     hostname: tutorial
     container_name: fiware-tutorial
     depends_on:
@@ -117,4 +118,4 @@ networks:
         - subnet: 172.18.1.0/24
 
 volumes:
-  mongo-db:
+  mongo-db: ~
