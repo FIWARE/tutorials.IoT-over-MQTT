@@ -75,8 +75,7 @@ services:
       test: curl --fail -s http://localhost:4041/iot/about || exit 1
 
   tutorial:
-    image: tutorials
-    #fiware/tutorials.context-provider
+    image: fiware/tutorials.context-provider
     hostname: tutorial
     container_name: fiware-tutorial
     depends_on:
