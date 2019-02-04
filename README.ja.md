@@ -8,6 +8,8 @@
 <br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
+<!-- prettier-ignore -->
+
 このチュートリアルでは、FIWARE に接続する IoT デバイスでの MQTT プロトコルの使用
 を紹介します
 。[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent) で作成し
