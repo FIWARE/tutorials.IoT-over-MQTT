@@ -286,18 +286,20 @@ iot-agent:
     ports:
         - "4041:4041"
     environment:
-        - "IOTA_CB_HOST=orion"
-        - "IOTA_CB_PORT=1026"
-        - "IOTA_NORTH_PORT=4041"
-        - "IOTA_REGISTRY_TYPE=mongodb"
-        - "IOTA_LOG_LEVEL=DEBUG"
-        - "IOTA_TIMESTAMP=true"
-        - "IOTA_MONGO_HOST=mongo-db"
-        - "IOTA_MONGO_PORT=27017"
-        - "IOTA_MONGO_DB=iotagentul"
-        - "IOTA_PROVIDER_URL=http://iot-agent:4041"
-        - "IOTA_MQTT_HOST=mosquitto"
-        - "IOTA_MQTT_PORT=1883"
+        - IOTA_CB_HOST=orion
+        - IOTA_CB_PORT=1026
+        - IOTA_NORTH_PORT=4041
+        - IOTA_REGISTRY_TYPE=mongodb
+        - IOTA_LOG_LEVEL=DEBUG
+        - IOTA_TIMESTAMP=true
+        - IOTA_CB_NGSI_VERSION=v2
+        - IOTA_AUTOCAST=true
+        - IOTA_MONGO_HOST=mongo-db
+        - IOTA_MONGO_PORT=27017
+        - IOTA_MONGO_DB=iotagentul
+        - IOTA_PROVIDER_URL=http://iot-agent:4041
+        - IOTA_MQTT_HOST=mosquitto
+        - IOTA_MQTT_PORT=1883
 ```
 
 `iot-agent` コンテナは、Orion Context Broker の 存在に依存し、そのようなデバイス
