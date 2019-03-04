@@ -388,7 +388,7 @@ Docker バージョン 18.03 以降と Docker Compose 1.21 以上を使用して
 い :
 
 ```console
-git clone git@github.com:Fiware/tutorials.IoT-over-MQTT.git
+git clone git@github.com:FIWARE/tutorials.IoT-over-MQTT.git
 cd tutorials.IoT-over-MQTT
 
 ./services create
