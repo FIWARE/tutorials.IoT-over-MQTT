@@ -12,7 +12,7 @@
 
 このチュートリアルでは、FIWARE に接続する IoT デバイスでの MQTT プロトコルの使用
 を紹介します
-。[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent) で作成し
+。[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent) で作成し
 た
 、[UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して MQTT
@@ -73,7 +73,7 @@ MQTT は、IoT (Internet of Things) で使用される、パブリッシュ・�
 遠隔地との接続用に設計されています。目標は、帯域幅効率が良く、バッテリ電力をほと
 んど消費しないプロトコルを提供することです。
 
-[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent) では、デバ
+[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent) では、デバ
 イスとの IoT Agent 間の転送メカニズムとして HTTP を使用していました。HTTP は、各
 デバイスが IoT Agent に直接接続するリクエスト/レスポンスのパラダイムを使用します
 。MQTT は、パブリッシュ・サブスクライブがイベント駆動型であり、メッセージをクラ
@@ -114,7 +114,7 @@ Generic Enabler を使用して、より幅広い範囲の IoT デバイスに�
 
 このチュートリアルの目的のために、一連のダミー IoT デバイスが作成され、Context
 Broker に接続されます。使用されるアーキテクチャとプロトコルの詳細は
-、[IoT Sensors のチュートリアル](https://github.com/Fiware/tutorials.IoT-Sensors)に
+、[IoT Sensors のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors)に
 あります。各デバイスの状態は、次の UltraLight デバイス・モニタの Web ページで確
 認できます : `http://localhost:3000/device/monitor`
 
@@ -125,7 +125,7 @@ Broker に接続されます。使用されるアーキテクチャとプロト�
 # アーキテクチャ
 
 このアプリケーションは
-、[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent/)で作成し
+、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent/)で作成し
 たコンポーネントに基づいています
 。[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) と
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/)
@@ -164,7 +164,7 @@ Context Broker と IoT Agent はオープンソースの
 -   MQTT 上で動作する
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     プロトコルを使用して
-    、[ダミー IoT デバイス](https://github.com/Fiware/tutorials.IoT-Sensors)のセ
+    、[ダミー IoT デバイス](https://github.com/FIWARE/tutorials.IoT-Sensors)のセ
     ットとして機能する Web サーバー
 -   このチュートリアルでは、**コンテキスト・プロバイダの NGSI proxy** は使用しま
     せん。これは以下を行います :
@@ -215,7 +215,7 @@ mosquitto:
 -   ポート `9001` は、HTTP/Websocket 通信の標準ポートです
 
 volumes の設定は、MQTT message broker のデバッグ・レベルを上げるために使用され
-る[設定ファイル](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/mosquitto/mosquitto.conf)で
+る[設定ファイル](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/mosquitto/mosquitto.conf)で
 す。
 
 <a name="dummy-iot-devices-configuration"></a>
@@ -395,7 +395,7 @@ cd tutorials.IoT-over-MQTT
 ```
 
 その後、リポジトリ内で提供される
-[services](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/services)
+[services](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/services)
 Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期
 化することができます :
 
@@ -729,7 +729,7 @@ docker run -it --rm --name mqtt-publisher --network \
 /<api-key>/<device-id>/attrs
 ```
 
-> **注** [以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent)で
+> **注** [以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent)で
 > 、モーション・センサと IoT Agent との間の HTTP 接続性をテストするとき、同様の
 > ダミー HTTP リクエストが送られて、`count` 値が更新されました。今回は、IoT
 > Agent が MQTT トピックをリッスンするように構成されており、MQTT トピックにダミ
@@ -1029,11 +1029,11 @@ curl -X GET \
 
 IoT Agent を IoT デバイスに接続したら、コマンドが利用可能であることを Orion
 Context Broker に通知する必要があります。つまり、IoT Agent をコマンド属性
-の[コンテキスト・プロバイダ](https://github.com/Fiware/tutorials.Context-Providers/)と
+の[コンテキスト・プロバイダ](https://github.com/FIWARE/tutorials.Context-Providers/)と
 して登録する必要があります。
 
 コマンドが登録されると
-、[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Sensors)で実行
+、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors)で実行
 したように、IoT デバイスに直接 UltraLight 2.0 リクエストを送信するのではなく
 、**ベル**を鳴らし、**スマート・ドア**を開閉し、**スマート・ランプ**をオン/オフ
 に切り替えることができます。
@@ -1044,7 +1044,7 @@ IoT Agent のノース・ポートのすべての通信は、標準の NGSI 構�
 ンドポイントの単純化されたファサード・パターンを提供しています。
 
 したがって、コマンドの登録と呼び出しをするこのセクションでは
-、[以前のチュートリアル](https://github.com/Fiware/tutorials.IoT-Agent)のインス
+、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent)のインス
 トラクションと**重複**しています
 
 <a name="registering-a-bell-command"></a>

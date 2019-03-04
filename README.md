@@ -9,7 +9,7 @@
 
 This tutorial uses introduces the use of the MQTT protocol across IoT devices connecting to FIWARE. The
 [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT
-Agent created in the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent) is reconfigured to communicate
+Agent created in the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent) is reconfigured to communicate
 with a set of dummy IoT devices using MQTT via a [Mosquitto](https://mosquitto.org/) message broker
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
@@ -69,7 +69,7 @@ protocol, and is designed for connections with remote locations where a "small c
 network bandwidth is limited. The goal is to provide a protocol, which is bandwidth-efficient and uses little battery
 power.
 
-The [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent) used HTTP as its transport mechanism between the
+The [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent) used HTTP as its transport mechanism between the
 devices and the IoT Agent. HTTP uses a request/response paradigm where each device connects directly to the IoT Agent.
 MQTT is different in that publish-subscribe is event-driven and pushes messages to clients. It requires an additional
 central communication point (known as the MQTT broker) which it is in charge of dispatching all messages between the
@@ -103,7 +103,7 @@ tutorial. It is available licensed under EPL/EDL. More information can be found 
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the
-[IoT Sensors tutorial](https://github.com/Fiware/tutorials.IoT-Sensors) The state of each device can be seen on the
+[IoT Sensors tutorial](https://github.com/FIWARE/tutorials.IoT-Sensors) The state of each device can be seen on the
 UltraLight device monitor web page found at: `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-over-MQTT/img/device-monitor.png)
@@ -111,13 +111,13 @@ UltraLight device monitor web page found at: `http://localhost:3000/device/monit
 # Architecture
 
 This application builds on the components created in
-[previous tutorials](https://github.com/Fiware/tutorials.IoT-Agent/). It will make use of two FIWARE components - the
+[previous tutorials](https://github.com/FIWARE/tutorials.IoT-Agent/). It will make use of two FIWARE components - the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) and the
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/). Usage of the Orion Context Broker
 is sufficient for an application to qualify as _“Powered by FIWARE”_. Both the Orion Context Broker and the IoT Agent
 rely on open source [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold. We
 will also be using the dummy IoT devices created in the
-[previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent/) Additionally we will add an instance of the
+[previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent/) Additionally we will add an instance of the
 [Mosquitto](https://mosquitto.org/) MQTT broker which is open source and available under the EPL/EDL.
 
 Therefore the overall architecture will consist of the following elements:
@@ -136,7 +136,7 @@ Therefore the overall architecture will consist of the following elements:
     -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions and
         registrations
     -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
--   A webserver acting as set of [dummy IoT devices](https://github.com/Fiware/tutorials.IoT-Sensors) using the
+-   A webserver acting as set of [dummy IoT devices](https://github.com/FIWARE/tutorials.IoT-Sensors) using the
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     protocol running over MQTT.
 -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
@@ -182,7 +182,7 @@ The `mosquitto` container is listening on two ports:
 -   Port `9001` is the standard port for HTTP/Websocket communications
 
 The attached volume is a
-[configuration file](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/mosquitto/mosquitto.conf) used to
+[configuration file](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/mosquitto/mosquitto.conf) used to
 increase the debug level of the MQTT Message Broker.
 
 ## Dummy IoT Devices Configuration
@@ -335,7 +335,7 @@ cd tutorials.IoT-over-MQTT
 ```
 
 Thereafter, all services can be initialized from the command-line by running the
-[services](https://github.com/Fiware/tutorials.IoT-over-MQTT/blob/master/services) Bash script provided within the
+[services](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/services) Bash script provided within the
 repository:
 
 ```console
@@ -618,7 +618,7 @@ The **topic** must be in the following form:
 /<api-key>/<device-id>/attrs
 ```
 
-> **Note** In the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent), when testing HTTP connectivity
+> **Note** In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity
 > between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This
 > time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
 
@@ -896,18 +896,18 @@ curl -X GET \
 
 Having connected up the IoT Agent to the IoT devices, we now need to inform the Orion Context Broker that the commands
 are available. In other words we need to register the IoT Agent as a
-[Context Provider](https://github.com/Fiware/tutorials.Context-Providers/) for the command attributes.
+[Context Provider](https://github.com/FIWARE/tutorials.Context-Providers/) for the command attributes.
 
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
 switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending UltraLight 2.0
-requests directly the IoT devices as we did in the [previous tutorial](https://github.com/Fiware/tutorials.IoT-Sensors)
+requests directly the IoT devices as we did in the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Sensors)
 
 All the communications leaving and arriving at the North port of the IoT Agent use the standard NGSI syntax. The
 transport protocol used between the IoT devices and the IoT Agent is irrelevant to this layer of communication.
 Effectively the IoT Agent is offering a simplified facade pattern of well-known endpoints to actuate any device.
 
 Therefore this section of registering and invoking commands **duplicates** the instructions found in the
-[previous tutorial](https://github.com/Fiware/tutorials.IoT-Agent)
+[previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent)
 
 ### Registering a Bell Command
 
