@@ -5,8 +5,7 @@
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/fiware.svg)](https://stackoverflow.com/questions/tagged/fiware)
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-blue.svg)](https://fiware-ges.github.io/core.Orion/api/v2/stable/)
 [![UltraLight 2.0](https://img.shields.io/badge/Ultralight-2.0-5dc0cf.svg)](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-<br/>
-[![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
+<br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 <!-- prettier-ignore -->
 
@@ -312,20 +311,22 @@ iot-agent:
 
 `iot-agent` コンテナは、次のように環境変数によって設定値を指定できます :
 
-| キー               | 値                      | 説明                                                                                                                                   |
-| ------------------ | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| IOTA_CB_HOST       | `orion`                 | コンテキストを更新する Context Broker のホスト名                                                                                       |
-| IOTA_CB_PORT       | `1026`                  | Context Broker がコンテキストを更新するためにリッスンするポート                                                                        |
-| IOTA_NORTH_PORT    | `4041`                  | IoT Agent の設定および Context Broker からのコンテキスト更新の受信に使用されるポート                                                   |
-| IOTA_REGISTRY_TYPE | `mongodb`               | メモリまたはデータベースに IoT デバイス情報を保持するかどうかを指定                                                                    |
-| IOTA_LOG_LEVEL     | `DEBUG`                 | IoT Agent のログ・レベル                                                                                                               |
-| IOTA_TIMESTAMP     | `true`                  | 接続されたデバイスから受信した各測定値にタイムスタンプ情報を提供するかどうかを指定                                                     |
-| IOTA_MONGO_HOST    | `context-db`            | mongoDB のホスト名 - デバイス情報を保持するために使用                                                                                  |
-| IOTA_MONGO_PORT    | `27017`                 | mongoDB はリッスンしているポート                                                                                                       |
-| IOTA_MONGO_DB      | `iotagentul`            | mongoDB で使用されるデータベースの名前                                                                                                 |
-| IOTA_PROVIDER_URL  | `http://iot-agent:4041` | コマンドが登録されたときに Context Broker に渡された URL。Context Broker がデバイスにコマンドを発行したときに転送 URL の場所として使用 |
-| IOTA_MQTT_HOST     | `mosquitto`             | MQTT Broker のホスト名                                                                                                                 |
-| IOTA_MQTT_PORT     | `1883`                  | MQTT Broker がトピックを受信するためにリッスンしているポート                                                                           |
+| キー                 | 値                      | 説明                                                                                                                                   |
+| ------------------   | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| IOTA_CB_HOST         | `orion`                 | コンテキストを更新する Context Broker のホスト名                                                                                       |
+| IOTA_CB_PORT         | `1026`                  | Context Broker がコンテキストを更新するためにリッスンするポート                                                                        |
+| IOTA_NORTH_PORT      | `4041`                  | IoT Agent の設定および Context Broker からのコンテキスト更新の受信に使用されるポート                                                   |
+| IOTA_REGISTRY_TYPE   | `mongodb`               | メモリまたはデータベースに IoT デバイス情報を保持するかどうかを指定                                                                    |
+| IOTA_LOG_LEVEL       | `DEBUG`                 | IoT Agent のログ・レベル                                                                                                               |
+| IOTA_TIMESTAMP       | `true`                  | 接続されたデバイスから受信した各測定値にタイムスタンプ情報を提供するかどうかを指定                                                     |
+| IOTA_CB_NGSI_VERSION | `v2`                    | アクティブな属性の更新を送信するときにNGSI v2 を使用するように指定するかどうか                                                                       |
+| IOTA_AUTOCAST        | `true`                  | Ultralight の数値が文字列ではなく数値として読み取られるようにする                                                                                     |
+| IOTA_MONGO_HOST      | `context-db`            | mongoDB のホスト名 - デバイス情報を保持するために使用                                                                                  |
+| IOTA_MONGO_PORT      | `27017`                 | mongoDB はリッスンしているポート                                                                                                       |
+| IOTA_MONGO_DB        | `iotagentul`            | mongoDB で使用されるデータベースの名前                                                                                                 |
+| IOTA_PROVIDER_URL    | `http://iot-agent:4041` | コマンドが登録されたときに Context Broker に渡された URL。Context Broker がデバイスにコマンドを発行したときに転送 URL の場所として使用 |
+| IOTA_MQTT_HOST       | `mosquitto`             | MQTT Broker のホスト名                                                                                                                 |
+| IOTA_MQTT_PORT       | `1883`                  | MQTT Broker がトピックを受信するためにリッスンしているポート                                                                           |
 
 ご覧のように、MQTT トランスポートの使用は、2 つの環境変数 `IOTA_MQTT_HOST` と
 `IOTA_MQTT_PORT` によってのみ制御されます。
@@ -654,7 +655,7 @@ curl -iX POST \
 ### センサのプロビジョニング
 
 エンティティを作成するときは、NGSI-LD
-[ドラフト勧告](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.01.01_60/gs_CIM009v010101p.pdf)に
+[仕様](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.01.01_60/gs_CIM009v010101p.pdf)に
 従って URN を使用するのが一般的な良い方法です。さらに、データ属性を定義するとき
 に意味のある名前を理解する方が簡単です。これらのマッピングは、デバイスを個別にプ
 ロビジョニングすることによって定義できます。
