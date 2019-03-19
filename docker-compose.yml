@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.5"
 services:
   mosquitto:
     image: eclipse-mosquitto
@@ -43,7 +43,7 @@ services:
       - "1026:1026"
     command: -dbhost mongo-db -logLevel DEBUG
     healthcheck:
-      test: curl --fail -s http://localhost:1026/version || exit 1
+      test: curl --fail -s http://orion:1026/version || exit 1
 
   iot-agent:
     image: fiware/iotagent-ul:1.7.0
@@ -108,7 +108,7 @@ services:
       - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
       - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
     healthcheck:
-      test: curl --fail -s http://localhost:3000/version || exit 1
+      test: curl --fail -s http://tutorial:3000/version || exit 1
 
 networks:
   default:
