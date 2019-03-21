@@ -74,7 +74,7 @@ services:
       - IOTA_MQTT_PORT=1883 # The port the MQTT Broker is listening on to receive topics
       - IOTA_PROVIDER_URL=http://iot-agent:4041
     healthcheck:
-      test: curl --fail -s http://localhost:4041/iot/about || exit 1
+      test: curl --fail -s http://iot-agent:4041/iot/about || exit 1
 
   tutorial:
     image: fiware/tutorials.context-provider
