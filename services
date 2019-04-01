@@ -13,13 +13,15 @@ loadData () {
 }
 
 stoppingContainers () {
+	echo -e "Force removal of \033[1;30mmqtt-subscriber\033[0m"
+	(docker stop mqtt-subscriber &>/dev/null) || (echo -e "\033[1;30mmqtt-subscriber\033[0m not running")
 	echo "Stopping containers"
 	docker-compose --log-level ERROR -p fiware down -v --remove-orphans
 }
 
 displayServices () {
 	echo ""
-	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" --filter name=fiware-*
+	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" --filter name="(fiware-*|mosquitto)"
 	echo ""
 }
 
