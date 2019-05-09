@@ -1,36 +1,26 @@
+# WARNING: Do not deploy this tutorial configuration directly to a production environment
+#
+# The tutorial docker-compose files have not been written for production deployment and will not 
+# scale. A proper architecture has been sacrificed to keep the narrative focused on the learning 
+# goals, they are just used to deploy everything onto a single Docker machine. All FIWARE components 
+# are running at full debug and extra ports have been exposed to allow for direct calls to services. 
+# They also contain various obvious security flaws - passwords in plain text, no load balancing,
+# no use of HTTPS and so on. 
+# 
+# This is all to avoid the need of multiple machines, generating certificates, encrypting secrets
+# and so on, purely so that a single docker-compose file can be read as an example to build on, 
+# not use directly. 
+# 
+# When deploying to a production environment, please looking at the SmartSDK Recipes
+# in order to scale up to a proper architecture:
+# 
+# see: https://smartsdk.github.io/smartsdk-recipes/
+#
 version: "3.5"
 services:
-  mosquitto:
-    image: eclipse-mosquitto
-    hostname: mosquitto
-    container_name: mosquitto
-    expose:
-      - "1883"
-      - "9001"
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-    networks:
-      - default
-
-  mongo-db:
-    image: mongo:3.6
-    hostname: mongo-db
-    container_name: db-mongo
-    expose:
-      - "27017"
-    ports:
-      - "27017:27017"
-    networks:
-      - default
-    command: --bind_ip_all --smallfiles
-    volumes:
-      - mongo-db:/data
-
+  # Orion is the context broker
   orion:
-    image: fiware/orion:2.0.0
+    image: fiware/orion:2.2.0
     hostname: orion
     container_name: fiware-orion
     depends_on:
@@ -45,8 +35,9 @@ services:
     healthcheck:
       test: curl --fail -s http://orion:1026/version || exit 1
 
+  # IoT-Agent is configured for the UltraLight Protocol
   iot-agent:
-    image: fiware/iotagent-ul:1.7.0
+    image: iotagent # fiware/iotagent-ul:1.8.0 # iotagent
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -72,10 +63,12 @@ services:
       - IOTA_MONGO_DB=iotagentul # The name of the database used in mongoDB
       - IOTA_MQTT_HOST=mosquitto # The host name of the MQTT Broker
       - IOTA_MQTT_PORT=1883 # The port the MQTT Broker is listening on to receive topics
+#      - IOTA_DEFAULT_RESOURCE=
       - IOTA_PROVIDER_URL=http://iot-agent:4041
     healthcheck:
       test: curl --fail -s http://iot-agent:4041/iot/about || exit 1
 
+  # Tutorial acts as a series of dummy IoT Sensors over HTTP
   tutorial:
     image: fiware/tutorials.context-provider
     hostname: tutorial
@@ -110,6 +103,36 @@ services:
     healthcheck:
       test: curl --fail -s http://tutorial:3000/version || exit 1
 
+  # Database
+  mongo-db:
+    image: mongo:3.6
+    hostname: mongo-db
+    container_name: db-mongo
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+    networks:
+      - default
+    command: --bind_ip_all --smallfiles
+    volumes:
+      - mongo-db:/data
+
+  # Other services
+  mosquitto:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    container_name: mosquitto
+    expose:
+      - "1883"
+      - "9001"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - default
 networks:
   default:
     ipam:
