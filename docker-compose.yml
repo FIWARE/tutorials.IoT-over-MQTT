@@ -36,8 +36,15 @@ services:
       test: curl --fail -s http://orion:1026/version || exit 1
 
   # IoT-Agent is configured for the UltraLight Protocol
+  # 
+  # This deliberately fixed to v1.7.0
+  # see: https://github.com/telefonicaid/iotagent-ul/issues/320
+  #
+  # For v1.8 and v1.9 a dummy resource must be added when provisioning
+  # 
+
   iot-agent:
-    image: iotagent # fiware/iotagent-ul:1.8.0 # iotagent
+    image: fiware/iotagent-ul:1.7.0
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
