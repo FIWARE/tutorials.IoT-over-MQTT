@@ -400,7 +400,7 @@ If the MQTT Broker is functioning correctly, the message should be received in t
 HELLO WORLD
 ```
 
-### Stop an MQTT Subscriber (:one:st Terminal)
+### Stop an MQTT Subscriber (:two:nd Terminal)
 
 To terminate the MQTT subscriber, run the following Docker command:
 
@@ -622,7 +622,7 @@ The **topic** must be in the following form:
 > between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This
 > time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
 
-When running using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics** and the device
+When using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics** and the device
 monitor will be configured to display all MQTT **messages** sent to each **topic** - effectively it is showing the list
 messages received and sent by Mosquitto.
 
@@ -633,7 +633,7 @@ Agent which has previously subscribed.
 Because we have specifically provisioned the device (`motion001`) - the IoT Agent is able to map attributes before
 raising a request with the Orion Context Broker.
 
-You can see that a measurement has been recorded, by retrieving the entity data from the context broker. Don't forget to
+You can see that a measurement has been recorded by retrieving the entity data from the context broker. Don't forget to
 add the `fiware-service` and `fiware-service-path` headers.
 
 #### :five: Request:
