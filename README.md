@@ -64,10 +64,10 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 >
 > — Stephen Hawking
 
-MQTT is a publish-subscribe-based messaging protocol used in the internet of Things. It works on top of the TCP/IP
+"MQTT is a publish-subscribe-based messaging protocol used in the internet of Things. It works on top of the TCP/IP
 protocol, and is designed for connections with remote locations where a "small code footprint" is required or the
 network bandwidth is limited. The goal is to provide a protocol, which is bandwidth-efficient and uses little battery
-power.
+power."[^1]
 
 The [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent) used HTTP as its transport mechanism between the
 devices and the IoT Agent. HTTP uses a request/response paradigm where each device connects directly to the IoT Agent.
@@ -1079,3 +1079,6 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 ## License
 
 [MIT](LICENSE) © 2018-2019 FIWARE Foundation e.V.
+
+[^1]: [en.wikipedia.org/wiki/MQTT](https://en.wikipedia.org/wiki/MQTT)
+central communication point (known as the MQTT broker) which it is in charge of dispatching all messages between the
