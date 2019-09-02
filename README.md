@@ -1084,7 +1084,8 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 
 ### Footnotes
 
-<a name="footnote1"/>
--   [Wikipedia: MQTT](https://en.wikipedia.org/wiki/MQTT)- a
-central communication point (known as the MQTT broker) which it is in charge of dispatching all messages between the
+<a name="footnote1"></a>
+
+-   [Wikipedia: MQTT](https://en.wikipedia.org/wiki/MQTT) - a
+central communication point (known as the MQTT broker) which is in charge of dispatching all messages between
 services
