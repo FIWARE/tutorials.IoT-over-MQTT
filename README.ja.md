@@ -66,11 +66,11 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 >
 > — Stephen Hawking
 
-MQTT は、IoT (Internet of Things) で使用される、パブリッシュ・サブスクライブ・ベ
+"MQTT は、IoT (Internet of Things) で使用される、パブリッシュ・サブスクライブ・ベ
 ースのメッセージング・プロトコルです。これは TCP/IP プロトコルの上で動作し、"小
 規模なコードのフットプリント"が必要な、またはネットワーク帯域幅が制限されている
 遠隔地との接続用に設計されています。目標は、帯域幅効率が良く、バッテリ電力をほと
-んど消費しないプロトコルを提供することです。
+んど消費しないプロトコルを提供することです。"<sup>[1](#footnote1)</sup>
 
 [以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent) では、デバ
 イスとの IoT Agent 間の転送メカニズムとして HTTP を使用していました。HTTP は、各
@@ -319,8 +319,8 @@ iot-agent:
 | IOTA_REGISTRY_TYPE   | `mongodb`               | メモリまたはデータベースに IoT デバイス情報を保持するかどうかを指定                                                                    |
 | IOTA_LOG_LEVEL       | `DEBUG`                 | IoT Agent のログ・レベル                                                                                                               |
 | IOTA_TIMESTAMP       | `true`                  | 接続されたデバイスから受信した各測定値にタイムスタンプ情報を提供するかどうかを指定                                                     |
-| IOTA_CB_NGSI_VERSION | `v2`                    | アクティブな属性の更新を送信するときにNGSI v2 を使用するように指定するかどうか                                                                       |
-| IOTA_AUTOCAST        | `true`                  | Ultralight の数値が文字列ではなく数値として読み取られるようにする                                                                                     |
+| IOTA_CB_NGSI_VERSION | `v2`                    | アクティブな属性の更新を送信するときにNGSI v2 を使用するように指定するかどうか                                                         |
+| IOTA_AUTOCAST        | `true`                  | Ultralight の数値が文字列ではなく数値として読み取られるようにする                                                                      |
 | IOTA_MONGO_HOST      | `context-db`            | mongoDB のホスト名 - デバイス情報を保持するために使用                                                                                  |
 | IOTA_MONGO_PORT      | `27017`                 | mongoDB はリッスンしているポート                                                                                                       |
 | IOTA_MONGO_DB        | `iotagentul`            | mongoDB で使用されるデータベースの名前                                                                                                 |
@@ -482,7 +482,7 @@ HELLO WORLD
 
 <a name="stop-an-mqtt-subscriber-onest-terminal"></a>
 
-### MQTT サブスクライバを停止 (:one:st ターミナル)
+### MQTT サブスクライバを停止 (:two:nd ターミナル)
 
 MQTT サブスクライバを終了するには、次の Docker コマンドを実行します :
 
@@ -736,7 +736,7 @@ docker run -it --rm --name mqtt-publisher --network \
 > Agent が MQTT トピックをリッスンするように構成されており、MQTT トピックにダミ
 > ー・メッセージをポストする必要があります。
 
-MQTT トランスポート・プロトコルを使用して実行する場合、IoT Agent は MQTT **トピ
+MQTT トランスポート・プロトコルを使用する場合、IoT Agent は MQTT **トピ
 ック**をサブスクライブし、デバイス・モニタは各**トピック**に送信されたすべての
 MQTT **メッセージ**を表示するように構成されます。効果的に Mosquitto が送受信する
 リスト・メッセージを表示します。
@@ -749,9 +749,9 @@ MQTT を介して接続された IoT Agent を使用して、サービス・グ�
 特にデバイス (`motion001`) をプロビジョニングしたので、IoT Agent は、Orion
 Context Broker でリクエストを発行する前に属性をマップできます。
 
-Context Broker からエンティティ・データを取得することによって、測定値が記録され
-ていることがわかります。`fiware-service` ヘッダと `fiware-service-path` ヘッダを
-追加することを忘れないでください。
+Context Broker からエンティティ・データを取得することで、測定値が記録されたこと
+確認できます。`fiware-service` ヘッダと `fiware-service-path` ヘッダを追加する
+ことを忘れないでください。
 
 #### :five: リクエスト :
 
@@ -1240,3 +1240,12 @@ curl -iX PATCH \
 ## License
 
 [MIT](LICENSE) © 2018-2019 FIWARE Foundation e.V.
+
+---
+
+### 脚注
+
+<a name="footnote1"></a>
+
+-   [Wikipedia: MQTT](https://en.wikipedia.org/wiki/MQTT) - サービス間のすべての
+メッセージのディスパッチを担当する MQTT ブローカーと呼ばれる中央通信ポイント
