@@ -28,12 +28,12 @@ services:
     networks:
       - default
     expose:
-      - "1026"
+      - "${ORION_PORT}"
     ports:
-      - "1026:1026"
+      - "${ORION_PORT}:${ORION_PORT}" # localhost:1026
     command: -dbhost mongo-db -logLevel DEBUG
     healthcheck:
-      test: curl --fail -s http://orion:1026/version || exit 1
+      test: curl --fail -s http://orion:${ORION_PORT}/version || exit 1
 
   # IoT-Agent is configured for the UltraLight Protocol
   # 
@@ -53,27 +53,27 @@ services:
     networks:
       - default
     expose:
-      - "4041"
+      - "${IOTA_NORTH_PORT}"
     ports:
-      - "4041:4041"
+      - "${IOTA_NORTH_PORT}:${IOTA_NORTH_PORT}" # localhost:4041
     environment:
       - IOTA_CB_HOST=orion # name of the context broker to update context
-      - IOTA_CB_PORT=1026 # port the context broker listens on to update context
-      - IOTA_NORTH_PORT=4041
+      - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
+      - IOTA_NORTH_PORT=${IOTA_NORTH_PORT}
       - IOTA_REGISTRY_TYPE=mongodb #Whether to hold IoT device info in memory or in a database
       - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
       - IOTA_TIMESTAMP=true # Supply timestamp information with each measurement
       - IOTA_CB_NGSI_VERSION=v2 # use NGSIv2 when sending updates for active attributes
       - IOTA_AUTOCAST=true # Ensure Ultralight number values are read as numbers not strings
       - IOTA_MONGO_HOST=mongo-db # The host name of MongoDB
-      - IOTA_MONGO_PORT=27017 # The port mongoDB is listening on
+      - IOTA_MONGO_PORT=${MONGO_DB_PORT} # The port mongoDB is listening on
       - IOTA_MONGO_DB=iotagentul # The name of the database used in mongoDB
       - IOTA_MQTT_HOST=mosquitto # The host name of the MQTT Broker
       - IOTA_MQTT_PORT=1883 # The port the MQTT Broker is listening on to receive topics
 #      - IOTA_DEFAULT_RESOURCE=
-      - IOTA_PROVIDER_URL=http://iot-agent:4041
+      - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
     healthcheck:
-      test: curl --fail -s http://iot-agent:4041/iot/about || exit 1
+      test: curl --fail -s http://iot-agent:${IOTA_NORTH_PORT}/iot/about || exit 1
 
   # Tutorial acts as a series of dummy IoT Sensors over HTTP
   tutorial:
@@ -89,36 +89,36 @@ services:
           - iot-sensors
           - context-provider
     expose:
-      - "3000"
-      - "3001"
+      - "${TUTORIAL_APP_PORT}"
+      - "${TUTORIAL_DUMMY_DEVICE_PORT}"
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "${TUTORIAL_APP_PORT}:${TUTORIAL_APP_PORT}" # localhost:3000
+      - "${TUTORIAL_DUMMY_DEVICE_PORT}:${TUTORIAL_DUMMY_DEVICE_PORT}" # localhost:3001
     environment:
       - "DEBUG=tutorial:*"
-      - "WEB_APP_PORT=3000" # Port used by the content provider proxy and web-app for viewing data
+      - "WEB_APP_PORT=${TUTORIAL_APP_PORT}" # Port used by the content provider proxy and web-app for viewing data
       - "IOTA_HTTP_HOST=iot-agent"
-      - "IOTA_HTTP_PORT=7896"
-      - "DUMMY_DEVICES_PORT=3001" # Port used by the dummy IOT devices to receive commands
+      - "IOTA_HTTP_PORT=${IOTA_SOUTH_PORT}"
+      - "DUMMY_DEVICES_PORT=${TUTORIAL_DUMMY_DEVICE_PORT}" # Port used by the dummy IOT devices to receive commands
       - "DUMMY_DEVICES_TRANSPORT=MQTT" # Default transport used by dummy IoT devices
       - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
-      - "CONTEXT_BROKER=http://orion:1026/v2" # URL of the context broker to update context
+      - "CONTEXT_BROKER=http://orion:${ORION_PORT}/v2" # URL of the context broker to update context
       - "MQTT_BROKER_URL=mqtt://mosquitto"
       - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
       - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
       - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
     healthcheck:
-      test: curl --fail -s http://tutorial:3000/version || exit 1
+      test: curl --fail -s http://tutorial:${TUTORIAL_APP_PORT}/version || exit 1
 
   # Database
   mongo-db:
-    image: mongo:3.6
+    image: mongo:${MONGO_DB_VERSION}
     hostname: mongo-db
     container_name: db-mongo
     expose:
-      - "27017"
+      - "${MONGO_DB_PORT}"
     ports:
-      - "27017:27017"
+      - "${MONGO_DB_PORT}:${MONGO_DB_PORT}" # localhost:27017
     networks:
       - default
     command: --bind_ip_all --smallfiles
