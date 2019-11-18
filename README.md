@@ -328,7 +328,7 @@ Before you start you should ensure that you have obtained or built the necessary
 repository and create the necessary images by running the commands as shown:
 
 ```console
-git clone git@github.com:FIWARE/tutorials.IoT-over-MQTT.git
+git clone https://github.com/FIWARE/tutorials.IoT-over-MQTT.git
 cd tutorials.IoT-over-MQTT
 
 ./services create
@@ -622,9 +622,9 @@ The **topic** must be in the following form:
 > between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This
 > time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
 
-When using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics** and the device
-monitor will be configured to display all MQTT **messages** sent to each **topic** - effectively it is showing the list
-messages received and sent by Mosquitto.
+When using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics** and the device monitor will
+be configured to display all MQTT **messages** sent to each **topic** - effectively it is showing the list messages
+received and sent by Mosquitto.
 
 With the IoT Agent connected via MQTT, the service group has defined the **topic** which the agent is subscribed to.
 Since the api-key matches the root of the **topic**, the MQTT message from the **Motion Sensor** is passed to the IoT
@@ -714,8 +714,8 @@ curl -iX POST \
 ```
 
 Before we wire-up the context broker, we can test that a command can be sent from the IoT Agent to a device by making a
-REST request directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that
-will eventually be invoked by the context broker once we have connected it up. To test the configuration you can run the
+REST request directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that will
+eventually be invoked by the context broker once we have connected it up. To test the configuration you can run the
 command directly as shown:
 
 #### :seven: Request:
@@ -1056,6 +1056,5 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 
 <a name="footnote1"></a>
 
--   [Wikipedia: MQTT](https://en.wikipedia.org/wiki/MQTT) - a
-central communication point (known as the MQTT broker) which is in charge of dispatching all messages between
-services
+-   [Wikipedia: MQTT](https://en.wikipedia.org/wiki/MQTT) - a central communication point (known as the MQTT broker)
+    which is in charge of dispatching all messages between services
