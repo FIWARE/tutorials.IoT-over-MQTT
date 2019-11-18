@@ -836,7 +836,7 @@ curl -iX POST \
 '
 ```
 
-Context Broker を接続する前に、`/v1/updateContext` エンドポイントを使用して、IoT
+Context Broker を接続する前に、`/v2/op/update` エンドポイントを使用して、IoT
 Agent のノース・ポートに直接 REST リクエストを行うことで、IoT Agent からデバイス
 にコマンドを送信できることをテストできます。Context Broker に接続すると、最終的
 に Context Broker によって呼び出されるのは、このエンドポイントです。設定をテスト
@@ -846,53 +846,23 @@ Agent のノース・ポートに直接 REST リクエストを行うことで�
 
 ```console
 curl -iX POST \
-  'http://localhost:4041/v1/updateContext' \
+  http://localhost:4041/v2/op/update \
   -H 'Content-Type: application/json' \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /' \
   -d '{
-    "contextElements": [
+    "actionType": "update",
+    "entities": [
         {
             "type": "Bell",
-            "isPattern": "false",
             "id": "urn:ngsi-ld:Bell:001",
-            "attributes": [
-                { "name": "ring", "type": "command", "value": "" }
-            ],
-            "static_attributes": [
-               {"name":"refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:001"}
-            ]
-        }
-    ],
-    "updateAction": "UPDATE"
-}'
-```
-
-#### レスポンス :
-
-```json
-{
-    "contextResponses": [
-        {
-            "contextElement": {
-                "attributes": [
-                    {
-                        "name": "ring",
-                        "type": "command",
-                        "value": ""
-                    }
-                ],
-                "id": "urn:ngsi-ld:Bell:001",
-                "isPattern": false,
-                "type": "Bell"
-            },
-            "statusCode": {
-                "code": 200,
-                "reasonPhrase": "OK"
+            "ring" : {
+                "type": "command",
+                "value": ""
             }
         }
     ]
-}
+}'
 ```
 
 デバイス・モニタのページを表示している場合は、ベル変更の状態も表示できます。

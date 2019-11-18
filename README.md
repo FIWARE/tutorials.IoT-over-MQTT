@@ -714,7 +714,7 @@ curl -iX POST \
 ```
 
 Before we wire-up the context broker, we can test that a command can be sent from the IoT Agent to a device by making a
-REST request directly to the IoT Agent's North Port using the `/v1/updateContext` endpoint. It is this endpoint that
+REST request directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that
 will eventually be invoked by the context broker once we have connected it up. To test the configuration you can run the
 command directly as shown:
 
@@ -722,53 +722,23 @@ command directly as shown:
 
 ```console
 curl -iX POST \
-  'http://localhost:4041/v1/updateContext' \
+  http://localhost:4041/v2/op/update \
   -H 'Content-Type: application/json' \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /' \
   -d '{
-    "contextElements": [
+    "actionType": "update",
+    "entities": [
         {
             "type": "Bell",
-            "isPattern": "false",
             "id": "urn:ngsi-ld:Bell:001",
-            "attributes": [
-                { "name": "ring", "type": "command", "value": "" }
-            ],
-            "static_attributes": [
-               {"name":"refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:001"}
-            ]
-        }
-    ],
-    "updateAction": "UPDATE"
-}'
-```
-
-#### Response:
-
-```json
-{
-    "contextResponses": [
-        {
-            "contextElement": {
-                "attributes": [
-                    {
-                        "name": "ring",
-                        "type": "command",
-                        "value": ""
-                    }
-                ],
-                "id": "urn:ngsi-ld:Bell:001",
-                "isPattern": false,
-                "type": "Bell"
-            },
-            "statusCode": {
-                "code": 200,
-                "reasonPhrase": "OK"
+            "ring" : {
+                "type": "command",
+                "value": ""
             }
         }
     ]
-}
+}'
 ```
 
 If you are viewing the device monitor page, you can also see the state of the bell change.
