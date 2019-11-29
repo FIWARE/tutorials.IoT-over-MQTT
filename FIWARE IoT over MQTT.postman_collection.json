@@ -113,7 +113,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n \"devices\": [\n   {\n     \"device_id\":   \"motion001\",\n     \"entity_name\": \"urn:ngsd-ld:Motion:001\",\n     \"entity_type\": \"Motion\",\n     \"protocol\":    \"PDI-IoTA-UltraLight\",\n     \"transport\":   \"MQTT\",\n     \"timezone\":    \"Europe/Berlin\",\n     \"attributes\": [\n       { \"object_id\": \"c\", \"name\":\"count\", \"type\":\"Integer\"}\n      ],\n      \"static_attributes\": [\n         {\"name\":\"refStore\", \"type\": \"Relationship\",\"value\": \"urn:ngsi-ld:Store:001\"}\n      ]\n   }\n ]\n}\n"
+							"raw": "{\n \"devices\": [\n   {\n     \"device_id\":   \"motion001\",\n     \"entity_name\": \"urn:ngsi-ld:Motion:001\",\n     \"entity_type\": \"Motion\",\n     \"protocol\":    \"PDI-IoTA-UltraLight\",\n     \"transport\":   \"MQTT\",\n     \"timezone\":    \"Europe/Berlin\",\n     \"attributes\": [\n       { \"object_id\": \"c\", \"name\":\"count\", \"type\":\"Integer\"}\n      ],\n      \"static_attributes\": [\n         {\"name\":\"refStore\", \"type\": \"Relationship\",\"value\": \"urn:ngsi-ld:Store:001\"}\n      ]\n   }\n ]\n}\n"
 						},
 						"url": {
 							"raw": "http://{{iot-agent}}/iot/devices",
@@ -145,7 +145,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{orion}}/v2/entities/urn:ngsd-ld:Motion:001",
+							"raw": "http://{{orion}}/v2/entities/urn:ngsi-ld:Motion:001",
 							"protocol": "http",
 							"host": [
 								"{{orion}}"
@@ -153,7 +153,7 @@
 							"path": [
 								"v2",
 								"entities",
-								"urn:ngsd-ld:Motion:001"
+								"urn:ngsi-ld:Motion:001"
 							]
 						},
 						"description": "To make a dummy measurement, send a topic to the **MQTT Broker** as shown.\n\n```\ndocker run -it --rm --name mqtt-publisher --network \\\n  fiware_default efrecon/mqtt-client pub -h mosquitto -m \"c|1\" -t \"/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs\"\n```\n\n\nThen make the context data request.\n\nThis example returns the data for the `Motion` entity with the `id=urn:ngsd-ld:Motion:001` within the context data.\n\nThe response shows that the device with `id=motion001` has been successfully identifed by the IoT Agent and mapped to the\nentity `id=urn:ngsd-ld:Motion:001`. This new entity has been created within the context data. The `c` \nattribute from the dummy device measurement request has been mapped to the more meaningful `count` attribute\nwithin the context. As you will notice, a `TimeInstant` attribute has been added to both the entity and the\nmeta data of the attribute - this represents the last time the entity and attribute have been updated, and is\nautomatically added to each new entity because the `IOTA_TIMESTAMP`  environment variable was set when the\nIoT Agent was started up."
@@ -947,19 +947,19 @@
 	],
 	"variable": [
 		{
-			"id": "01415b31-1aa2-423f-8c8e-30b054e13068",
+			"id": "36e12f7e-c762-4131-9513-d404e5d99856",
 			"key": "iot-agent",
 			"value": "localhost:4041",
 			"type": "string"
 		},
 		{
-			"id": "924ffc72-a0da-4673-83b6-aa7184e5cc0a",
+			"id": "4f62a455-321e-4419-9baf-4b8c00c2cc1b",
 			"key": "orion",
 			"value": "localhost:1026",
 			"type": "string"
 		},
 		{
-			"id": "f399e81f-74c8-4962-aa62-95aebe07d182",
+			"id": "79ffb715-1fa8-4a8d-9a9a-7360d40a24f2",
 			"key": "ultralight",
 			"value": "localhost:3001",
 			"type": "string"
