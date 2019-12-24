@@ -47,11 +47,8 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
         -   [スマート・ドアのプロビジョニング](#provisioning-a-smart-door)
         -   [スマート・ランプのプロビジョニング](#provisioning-a-smart-lamp)
     -   [Context Broker コマンドの有効化](#enabling-context-broker-commands)
-        -   [ベルのコマンドを登録](#registering-a-bell-command)
         -   [ベルを鳴らす](#ringing-the-bell)
-        -   [スマート・ドアのコマンドを登録](#registering-smart-door-commands)
         -   [スマート・ドアを開く](#opening-the-smart-door)
-        -   [スマート・ランプのコマンドを登録](#registering-smart-lamp-commands)
         -   [スマート・ランプの電源をオン](#switching-on-the-smart-lamp)
 -   [次のステップ](#next-steps)
 
@@ -998,10 +995,10 @@ curl -X GET \
 
 ## Context Broker コマンドの有効化
 
-IoT Agent を IoT デバイスに接続したら、コマンドが利用可能であることを Orion
-Context Broker に通知する必要があります。つまり、IoT Agent をコマンド属性
-の[コンテキスト・プロバイダ](https://github.com/FIWARE/tutorials.Context-Providers/)と
-して登録する必要があります。
+IoT Agent を IoT デバイスに接続すると、Orion Context Broker にコマンドが利用可能に
+なったことが通知されました。つまり、IoT Agent は、コマンド属性の
+[コンテキスト・プロバイダ](https://github.com/FIWARE/tutorials.Context-Providers/)
+として自身を登録しました。
 
 コマンドが登録されると
 、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors)で実行
@@ -1018,41 +1015,6 @@ IoT Agent のノース・ポートのすべての通信は、標準の NGSI 構�
 、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent)のインス
 トラクションと**重複**しています
 
-<a name="registering-a-bell-command"></a>
-
-### ベルのコマンドを登録
-
-**ベル** のエンティティは エンティティ `type="Bell"` の
-`id="urn:ngsi-ld:Bell:001"` にマッピングされています。コマンドを登録するには
-、URL `http://orion:1026/v1` が不足している `ring` 属性を提供できることを Orion
-に通知する必要があります。これは IoT Agent に転送されます。ご覧のとおり、これは
-NGSI v1 エンドポイントなので、`legacyForwarding` 属性も設定する必要があります。
-
-#### :one::two: リクエスト :
-
-```console
-curl -iX POST \
-  'http://localhost:1026/v2/registrations' \
-  -H 'Content-Type: application/json' \
-  -H 'fiware-service: openiot' \
-  -H 'fiware-servicepath: /' \
-  -d '{
-  "description": "Bell Commands",
-  "dataProvided": {
-    "entities": [
-      {
-        "id": "urn:ngsi-ld:Bell:001", "type": "Bell"
-      }
-    ],
-    "attrs": ["ring"]
-  },
-  "provider": {
-    "http": {"url": "http://orion:1026/v1"},
-    "legacyForwarding": true
-  }
-}'
-```
-
 <a name="ringing-the-bell"></a>
 
 ### ベルを鳴らす
@@ -1060,7 +1022,7 @@ curl -iX POST \
 `ring` コマンドを呼び出すには、コンテキスト内で `ring` 属性を更新する必要があり
 ます。
 
-#### :one::three: リクエスト :
+#### :one::two: リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1080,41 +1042,6 @@ curl -iX PATCH \
 
 ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/bell-ring.gif)
 
-<a name="registering-smart-door-commands"></a>
-
-### スマート・ドアのコマンドを登録
-
-**スマート・ドア** のエンティティは、エンティティ`type="Door"` の
-`id="urn:ngsi-ld:Door:001"` にマッピングされています。コマンドを登録するには
-、URL `http://orion:1026/v1` が不足している属性を提供できることを Orion に通知す
-る必要があります。これは IoT Agent に転送されます。ご覧のとおり、これは NGSI v1
-エンドポイントなので、`legacyForwarding` 属性も設定する必要があります。
-
-#### :one::four: リクエスト :
-
-```console
-curl -iX POST \
-  'http://localhost:1026/v2/registrations' \
-  -H 'Content-Type: application/json' \
-  -H 'fiware-service: openiot' \
-  -H 'fiware-servicepath: /' \
-  -d '{
-  "description": "Door Commands",
-  "dataProvided": {
-    "entities": [
-      {
-        "id": "urn:ngsi-ld:Door:001", "type": "Door"
-      }
-    ],
-    "attrs": [ "lock", "unlock", "open", "close"]
-  },
-  "provider": {
-    "http": {"url": "http://orion:1026/v1"},
-    "legacyForwarding": true
-  }
-}'
-```
-
 <a name="opening-the-smart-door"></a>
 
 ### スマート・ドアを開く
@@ -1122,7 +1049,7 @@ curl -iX POST \
 `open` コマンドを呼び出すには、コンテキスト内で `open` 属性を更新する必要があり
 ます。
 
-#### :one::five: リクエスト :
+#### :one::three: リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1138,41 +1065,6 @@ curl -iX PATCH \
 }'
 ```
 
-<a name="registering-smart-lamp-commands"></a>
-
-### スマート・ランプのコマンドを登録
-
-**スマート・ランプ** のエンティティは、エンティティ`type="Lamp"` の
-`id="urn:ngsi-ld:Lamp:001"` にマッピングされています。コマンドを登録するには
-、URL `http://orion:1026/v1` が不足している属性を提供できることを Orion に通知す
-る必要があります。これは IoT Agent に転送されます。ご覧のとおり、これは NGSI v1
-エンドポイントなので、`legacyForwarding` 属性も設定する必要があります。
-
-#### :one::six: リクエスト :
-
-```console
-curl -iX POST \
-  'http://localhost:1026/v2/registrations' \
-  -H 'Content-Type: application/json' \
-  -H 'fiware-service: openiot' \
-  -H 'fiware-servicepath: /' \
-  -d '{
-  "description": "Lamp Commands",
-  "dataProvided": {
-    "entities": [
-      {
-        "id": "urn:ngsi-ld:Lamp:001","type": "Lamp"
-      }
-    ],
-    "attrs": [ "on", "off" ]
-  },
-  "provider": {
-    "http": {"url": "http://orion:1026/v1"},
-    "legacyForwarding": true
-  }
-}'
-```
-
 <a name="switching-on-the-smart-lamp"></a>
 
 ### スマート・ランプの電源をオン
@@ -1180,7 +1072,7 @@ curl -iX POST \
 **スマート・ランプ**をオンにするには、`on` 属性をコンテキストで更新する必要があ
 ります。
 
-#### :one::seven: リクエスト :
+#### :one::four: リクエスト :
 
 ```console
 curl -iX PATCH \
