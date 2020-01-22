@@ -8,17 +8,11 @@ set -e
 
 
 curl () {
-  docker run --network fiware_default --rm appropriate/curl -s \
+  docker run --network fiware_default --rm appropriate/curl -s -o /dev/null \
     "$@"
   printf "."
 }
 
-echo -e "⏳ Waiting for \033[1;34mOrion\033[0m to be available\n"
-while [ `docker run --network fiware_default --rm appropriate/curl -s -o /dev/null -w %{http_code} 'http://orion:1026/version'` -eq 000 ]
-do 
-  echo -e "Context Broker HTTP state: " `curl -s -o /dev/null -w %{http_code} 'http://orion:1026/version'` " (waiting for 200)"
-  sleep 1
-done
 printf "⏳ Loading context data "
 
 #
