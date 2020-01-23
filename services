@@ -14,7 +14,9 @@ if (( $# != 1 )); then
 fi
 
 loadData () {
-	./import-data
+	docker run --rm -v $(pwd)/import-data:/import-data \
+		--network fiware_default \
+		--entrypoint /bin/ash curlimages/curl import-data
 	waitForIoTAgent
 	echo ""
 }
