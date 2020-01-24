@@ -861,8 +861,8 @@ curl -X GET \
 
 ## Enabling Context Broker Commands
 
-Having connected up the IoT Agent to the IoT devices, the Orion Context Broker was informed that the commands now
-are available. In other words the IoT Agent registered itself as a
+Having connected up the IoT Agent to the IoT devices, the Orion Context Broker was informed that the commands now are
+available. In other words the IoT Agent registered itself as a
 [Context Provider](https://github.com/FIWARE/tutorials.Context-Providers/) for the command attributes.
 
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
@@ -875,7 +875,6 @@ Effectively the IoT Agent is offering a simplified facade pattern of well-known 
 
 Therefore this section of registering and invoking commands **duplicates** the instructions found in the
 [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent)
-
 
 ### Ringing the Bell
 
@@ -900,7 +899,6 @@ curl -iX PATCH \
 If you are viewing the device monitor page, you can also see the state of the bell change.
 
 ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/bell-ring.gif)
-
 
 ### Opening the Smart Door
 
