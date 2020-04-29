@@ -137,12 +137,12 @@ Context Broker と IoT Agent はオープンソースの
 
 -   FIWARE
     [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) は
-    、[NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用して
+    、[NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用して
     リクエストを受信します
 -   FIWARE
     [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/)
     は以下を行います :
-    -   [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用し
+    -   [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用し
         てサウス・バウンド・リクエストを受信し、MQTT Broker 用の
         [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         の**トピック**に変換します
@@ -164,11 +164,11 @@ Context Broker と IoT Agent はオープンソースの
     ットとして機能する Web サーバー
 -   このチュートリアルでは、**コンテキスト・プロバイダの NGSI proxy** は使用しま
     せん。これは以下を行います :
-    -   [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用し
+    -   [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用し
         てリクエストを受信します
     -   独自の API を独自のフォーマットで使用して、公開されているデータ・ソース
         へのリクエストを行います
-    -   [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) 形式でコ
+    -   [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) 形式でコ
         ンテキスト・データ を Orion Context Broker に返します
 -   **在庫管理フロントエンド**は、このチュートリアルで使用していません。これは以
     下を行います :
