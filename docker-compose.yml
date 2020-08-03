@@ -107,8 +107,8 @@ services:
       - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
       - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
       - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
-    healthcheck:
-      test: curl --fail -s http://tutorial:${TUTORIAL_APP_PORT}/version || exit 1
+
+
 
   # Database
   mongo-db:
@@ -124,6 +124,10 @@ services:
     command: --bind_ip_all --smallfiles
     volumes:
       - mongo-db:/data
+    healthcheck:
+      test: |
+        host=`hostname --ip-address || echo '127.0.0.1'`; 
+        mongo --quiet $host/test --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)' && echo 0 || echo 1    
 
   # Other services
   mosquitto:
