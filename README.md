@@ -327,6 +327,7 @@ repository and create the necessary images by running the commands as shown:
 ```console
 git clone https://github.com/FIWARE/tutorials.IoT-over-MQTT.git
 cd tutorials.IoT-over-MQTT
+git checkout NGSI-v2
 
 ./services create
 ```
