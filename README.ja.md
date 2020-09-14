@@ -110,7 +110,7 @@ Generic Enabler を使用して、より幅広い範囲の IoT デバイスに�
 
 このチュートリアルの目的のために、一連のダミー IoT デバイスが作成され、Context
 Broker に接続されます。使用されるアーキテクチャとプロトコルの詳細は
-、[IoT Sensors のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors)に
+、[IoT Sensors のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)に
 あります。各デバイスの状態は、次の UltraLight デバイス・モニタの Web ページで確
 認できます : `http://localhost:3000/device/monitor`
 
@@ -160,7 +160,7 @@ Context Broker と IoT Agent はオープンソースの
 -   MQTT 上で動作する
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     プロトコルを使用して
-    、[ダミー IoT デバイス](https://github.com/FIWARE/tutorials.IoT-Sensors)のセ
+    、[ダミー IoT デバイス](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)のセ
     ットとして機能する Web サーバー
 -   このチュートリアルでは、**コンテキスト・プロバイダの NGSI proxy** は使用しま
     せん。これは以下を行います :
@@ -1002,7 +1002,7 @@ IoT Agent を IoT デバイスに接続すると、Orion Context Broker にコ�
 として自身を登録しました。
 
 コマンドが登録されると
-、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors)で実行
+、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)で実行
 したように、IoT デバイスに直接 UltraLight 2.0 リクエストを送信するのではなく
 、**ベル**を鳴らし、**スマート・ドア**を開閉し、**スマート・ランプ**をオン/オフ
 に切り替えることができます。
