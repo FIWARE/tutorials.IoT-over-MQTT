@@ -394,7 +394,7 @@ git checkout NGSI-v2
 ```
 
 その後、リポジトリ内で提供される
-[services](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/services)
+[services](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/NGSI-v2/services)
 Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期
 化することができます :
 
