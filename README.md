@@ -909,7 +909,7 @@ To invoke the `open` command, the `open` attribute must be updated in the contex
 
 ```console
 curl -iX PATCH \
-  'http://localhost:1026/v2/entities/urn:ngsi-ld:Lamp:001/attrs' \
+  'http://localhost:1026/v2/entities/urn:ngsi-ld:Door:001/attrs' \
   -H 'Content-Type: application/json' \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /' \
