@@ -122,7 +122,6 @@ services:
       - "${MONGO_DB_PORT}:${MONGO_DB_PORT}" # localhost:27017
     networks:
       - default
-    command: --bind_ip_all --smallfiles
     volumes:
       - mongo-db:/data
     healthcheck:
