@@ -74,7 +74,8 @@ services:
       - IOTA_DEFAULT_RESOURCE= # Default is blank. I'm using MQTT so I don't need a resource
       - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
     healthcheck:
-      test: curl --fail -s http://iot-agent:${IOTA_NORTH_PORT}/iot/about || exit 1
+      interval: 5s
+
 
   # Tutorial acts as a series of dummy IoT Sensors over HTTP
   tutorial:
