@@ -11,10 +11,10 @@
 # and so on, purely so that a single docker-compose file can be read as an example to build on, 
 # not use directly. 
 # 
-# When deploying to a production environment, please looking at the SmartSDK Recipes
-# in order to scale up to a proper architecture:
+# When deploying to a production environment, please refer to the Helm Repository
+# for FIWARE Components in order to scale up to a proper architecture:
 # 
-# see: https://smartsdk.github.io/smartsdk-recipes/
+# see: https://github.com/FIWARE/helm-charts/
 #
 version: "3.5"
 services:
