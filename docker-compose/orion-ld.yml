@@ -35,7 +35,7 @@ services:
 
   # IoT-Agent is configured for the UltraLight Protocol
   iot-agent:
-    image: fiware/iotagent-ul:${ULTRALIGHT_VERSION}-ld
+    image: fiware/iotagent-ul #:${ULTRALIGHT_VERSION}
     build:
       context: ../iotagent-ul
       dockerfile: Dockerfile
