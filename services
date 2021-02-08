@@ -96,8 +96,8 @@ addIoTDatabaseIndex () {
 
 stoppingContainers () {
 	echo "Stopping containers"
-	docker-compose --log-level ERROR -f docker-compose/orion-ld.yml -p fiware down -v --remove-orphans
-	docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware down -v --remove-orphans
+	docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml -p fiware down -v --remove-orphans
+	docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware down -v --remove-orphans
 }
 
 displayServices () {
@@ -118,7 +118,7 @@ case "${command}" in
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
 		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over HTTP"
 		echo ""
-		docker-compose --log-level ERROR -f docker-compose/orion-ld.yml -p fiware up -d --remove-orphans
+		docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml -p fiware up -d --remove-orphans
 		addDatabaseIndex
 		addIoTDatabaseIndex
 		displayServices fiware
@@ -134,7 +134,7 @@ case "${command}" in
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
 		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over HTTP"
 		echo ""
-		docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware up -d --remove-orphans
+		docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware up -d --remove-orphans
 		addIoTDatabaseIndex
 		displayServices fiware
 		waitForScorpio
@@ -147,8 +147,8 @@ case "${command}" in
 		;;
 	"create")
 		echo "Pulling Docker images"
-		docker-compose --log-level ERROR -f docker-compose/orion-ld.yml pull
-		docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml pull
+		docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml pull
+		docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml pull
 		docker build  -t fiware/iotagent-ul:1.14.0-ld ./iotagent-ul
 		;;
 	*)
