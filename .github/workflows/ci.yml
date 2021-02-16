@@ -1,0 +1,31 @@
+  
+name: "CI"
+on:
+  push:
+    branches:
+      - master
+      - NGSI-v2
+      - NGSI-LD
+  pull_request:
+    branches:
+      - master
+      - NGSI-v2
+      - NGSI-LD
+  workflow_dispatch:
+
+jobs:
+  test-modules:
+    name: Test Script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        persist-credentials: false 
+        fetch-depth: 0
+        submodules: recursive
+    - name: Build Images
+      run: |
+        ./services create || true
+    - name: Run Script
+      run: |
+        ./services start && ./services stop
