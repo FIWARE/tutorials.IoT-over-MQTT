@@ -143,8 +143,8 @@ stoppingContainers () {
 	echo -e "Force removal of \033[1mmqtt-subscriber\033[0m"
 	(docker stop mqtt-subscriber &>/dev/null) || (echo -e "\033[1mmqtt-subscriber\033[0m not running")
 	echo "Stopping containers"
-	docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml -p fiware down -v --remove-orphans
-	docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware down -v --remove-orphans
+	docker-compose --log-level ERROR -f docker-compose/orion-ld.yml -p fiware down -v --remove-orphans
+	docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware down -v --remove-orphans
 }
 
 displayServices () {
@@ -165,7 +165,7 @@ case "${command}" in
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
 		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over HTTP"
 		echo ""
-		docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml -p fiware up -d --remove-orphans
+		docker-compose --log-level ERROR -f docker-compose/orion-ld.yml -p fiware up -d --remove-orphans
 		waitForMongo
 		addDatabaseIndex
 		addIoTDatabaseIndex
@@ -182,7 +182,7 @@ case "${command}" in
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
 		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over HTTP"
 		echo ""
-		docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware up -d --remove-orphans
+		docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml -p fiware up -d --remove-orphans
 		waitForMongo
 		addIoTDatabaseIndex
 		waitForScorpio
@@ -192,15 +192,18 @@ case "${command}" in
 		displayServices fiware
 		;;
 	"stop")
+		export $(cat .env | grep "#" -v)
 		stoppingContainers
 		;;
 	"start")
+		export $(cat .env | grep "#" -v)
 		./services orion
 		;;
 	"create")
+		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
-		docker-compose --env-file=.env --log-level ERROR -f docker-compose/orion-ld.yml pull
-		docker-compose --env-file=.env --log-level ERROR -f docker-compose/scorpio-aaio.yml pull
+		docker-compose --log-level ERROR -f docker-compose/orion-ld.yml pull
+		docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml pull
 		;;
 	*)
 		echo "Command not Found."
