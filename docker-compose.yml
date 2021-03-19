@@ -135,7 +135,7 @@ services:
 
   # Other services
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:1.6.14
     hostname: mosquitto
     container_name: mosquitto
     expose:
