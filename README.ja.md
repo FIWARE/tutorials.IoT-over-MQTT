@@ -366,7 +366,7 @@ docker-compose -v
 docker version
 ```
 
-Docker バージョン 18.03 以降と Docker Compose 1.21 以上を使用していることを確認
+Docker バージョン 18.03 以降と Docker Compose 1.29 以上を使用していることを確認
 し、必要に応じてアップグレードしてください。
 
 <a name="cygwin-for-windows"></a>
