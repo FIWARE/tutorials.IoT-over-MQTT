@@ -28,4 +28,4 @@ jobs:
         ./services create || true
     - name: Run Script
       run: |
-        ./services start && ./services stop
+        ./services start test && ./services stop test
