@@ -25,7 +25,7 @@ stoppingContainers () {
 	echo -e "Force removal of \033[1mmqtt-subscriber\033[0m"
 	(docker stop mqtt-subscriber &>/dev/null) || (echo -e "\033[1mmqtt-subscriber\033[0m not running")
 	echo "Stopping running containers"
-	docker compose -p fiware down -v --remove-orphans
+	docker-compose down -v --remove-orphans
 }
 
 displayServices () {
@@ -110,7 +110,7 @@ case "${command}" in
 		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over MQTT"
 		echo -e "- \033[1mMosquitto\033[0m acts as an MQTT Message Broker"
 		echo ""
-		docker compose -p fiware up -d --remove-orphans
+		docker-compose up -d --remove-orphans
 		waitForMongo
 		addDatabaseIndex
 		waitForOrion
@@ -126,7 +126,7 @@ case "${command}" in
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
 		docker pull curlimages/curl
-		docker compose -p fiware pull
+		docker-compose pull
 		;;
 	*)
 		echo "Command not Found."
