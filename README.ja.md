@@ -620,7 +620,7 @@ Agent へのすべてのプロビジョニングのリクエストには、2 つ
 ートリアルでは各デバイスを個別にプロビジョニングするため、これは行われません。
 
 この例では、匿名のデバイス・グループをプロビジョニングします。IoT Agent に、一連
-のデバイスが `/4jggokgpepnvsb2uv4s40d59ov` トピックにメッセージを送信して通信す
+のデバイスが `/ul/4jggokgpepnvsb2uv4s40d59ov` トピックにメッセージを送信して通信す
 ることを通知します。
 
 HTTP 通信が使用されていないため、`resource` 属性は空白のままになります
@@ -715,7 +715,7 @@ curl -iX POST \
 ```console
 docker run -it --rm --name mqtt-publisher --network \
   fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|1" \
-  -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
+  -t "/ul/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
 -   `-m`パラメータの値によってメッセージが定義されます。これは Ultra Light の構
@@ -725,7 +725,7 @@ docker run -it --rm --name mqtt-publisher --network \
 **トピック**は、次の形式でなければなりません :
 
 ```
-/<api-key>/<device-id>/attrs
+/<protocol>/<api-key>/<device-id>/attrs
 ```
 
 > **注** [以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent)で

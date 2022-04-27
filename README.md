@@ -518,7 +518,22 @@ It is possible to set up default commands and attributes for all devices as well
 tutorial as we will be provisioning each device separately.
 
 This example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices will be
-communicating by sending messages to the `/4jggokgpepnvsb2uv4s40d59ov` **topic**
+communicating by sending drevice measures over the `/ul/4jggokgpepnvsb2uv4s40d59ov` **topic**
+
+> **Note** Measures and commands are sent over different MQTT topics:
+>
+> *  _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
+> *  _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
+>
+>  The reasoning behind this is that when sending measures northbound from device to IoT Agent,
+>  it is necessary to explicitly identify which IoT Agent is needed to parse the data. This
+>  is done by prefixing the relevant MQTT topic with a protocol, otherwise there is no way to
+>  define which agent is processing the measure. This mechanism allows smart systems to connect
+>  different devices to different IoT Agents according to need.
+>
+>  For southbound commands, this distinction is unnecessary since the correct IoT Agent has already
+>  registered itself for the command during the device provisioning step and the device will always
+>  receive commands in an appropriate format.
 
 The `resource` attribute is left blank since HTTP communication is not being used. The URL location of `cbroker` is an
 optional attribute - if it is not provided, the IoT Agent uses the default context broker URL as defined in the
@@ -605,7 +620,7 @@ message to the following **topic**
 ```console
 docker run -it --rm --name mqtt-publisher --network \
   fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|1" \
-  -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
+  -t "/ul/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
 -   The value of the `-m` parameter defines the message. This is in UltraLight syntax.
@@ -614,7 +629,7 @@ docker run -it --rm --name mqtt-publisher --network \
 The **topic** must be in the following form:
 
 ```
-/<api-key>/<device-id>/attrs
+/<protocol>/<api-key>/<device-id>/attrs
 ```
 
 > **Note** In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity
