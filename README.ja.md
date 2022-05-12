@@ -211,7 +211,7 @@ mosquitto:
 -   ポート `9001` は、HTTP/Websocket 通信の標準ポートです
 
 volumes の設定は、MQTT message broker のデバッグ・レベルを上げるために使用され
-る[設定ファイル](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/master/mosquitto/mosquitto.conf)で
+る[設定ファイル](https://github.com/FIWARE/tutorials.IoT-over-MQTT/blob/NGSI-v2/mosquitto/mosquitto.conf)で
 す。
 
 <a name="dummy-iot-devices-configuration"></a>
@@ -366,7 +366,7 @@ docker-compose -v
 docker version
 ```
 
-Docker バージョン 18.03 以降と Docker Compose 1.29 以上を使用していることを確認
+Docker バージョン 20.10 以降と Docker Compose 1.29 以上を使用していることを確認
 し、必要に応じてアップグレードしてください。
 
 <a name="cygwin-for-windows"></a>
@@ -622,6 +622,20 @@ Agent へのすべてのプロビジョニングのリクエストには、2 つ
 この例では、匿名のデバイス・グループをプロビジョニングします。IoT Agent に、一連
 のデバイスが `/ul/4jggokgpepnvsb2uv4s40d59ov` トピックにメッセージを送信して通信す
 ることを通知します。
+
+> **注** 測定値とコマンドは、さまざまな MQTT トピックを介して送信されます:
+>
+> *   _Measures_ は `/<protocol>/<api-key>/<device-id>/attrs` トピックで送信されます
+> *   _Commands_ は `/<api-key>/<device-id>/cmd` トピックで送信されます
+>
+> この背後にある理由は、デバイスから IoT Agent にノースバウンドで測定値を送信する場合、データを
+> 解析するために必要な IoT Agent を明示的に識別する必要があるためです。これは、関連する MQTT
+> トピックの前にプロトコルを付けることによって行われます。そうでない場合、どのエージェントが
+> 測定値を処理しているかを定義する方法がありません。このメカニズムにより、スマート・システムは必要に
+> 応じてさまざまなデバイスをさまざまな IoT Agent に接続できます。
+>
+> サウスバウンド・コマンドの場合、デバイスのプロビジョニング手順中に正しい IoT Agent がコマンドに
+> 登録されており、デバイスは常に適切な形式でコマンドを受信するため、この区別は不要です。
 
 HTTP 通信が使用されていないため、`resource` 属性は空白のままになります
 。`cbroker` の URL の場所はオプションの属性です。IoT Agent が提供されていない場
@@ -1096,13 +1110,13 @@ curl -iX PATCH \
 高度な機能を追加することで、アプリケーションに複雑さを加える方法を知りたいですか
 ？このシリーズ
 の[他のチュートリアル](https://www.letsfiware.jp/fiware-tutorials)を読むことで見
-つけることができます :
+つけることができます
 
 ---
 
 ## License
 
-[MIT](LICENSE) © 2018-2020 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2018-2022 FIWARE Foundation e.V.
 
 ---
 
