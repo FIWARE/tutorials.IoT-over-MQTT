@@ -18,6 +18,7 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 を使用して一連のダミー IoT デバイスと通信するように再構成されます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/acfd27a941ed57a0cae5)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/FIWARE/tutorials.IoT-Agent-over-MQTT/tree/NGSI-v2)
 
 ## 内容
 

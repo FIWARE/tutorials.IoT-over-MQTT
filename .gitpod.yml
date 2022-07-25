@@ -1,0 +1,25 @@
+ports:
+  - name: Orion
+    description: Context Broker
+    port: 1026
+    onOpen: notify
+  - name: Tutorial App
+    description: Web app displaying context data
+    port: 3000
+    onOpen: open-preview
+  - name: Tutorial Devices
+    description: Dummy IoT Sensors over HTTP
+    port: 3001
+    onOpen: ignore
+  - name: IoT Agent (North Port)
+    description: NGSI data and device provisioning
+    port: 4041
+    onOpen: ignore
+  - name: IoT Agent (South Port)
+    description: Ultralight HTTP measures
+    port: 7896
+    onOpen: ignore
+  - name: MongoDB
+    description: Database for Orion + IoT Agent
+    port: 27017
+    onOpen: ignore
