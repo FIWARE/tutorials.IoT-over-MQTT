@@ -837,6 +837,7 @@ curl -iX POST \
       "entity_type": "Bell",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
         { "name": "ring", "type": "command" }
        ],
