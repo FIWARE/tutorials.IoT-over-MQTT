@@ -243,55 +243,55 @@ curl -s -o /dev/null -X POST \
   "entities":[
     {
       "id":"urn:ngsi-ld:Product:001", "type":"Product",
-      "name":{"type":"Text", "value":"Beer"},
+      "name":{"type":"Text", "value":"Apples"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     },
     {
       "id":"urn:ngsi-ld:Product:002", "type":"Product",
-      "name":{"type":"Text", "value":"Red Wine"},
+      "name":{"type":"Text", "value":"Bananas"},
       "size":{"type":"Text", "value": "M"},
       "price":{"type":"Integer", "value": 1099}
     },
     {
       "id":"urn:ngsi-ld:Product:003", "type":"Product",
-      "name":{"type":"Text", "value":"White Wine"},
+      "name":{"type":"Text", "value":"Coconuts"},
       "size":{"type":"Text", "value": "M"},
       "price":{"type":"Integer", "value": 1499}
     },
     {
       "id":"urn:ngsi-ld:Product:004", "type":"Product",
-      "name":{"type":"Text", "value":"Vodka"},
+      "name":{"type":"Text", "value":"Melons"},
       "size":{"type":"Text", "value": "XL"},
       "price":{"type":"Integer", "value": 5000}
     },
     {
       "id":"urn:ngsi-ld:Product:005", "type":"Product",
-      "name":{"type":"Text", "value":"Lager"},
+      "name":{"type":"Text", "value":"Kiwi Fruits"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     },
     {
       "id":"urn:ngsi-ld:Product:006", "type":"Product",
-      "name":{"type":"Text", "value":"Whisky"},
+      "name":{"type":"Text", "value":"Strawberries"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     },
     {
       "id":"urn:ngsi-ld:Product:007", "type":"Product",
-      "name":{"type":"Text", "value":"Gin"},
+      "name":{"type":"Text", "value":"Raspberries"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     },
     {
       "id":"urn:ngsi-ld:Product:008", "type":"Product",
-      "name":{"type":"Text", "value":"Apple Juice"},
+      "name":{"type":"Text", "value":"Pineapples"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     },
     {
       "id":"urn:ngsi-ld:Product:009", "type":"Product",
-      "name":{"type":"Text", "value":"Orange Juice"},
+      "name":{"type":"Text", "value":"Oranges"},
       "size":{"type":"Text", "value": "S"},
       "price":{"type":"Integer", "value": 99}
     }
