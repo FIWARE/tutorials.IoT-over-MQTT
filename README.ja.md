@@ -221,7 +221,7 @@ volumes の設定は、MQTT message broker のデバッグ・レベルを上げ�
 
 ```yaml
 tutorial:
-    image: fiware/tutorials.context-provider
+    image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
@@ -271,7 +271,7 @@ Hub からタグ付けされた `fiware/iotagent-ul` です。必要な構成を
 
 ```yaml
 iot-agent:
-    image: fiware/iotagent-ul:latest
+    image: quay.io/fiware/iotagent-ul:latest
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -668,7 +668,7 @@ curl -iX POST \
 ### センサのプロビジョニング
 
 エンティティを作成するときは、NGSI-LD
-[仕様](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf)に
+[仕様](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.06.01_60/gs_CIM009v010601p.pdf)に
 従って URN を使用するのが一般的な良い方法です。さらに、データ属性を定義するとき
 に意味のある名前を理解する方が簡単です。これらのマッピングは、デバイスを個別にプ
 ロビジョニングすることによって定義できます。

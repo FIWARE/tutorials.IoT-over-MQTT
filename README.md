@@ -188,7 +188,7 @@ increase the debug level of the MQTT Message Broker.
 
 ```yaml
 tutorial:
-    image: fiware/tutorials.context-provider
+    image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
@@ -233,7 +233,7 @@ tagged `fiware/iotagent-ul`. The necessary configuration can be seen below:
 
 ```yaml
 iot-agent:
-    image: fiware/iotagent-ul:latest
+    image: quay.io/fiware/iotagent-ul:latest
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -561,7 +561,7 @@ curl -iX POST \
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf) when creating
+[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.06.01_60/gs_CIM009v010601p.pdf) when creating
 entities. Furthermore it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 
