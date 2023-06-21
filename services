@@ -139,7 +139,7 @@ case "${command}" in
 	"create")
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
-		docker pull curlimages/curl
+		docker pull quay.io/curl/curl
 		${dockerCmd} pull 
 		;;
 	*)
