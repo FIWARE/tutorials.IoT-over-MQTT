@@ -30,7 +30,7 @@ fi
 loadData () {
 	docker run --rm -v $(pwd)/import-data:/import-data \
 		--network fiware_default \
-		--entrypoint /bin/ash curlimages/curl import-data
+		--entrypoint /bin/ash quay.io/curl/curl /import-data
 	waitForIoTAgent
 	echo ""
 }
