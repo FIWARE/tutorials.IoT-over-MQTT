@@ -371,6 +371,7 @@ Similarly an actuator must subscribe to a single topic to receive events which e
 southbound. To check that the lines of communication are open, we can subscribe to a given topic, and see that we are
 able to receive something when a message is published.
 
+
 Open a **new terminal**, and create a new running `mqtt-subscriber` Docker container as follows:
 
 ```console
@@ -379,6 +380,8 @@ docker run -it --rm --name mqtt-subscriber \
 ```
 
 The terminal will then be ready to receive events
+
+> **Note:** There is no change on whilst running this command. The on screen output will only respond once you have completed the next step.
 
 ### Start an MQTT Publisher (:two:nd Terminal)
 
