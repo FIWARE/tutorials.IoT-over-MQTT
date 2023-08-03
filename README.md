@@ -166,11 +166,11 @@ mosquitto:
     networks:
         - default
     expose:
-        - "1883"
-        - "9001"
+        - '1883'
+        - '9001'
     ports:
-        - "1883:1883"
-        - "9001:9001"
+        - '1883:1883'
+        - '9001:9001'
     volumes:
         - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 ```
@@ -194,17 +194,17 @@ tutorial:
     networks:
         - default
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "WEB_APP_PORT=3000"
-        - "DUMMY_DEVICES_PORT=3001"
-        - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
-        - "DUMMY_DEVICES_TRANSPORT=MQTT"
+        - 'DEBUG=tutorial:*'
+        - 'WEB_APP_PORT=3000'
+        - 'DUMMY_DEVICES_PORT=3001'
+        - 'DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov'
+        - 'DUMMY_DEVICES_TRANSPORT=MQTT'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -241,9 +241,9 @@ iot-agent:
     networks:
         - default
     expose:
-        - "4041"
+        - '4041'
     ports:
-        - "4041:4041"
+        - '4041:4041'
     environment:
         - IOTA_CB_HOST=orion
         - IOTA_CB_PORT=1026
@@ -371,7 +371,6 @@ Similarly an actuator must subscribe to a single topic to receive events which e
 southbound. To check that the lines of communication are open, we can subscribe to a given topic, and see that we are
 able to receive something when a message is published.
 
-
 Open a **new terminal**, and create a new running `mqtt-subscriber` Docker container as follows:
 
 ```console
@@ -381,7 +380,8 @@ docker run -it --rm --name mqtt-subscriber \
 
 The terminal will then be ready to receive events
 
-> **Note:** There is no change on whilst running this command. The on screen output will only respond once you have completed the next step.
+> **Note:** There is no change on whilst running this command. The on screen output will only respond once you have
+> completed the next step.
 
 ### Start an MQTT Publisher (:two:nd Terminal)
 
