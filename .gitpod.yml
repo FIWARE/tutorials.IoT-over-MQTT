@@ -1,3 +1,7 @@
+tasks:
+  - name: Pull Images
+    init: ./services create
+
 ports:
   - name: Orion
     description: Context Broker
