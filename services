@@ -139,8 +139,8 @@ case "${command}" in
 	"create")
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
-		docker pull quay.io/curl/curl
-		${dockerCmd} pull 
+		docker pull -q quay.io/curl/curl
+		${dockerCmd} pull --ignore-pull-failures
 		;;
 	*)
 		echo "Command not Found."
