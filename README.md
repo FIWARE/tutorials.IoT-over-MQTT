@@ -381,7 +381,8 @@ docker run -it --rm --name mqtt-subscriber \
 
 The terminal will then be ready to receive events
 
-> **Note:** There is no change on whilst running this command. The on screen output will only respond once you have
+> [!NOTE]
+>  There is no change on whilst running this command. The on screen output will only respond once you have
 > completed the next step.
 
 ### Start an MQTT Publisher (2️⃣nd Terminal)
@@ -525,7 +526,8 @@ tutorial as we will be provisioning each device separately.
 This example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices will be
 communicating by sending device measures over the `/ul/4jggokgpepnvsb2uv4s40d59ov` **topic**
 
-> **Note** Measures and commands are sent over different MQTT topics:
+> [!NOTE]
+>  Measures and commands are sent over different MQTT topics:
 >
 > -   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic
 > -   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic
@@ -576,7 +578,8 @@ Three types of measurement attributes can be provisioned:
 -   `static_attributes` are as the name suggests static data about the device (such as relationships) passed on to the
     context broker.
 
-> **Note**: in the case where individual `id`s are not required, or aggregated data is sufficient the `attributes` can
+> [!NOTE]
+>  in the case where individual `id`s are not required, or aggregated data is sufficient the `attributes` can
 > be defined within the provisioning service rather than individually.
 
 #### 3️⃣ Request:
@@ -635,7 +638,8 @@ The **topic** must be in the following form:
 /<protocol>/<api-key>/<device-id>/attrs
 ```
 
-> **Note** In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity
+> [!NOTE]
+>  In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity
 > between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This
 > time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
 
