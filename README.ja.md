@@ -36,9 +36,9 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 -   [起動](#start-up)
 -   [IoT Agent のプロビジョニング (Ultra Light over MQTT)](#provisioning-an-iot-agent-ultralight-over-mqtt)
     -   [Mosquitto Health の確認](#checking-mosquitto-health)
-        -   [MQTT サブスクライバを開始 (:one:st ターミナル)](#start-an-mqtt-subscriber-onest-terminal)
-        -   [MQTT パブリッシャを開始 (:two:nd ターミナル)](#start-an-mqtt-publisher-twond-terminal)
-        -   [MQTT サブスクライバを停止 (:one:st ターミナル)](#stop-an-mqtt-subscriber-onest-terminal)
+        -   [MQTT サブスクライバを開始 (1️⃣st ターミナル)](#start-an-mqtt-subscriber-onest-terminal)
+        -   [MQTT パブリッシャを開始 (2️⃣nd ターミナル)](#start-an-mqtt-publisher-twond-terminal)
+        -   [MQTT サブスクライバを停止 (1️⃣st ターミナル)](#stop-an-mqtt-subscriber-onest-terminal)
         -   [Mosquitto ログを表示](#show-mosquitto-log)
     -   [IoT Agent Service Health の確認](#checking-the-iot-agent-service-health)
     -   [IoT デバイスの接続](#connecting-iot-devices)
@@ -433,7 +433,7 @@ IoT デバイスのアレイの現在の状態が表示されます。
 
 <a name="start-an-mqtt-subscriber-onest-terminal"></a>
 
-### MQTT サブスクライバを開始 (:one:st ターミナル)
+### MQTT サブスクライバを開始 (1️⃣st ターミナル)
 
 最終的にシステムによって正しく接続されると、IoT Agent は関連するすべてのイベント
 にサブスクライブし、センサの測定値の形式でノース・バウンドのトラフィックを待ち受
@@ -456,7 +456,7 @@ docker run -it --rm --name mqtt-subscriber \
 
 <a name="start-an-mqtt-publisher-twond-terminal"></a>
 
-### MQTT パブリッシャを開始 (:two:nd ターミナル)
+### MQTT パブリッシャを開始 (2️⃣nd ターミナル)
 
 ノース・バウンドの測定値を送信するセンサは、**MQTT Broker** へ測定値を公開して、
 サブスクライバに送信することができます。センサはサブスクライバに直接接続する必要
@@ -470,7 +470,7 @@ docker run -it --rm --name mqtt-publisher \
   --network fiware_default efrecon/mqtt-client pub -h mosquitto -m "HELLO WORLD" -t "/test"
 ```
 
-#### :one:st ターミナル - 結果 :
+#### 1️⃣st ターミナル - 結果 :
 
 MQTT Broker が正常に機能している場合は、メッセージを別のターミナルで受信する必要
 があります :
@@ -481,7 +481,7 @@ HELLO WORLD
 
 <a name="stop-an-mqtt-subscriber-onest-terminal"></a>
 
-### MQTT サブスクライバを停止 (:two:nd ターミナル)
+### MQTT サブスクライバを停止 (2️⃣nd ターミナル)
 
 MQTT サブスクライバを終了するには、次の Docker コマンドを実行します :
 
@@ -522,7 +522,7 @@ docker logs --tail 10 mosquitto
 IoT Agent が動作しているかどうかは、公開されているポートに対して HTTP リクエスト
 を行うことで確認できます :
 
-#### :one: リクエスト :
+#### 1️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -643,7 +643,7 @@ HTTP 通信が使用されていないため、`resource` 属性は空白のま�
 合、 IoT Agent は設定ファイルで定義されているデフォルトの context broker URL を
 使用しますが、完全性のためにここに追加されています。
 
-#### :two: リクエスト :
+#### 2️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -684,7 +684,7 @@ curl -iX POST \
 > **注 :** 個別 id が必要でないか、または集約されたデータが十分である場合は
 > 、`attributes` は個別にではなくプロビジョニング・サービス内で定義できます。
 
-#### :three: リクエスト :
+#### 3️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -725,7 +725,7 @@ curl -iX POST \
 次の**トピック**に MQTT メッセージをポストすることで、**モーション・センサ** の
 デバイス `motion001` からのダミー IoT デバイスの測定値をシミュレートできます。
 
-#### :four: MQTT リクエスト :
+#### 4️⃣ MQTT リクエスト :
 
 ```console
 docker run -it --rm --name mqtt-publisher --network \
@@ -766,7 +766,7 @@ Context Broker からエンティティ・データを取得することで、�
 確認できます。`fiware-service` ヘッダと `fiware-service-path` ヘッダを追加する
 ことを忘れないでください。
 
-#### :five: リクエスト :
+#### 5️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -821,7 +821,7 @@ curl -X GET \
 
 以下の例では、`deviceId = bell001` のベルがプロビジョニングされています。
 
-#### :six: リクエスト :
+#### 6️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -856,7 +856,7 @@ Agent のノース・ポートに直接 REST リクエストを行うことで�
 に Context Broker によって呼び出されるのは、このエンドポイントです。設定をテスト
 するには、次のようにコマンドを直接実行します :
 
-#### :seven: リクエスト :
+#### 7️⃣  リクエスト :
 
 ```console
 curl -iX POST \
@@ -886,7 +886,7 @@ curl -iX POST \
 ベルを鳴らすコマンドの結果は、Orion Context Broker 内のエンティティにクエリする
 ことによって読み取ることができます。
 
-#### :eight: リクエスト :
+#### 8️⃣  リクエスト :
 
 ```console
 curl -X GET \
@@ -922,7 +922,7 @@ curl -X GET \
 します。デバイスがコマンドをリッスンする HTTP url がないため、`endpoint` 属性は
 必要ありません。
 
-#### :nine: リクエスト :
+#### 9️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -964,7 +964,7 @@ curl -iX POST \
 同様に、2 つのコマンド (`on` および `off`) と 2 つの属性を持つ**スマート・ラン
 プ**は、次のようにプロビジョニングできます :
 
-#### :one::zero: リクエスト :
+#### 1️⃣0️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -1001,7 +1001,7 @@ curl -iX POST \
 プロビジョニングされたデバイスの完全なリストは、`/iot/devices` エンドポイントに
 GET リクエストを行うことで取得できます。
 
-#### :one::one: リクエスト :
+#### 1️⃣1️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -1041,7 +1041,7 @@ IoT Agent のノース・ポートのすべての通信は、標準の NGSI 構�
 `ring` コマンドを呼び出すには、コンテキスト内で `ring` 属性を更新する必要があり
 ます。
 
-#### :one::two: リクエスト :
+#### 1️⃣2️⃣ リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1068,7 +1068,7 @@ curl -iX PATCH \
 `open` コマンドを呼び出すには、コンテキスト内で `open` 属性を更新する必要があり
 ます。
 
-#### :one::three: リクエスト :
+#### 1️⃣3️⃣ リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1091,7 +1091,7 @@ curl -iX PATCH \
 **スマート・ランプ**をオンにするには、`on` 属性をコンテキストで更新する必要があ
 ります。
 
-#### :one::four: リクエスト :
+#### 1️⃣4️⃣ リクエスト :
 
 ```console
 curl -iX PATCH \

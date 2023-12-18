@@ -36,9 +36,9 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 -   [Start Up](#start-up)
 -   [Provisioning an IoT Agent (UltraLight over MQTT)](#provisioning-an-iot-agent-ultralight-over-mqtt)
     -   [Checking Mosquitto Health](#checking-mosquitto-health)
-        -   [Start an MQTT Subscriber (:one:st Terminal)](#start-an-mqtt-subscriber-onest-terminal)
-        -   [Start an MQTT Publisher (:two:nd Terminal)](#start-an-mqtt-publisher-twond-terminal)
-        -   [Stop an MQTT Subscriber (:one:st Terminal)](#stop-an-mqtt-subscriber-onest-terminal)
+        -   [Start an MQTT Subscriber (1️⃣st Terminal)](#start-an-mqtt-subscriber-onest-terminal)
+        -   [Start an MQTT Publisher (2️⃣nd Terminal)](#start-an-mqtt-publisher-twond-terminal)
+        -   [Stop an MQTT Subscriber (1️⃣st Terminal)](#stop-an-mqtt-subscriber-onest-terminal)
         -   [Show Mosquitto Log](#show-mosquitto-log)
     -   [Checking the IoT Agent Service Health](#checking-the-iot-agent-service-health)
     -   [Connecting IoT Devices](#connecting-iot-devices)
@@ -363,7 +363,7 @@ The device monitor can be found at: `http://localhost:3000/device/monitor`
 We will start by mimicking the roles of both the IoT Agent and a dummy IoT device and send and receive some messages
 using MQTT. This section of the tutorial requires several open terminals.
 
-### Start an MQTT Subscriber (:one:st Terminal)
+### Start an MQTT Subscriber (1️⃣st Terminal)
 
 Eventually once we have wired by the system correctly, IoT Agent will subscribe to all relevant events to listen for
 northbound traffic in the form of sensor measurements. It therefore will need to make a subscription across all topics.
@@ -383,7 +383,7 @@ The terminal will then be ready to receive events
 > **Note:** There is no change on whilst running this command. The on screen output will only respond once you have
 > completed the next step.
 
-### Start an MQTT Publisher (:two:nd Terminal)
+### Start an MQTT Publisher (2️⃣nd Terminal)
 
 A sensor sending northbound measurements will publish to those measurements to the MQTT Broker to be passed on to any
 subscriber than wants them. The sensor will not need to make a connection to the subscriber directly.
@@ -395,7 +395,7 @@ docker run -it --rm --name mqtt-publisher \
   --network fiware_default efrecon/mqtt-client pub -h mosquitto -m "HELLO WORLD" -t "/test"
 ```
 
-#### :one:st terminal - Result:
+#### 1️⃣st terminal - Result:
 
 If the MQTT Broker is functioning correctly, the message should be received in the other terminal
 
@@ -403,7 +403,7 @@ If the MQTT Broker is functioning correctly, the message should be received in t
 HELLO WORLD
 ```
 
-### Stop an MQTT Subscriber (:two:nd Terminal)
+### Stop an MQTT Subscriber (2️⃣nd Terminal)
 
 To terminate the MQTT subscriber, run the following Docker command:
 
@@ -439,7 +439,7 @@ docker logs --tail 10 mosquitto
 
 You can check if the IoT Agent is running by making an HTTP request to the exposed port:
 
-#### :one: Request:
+#### 1️⃣ Request:
 
 ```console
 curl -X GET \
@@ -541,7 +541,7 @@ The `resource` attribute is left blank since HTTP communication is not being use
 optional attribute - if it is not provided, the IoT Agent uses the default context broker URL as defined in the
 configuration file, however it has been added here for completeness.
 
-#### :two: Request:
+#### 2️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -578,7 +578,7 @@ Three types of measurement attributes can be provisioned:
 > **Note**: in the case where individual `id`s are not required, or aggregated data is sufficient the `attributes` can
 > be defined within the provisioning service rather than individually.
 
-#### :three: Request:
+#### 3️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -617,7 +617,7 @@ should subscribe to the `/<api-key>/<device-id>` **topic** to receive measuremen
 You can simulate a dummy IoT device measurement coming from the **Motion Sensor** device `motion001`, by posting an MQTT
 message to the following **topic**
 
-#### :four: MQTT Request:
+#### 4️⃣ MQTT Request:
 
 ```console
 docker run -it --rm --name mqtt-publisher --network \
@@ -652,7 +652,7 @@ raising a request with the Orion Context Broker.
 You can see that a measurement has been recorded by retrieving the entity data from the context broker. Don't forget to
 add the `fiware-service` and `fiware-service-path` headers.
 
-#### :five: Request:
+#### 5️⃣ Request:
 
 ```console
 curl -X GET \
@@ -701,7 +701,7 @@ device is listening for commands. The array of commands is mapped to directly to
 
 The example below provisions a bell with the `deviceId=bell001`.
 
-#### :six: Request:
+#### 6️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -735,7 +735,7 @@ REST request directly to the IoT Agent's North Port using the `/v2/op/update` en
 eventually be invoked by the context broker once we have connected it up. To test the configuration you can run the
 command directly as shown:
 
-#### :seven: Request:
+#### 7️⃣  Request:
 
 ```console
 curl -iX POST \
@@ -764,7 +764,7 @@ If you are viewing the device monitor page, you can also see the state of the be
 
 The result of the command to ring the bell can be read by querying the entity within the Orion Context Broker.
 
-#### :eight: Request:
+#### 8️⃣  Request:
 
 ```console
 curl -X GET \
@@ -797,7 +797,7 @@ both `attributes` and `command` attributes in the body of the request. Once agai
 the communications protocol to be used, and no `endpoint` attribute is required as there is no HTTP URL where the device
 is listening for commands.
 
-#### :nine: Request:
+#### 9️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -836,7 +836,7 @@ curl -iX POST \
 
 Similarly, a **Smart Lamp** with two commands (`on` and `off`) and two attributes can be provisioned as follows:
 
-#### :one::zero: Request:
+#### 1️⃣0️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -872,7 +872,7 @@ curl -iX POST \
 
 The full list of provisioned devices can be obtained by making a GET request to the `/iot/devices` endpoint.
 
-#### :one::one: Request:
+#### 1️⃣1️⃣ Request:
 
 ```console
 curl -X GET \
@@ -903,7 +903,7 @@ Therefore this section of registering and invoking commands **duplicates** the i
 
 To invoke the `ring` command, the `ring` attribute must be updated in the context.
 
-#### :one::two: Request:
+#### 1️⃣2️⃣ Request:
 
 ```console
 curl -iX PATCH \
@@ -927,7 +927,7 @@ If you are viewing the device monitor page, you can also see the state of the be
 
 To invoke the `open` command, the `open` attribute must be updated in the context.
 
-#### :one::three: Request:
+#### 1️⃣3️⃣ Request:
 
 ```console
 curl -iX PATCH \
@@ -947,7 +947,7 @@ curl -iX PATCH \
 
 To switch on the **Smart Lamp**, the `on` attribute must be updated in the context.
 
-#### :one::four: Request:
+#### 1️⃣4️⃣ Request:
 
 ```console
 curl -iX PATCH \
