@@ -39,7 +39,7 @@ git checkout NGSI-v2
 
 ```console
 git clone https://github.com/FIWARE/tutorials.IoT-over-MQTT.git
-cd tutorials.IoT-Agent
+cd tutorials.IoT-over-MQTT
 git checkout NGSI-LD
 
 ./services create
