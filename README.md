@@ -1,6 +1,8 @@
 <h1  align="center">
     <img src="https://fiware.github.io/tutorials.Step-by-Step/img/fiware-supermarket.png" />
     <img src="https://img.shields.io/badge/NGSI-v2-5dc0cf.svg" width="90"/>
+    <br/>
+    🍇 🍉 🍊 🍎 🍐 🍌 🍍 🍏 🍐 🍑 🍒 🍓 🫐
 </h1>
 
 ## IoT Agent (MQTT transport)
