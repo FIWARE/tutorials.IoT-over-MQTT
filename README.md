@@ -347,6 +347,7 @@ repository:
 ```
 
 > [!NOTE]
+>
 > If you want to clean up and start over again you can do so with the following command:
 >
 > ```console
@@ -386,8 +387,9 @@ docker run -it --rm --name mqtt-subscriber \
 The terminal will then be ready to receive events
 
 > [!NOTE]
->  There is no change on whilst running this command. The on screen output will only respond once you have
-> completed the next step.
+>
+> There is no change on whilst running this command. The on screen output will only respond once you have completed the
+> next step.
 
 ### Start an MQTT Publisher (2️⃣nd Terminal)
 
@@ -531,7 +533,8 @@ This example provisions an anonymous group of devices. It tells the IoT Agent th
 communicating by sending device measures over the `/ul/4jggokgpepnvsb2uv4s40d59ov` **topic**
 
 > [!NOTE]
->  Measures and commands are sent over different MQTT topics:
+>
+> Measures and commands are sent over different MQTT topics:
 >
 > -   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic
 > -   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic
@@ -583,8 +586,9 @@ Three types of measurement attributes can be provisioned:
     context broker.
 
 > [!NOTE]
->  in the case where individual `id`s are not required, or aggregated data is sufficient the `attributes` can
-> be defined within the provisioning service rather than individually.
+>
+> in the case where individual `id`s are not required, or aggregated data is sufficient the `attributes` can be defined
+> within the provisioning service rather than individually.
 
 #### 3️⃣ Request:
 
@@ -643,9 +647,10 @@ The **topic** must be in the following form:
 ```
 
 > [!NOTE]
->  In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity
-> between the Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This
-> time the IoT Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
+>
+> In the [previous tutorial](https://github.com/FIWARE/tutorials.IoT-Agent), when testing HTTP connectivity between the
+> Motion Sensor and an IoT Agent, a similar dummy HTTP request was sent to update the `count` value. This time the IoT
+> Agent is configured to listen to MQTT topics, and we need to post a dummy message to an MQTT topic.
 
 When using the MQTT transport protocol, the IoT Agent is subscribing to the MQTT **topics** and the device monitor will
 be configured to display all MQTT **messages** sent to each **topic** - effectively it is showing the list messages
@@ -744,7 +749,7 @@ REST request directly to the IoT Agent's North Port using the `/v2/op/update` en
 eventually be invoked by the context broker once we have connected it up. To test the configuration you can run the
 command directly as shown:
 
-#### 7️⃣  Request:
+#### 7️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -773,7 +778,7 @@ If you are viewing the device monitor page, you can also see the state of the be
 
 The result of the command to ring the bell can be read by querying the entity within the Orion Context Broker.
 
-#### 8️⃣  Request:
+#### 8️⃣ Request:
 
 ```console
 curl -X GET \
