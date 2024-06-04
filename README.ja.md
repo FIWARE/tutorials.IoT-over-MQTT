@@ -32,7 +32,7 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
     -   [IoT Agent for UltraLight 2.0 の設定](#iot-agent-for-ultralight-20-configuration)
 -   [前提条件](#prerequisites)
     -   [Docker と Docker Compose](#docker-and-docker-compose)
-    -   [Cygwin for Windows](#cygwin-for-windows)
+    -   [WSL](#wsl)
 -   [起動](#start-up)
 -   [IoT Agent のプロビジョニング (Ultra Light over MQTT)](#provisioning-an-iot-agent-ultralight-over-mqtt)
     -   [Mosquitto Health の確認](#checking-mosquitto-health)
@@ -370,12 +370,10 @@ docker version
 Docker バージョン 20.10 以降と Docker Compose 1.29 以上を使用していることを確認
 し、必要に応じてアップグレードしてください。
 
-<a name="cygwin-for-windows"></a>
-
-## Cygwin for Windows
+## WSL
 
 シンプルな bash スクリプトを使用してサービスを開始します。Windows ユーザは
-[cygwin](http://www.cygwin.com/) をダウンロードして、Windows 上の Linux ディスト
+[を使用して Windows に Linux をインストールする方法](https://learn.microsoft.com/ja-jp/windows/wsl/install) をダウンロードして、Windows 上の Linux ディスト
 リビューションと同様のコマンドライン機能を提供する必要があります。
 
 <a name="start-up"></a>
