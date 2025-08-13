@@ -52,6 +52,7 @@ services:
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
+      - orion-v2
       - mongo-db
       - mosquitto
     networks:
@@ -77,6 +78,8 @@ services:
       - IOTA_DEFAULT_RESOURCE= # Default is blank. I'm using MQTT so I don't need a resource
       - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
       - IOTA_DEFAULT_TRANSPORT=MQTT
+      - IOTA_MULTI_CORE=true
+      - IOTA_AMQP_DISABLED=true
     healthcheck:
       interval: 5s
 
