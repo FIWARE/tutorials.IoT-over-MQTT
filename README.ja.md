@@ -666,7 +666,7 @@ curl -iX POST \
 ### センサのプロビジョニング
 
 エンティティを作成するときは、NGSI-LD
-[仕様](https://cim.etsi.org/NGSI-LD/official/0--1.html)に
+[仕様](https://cim.etsi.org/NGSI-LD/official/front-page.html)に
 従って URN を使用するのが一般的な良い方法です。さらに、データ属性を定義するとき
 に意味のある名前を理解する方が簡単です。これらのマッピングは、デバイスを個別にプ
 ロビジョニングすることによって定義できます。
