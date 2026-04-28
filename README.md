@@ -577,9 +577,9 @@ curl -iX POST \
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating
-entities. Furthermore it is easier to understand meaningful names when defining data attributes. These mappings can be
-defined by provisioning a device individually.
+[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating entities. Furthermore it is easier
+to understand meaningful names when defining data attributes. These mappings can be defined by provisioning a device
+individually.
 
 Three types of measurement attributes can be provisioned:
 
