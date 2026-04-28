@@ -4,7 +4,7 @@
 [![FIWARE IoT Agents](https://fiware.github.io/catalogue/badges/chapters/iot-agents.svg)](https://github.com/FIWARE/catalogue/blob/master/iot-agents/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.IoT-over-MQTT.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
-[![UltraLight 2.0](https://img.shields.io/badge/Payload-Ultralight-27ae60.svg)](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+[![JSON](https://img.shields.io/badge/Payload-JSON-27ae60.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 <br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 <!-- prettier-ignore -->
@@ -13,7 +13,7 @@
 を紹介します
 。[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent) で作成し
 た
-、[UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+、[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して MQTT
 を使用して一連のダミー IoT デバイスと通信するように再構成されます。
 
@@ -29,7 +29,7 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 -   [アーキテクチャ](#architecture)
     -   [Mosquitto の設定](#mosquitto-configuration)
     -   [ダミー IoT デバイスの設定](#dummy-iot-devices-configuration)
-    -   [IoT Agent for UltraLight 2.0 の設定](#iot-agent-for-ultralight-20-configuration)
+    -   [IoT Agent for JSON の設定](#iot-agent-for-ultralight-20-configuration)
 -   [前提条件](#prerequisites)
     -   [Docker と Docker Compose](#docker-and-docker-compose)
     -   [WSL](#wsl)
@@ -94,8 +94,8 @@ IoT Agent は、[Mosquitto](https://mosquitto.org/) message broker を介して 
 | IoT デバイスは、常に通信を受信する準備ができている必要があります                        | IoT デバイスは、いつ通信を受けるかを選択します                                                    |
 | より高い消費電力要件                                                                    | 低消費電力要件                                                                                    |
 
-UltraLight 2.0 IoT Agent は
-、[UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+JSON IoT Agent は
+、[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 構文を使用してメッセージを送信または解釈するだけですが、複数の**転送**メカニズム
 を使用してメッセージを送受信するために使用できます。したがって、同じ FIWARE
 Generic Enabler を使用して、より幅広い範囲の IoT デバイスに接続することができま
@@ -112,7 +112,7 @@ Generic Enabler を使用して、より幅広い範囲の IoT デバイスに�
 このチュートリアルの目的のために、一連のダミー IoT デバイスが作成され、Context
 Broker に接続されます。使用されるアーキテクチャとプロトコルの詳細は
 、[IoT Sensors のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)に
-あります。各デバイスの状態は、次の UltraLight デバイス・モニタの Web ページで確
+あります。各デバイスの状態は、次の JSON デバイス・モニタの Web ページで確
 認できます : `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-over-MQTT/img/device-monitor.png)
@@ -125,7 +125,7 @@ Broker に接続されます。使用されるアーキテクチャとプロト�
 、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Agent/)で作成し
 たコンポーネントに基づいています
 。[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) と
-[IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/)
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/)
 の 2 つの FIWARE コンポーネントを使用します。アプリケーションが _“Powered by
 FIWARE”_ と認定されるには、Orion Context Broker を使用するだけで十分です。Orion
 Context Broker と IoT Agent はオープンソースの
@@ -141,11 +141,11 @@ Context Broker と IoT Agent はオープンソースの
     、[NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用して
     リクエストを受信します
 -   FIWARE
-    [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/)
+    [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/)
     は以下を行います :
     -   [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) を使用し
         てサウス・バウンド・リクエストを受信し、MQTT Broker 用の
-        [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         の**トピック**に変換します
     -   登録された**トピック**について **MQTT Broker** をリッスンし、測定値をノ
         ース・バウンドに送信します
@@ -159,7 +159,7 @@ Context Broker と IoT Agent はオープンソースの
     -   **IoT Agent** がデバイスの URLs や Keys などのデバイス情報を保持するため
         に使用します
 -   MQTT 上で動作する
-    [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+    [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     プロトコルを使用して
     、[ダミー IoT デバイス](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)のセ
     ットとして機能する Web サーバー
@@ -245,7 +245,7 @@ tutorial:
 -   ポート `3000` が公開されているので、ダミー IoT デバイスを表示する Web ページ
     が表示されます
 -   ポート `3001` はチュートリアルのアクセスのためだけに公開されているため、cUrl
-    または Postman は同じネットワーク以外からも、UltraLight コマンドを作成できま
+    または Postman は同じネットワーク以外からも、JSON コマンドを作成できま
     す
 
 `tutorial` コンテナは、次のように環境変数によって設定値を指定できます :
@@ -255,7 +255,7 @@ tutorial:
 | DEBUG                   | `tutorial:*`                 | ロギングに使用するデバッグ・フラグ                                                                                                                |
 | WEB_APP_PORT            | `3000`                       | ダミー・デバイスのデータを表示する web-app が使用するポート                                                                                       |
 | DUMMY_DEVICES_PORT      | `3001`                       | コマンドを受信するためにダミー IoT デバイスが使用するポート                                                                                       |
-| DUMMY_DEVICES_API_KEY   | `4jggokgpepnvsb2uv4s40d59ov` | UltraLight インタラクションに使用されるランダムなセキュリティキー - デバイスと IoT Agent 間のインタラクションの完全性を保証するために使用されます |
+| DUMMY_DEVICES_API_KEY   | `4jggokgpepnvsb2uv4s40d59ov` | JSON インタラクションに使用されるランダムなセキュリティキー - デバイスと IoT Agent 間のインタラクションの完全性を保証するために使用されます |
 | DUMMY_DEVICES_TRANSPORT | `MQTT`                       | ダミー IoT デバイスによって使用されるトランスポート・プロトコル                                                                                   |
 
 このチュートリアルでは、YAML ファイルで記述されている他の `tutorial` コンテナの
@@ -263,15 +263,15 @@ tutorial:
 
 <a name="iot-agent-for-ultralight-20-configuration"></a>
 
-## IoT Agent for UltraLight 2.0 の設定
+## IoT Agent for JSON の設定
 
-[IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/)
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/)
 は 、Docker コンテナ内でインスタンス化できます。公式の Docker イメージは、Docker
-Hub からタグ付けされた `fiware/iotagent-ul` です。必要な構成を以下に示します :
+Hub からタグ付けされた `fiware/iotagent-json` です。必要な構成を以下に示します :
 
 ```yaml
 iot-agent:
-    image: quay.io/fiware/iotagent-ul:latest
+    image: quay.io/fiware/iotagent-json:latest
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -318,7 +318,7 @@ iot-agent:
 | IOTA_LOG_LEVEL       | `DEBUG`                 | IoT Agent のログ・レベル                                                                                                               |
 | IOTA_TIMESTAMP       | `true`                  | 接続されたデバイスから受信した各測定値にタイムスタンプ情報を提供するかどうかを指定                                                     |
 | IOTA_CB_NGSI_VERSION | `v2`                    | アクティブな属性の更新を送信するときにNGSI v2 を使用するように指定するかどうか                                                         |
-| IOTA_AUTOCAST        | `true`                  | Ultralight の数値が文字列ではなく数値として読み取られるようにする                                                                      |
+| IOTA_AUTOCAST        | `true`                  | JSON の数値が文字列ではなく数値として読み取られるようにする                                                                      |
 | IOTA_MONGO_HOST      | `context-db`            | mongoDB のホスト名 - デバイス情報を保持するために使用                                                                                  |
 | IOTA_MONGO_PORT      | `27017`                 | mongoDB はリッスンしているポート                                                                                                       |
 | IOTA_MONGO_DB        | `iotagentul`            | mongoDB で使用されるデータベースの名前                                                                                                 |
@@ -414,7 +414,7 @@ Bash スクリプトを実行することによって、コマンドラインか
 
 チュートリアルを正しく実行するには、ブラウザのデバイス・モニタページが表示されて
 いることを確認し、ページをクリックして cUrl コマンドを入力する前にオーディオを有
-効にしてください。デバイス・モニタには、Ultralight 2.0 構文を使用して、ダミー
+効にしてください。デバイス・モニタには、JSON 構文を使用して、ダミー
 IoT デバイスのアレイの現在の状態が表示されます。
 
 #### デバイス・モニタ
@@ -697,7 +697,7 @@ curl -iX POST \
      "entity_name": "urn:ngsi-ld:Motion:001",
      "entity_type": "Motion",
      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
-     "protocol":    "PDI-IoTA-UltraLight",
+     "protocol":    "PDI-IoTA-JSON",
      "transport":   "MQTT",
      "timezone":    "Europe/Berlin",
      "attributes": [
@@ -834,7 +834,7 @@ curl -iX POST \
       "device_id": "bell001",
       "entity_name": "urn:ngsi-ld:Bell:001",
       "entity_type": "Bell",
-      "protocol": "PDI-IoTA-UltraLight",
+      "protocol": "PDI-IoTA-JSON",
       "transport": "MQTT",
       "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
@@ -935,7 +935,7 @@ curl -iX POST \
       "device_id": "door001",
       "entity_name": "urn:ngsi-ld:Door:001",
       "entity_type": "Door",
-      "protocol": "PDI-IoTA-UltraLight",
+      "protocol": "PDI-IoTA-JSON",
       "transport": "MQTT",
       "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
@@ -977,7 +977,7 @@ curl -iX POST \
       "device_id": "lamp001",
       "entity_name": "urn:ngsi-ld:Lamp:001",
       "entity_type": "Lamp",
-      "protocol": "PDI-IoTA-UltraLight",
+      "protocol": "PDI-IoTA-JSON",
       "transport": "MQTT",
       "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
@@ -1020,7 +1020,7 @@ IoT Agent を IoT デバイスに接続すると、Orion Context Broker にコ�
 
 コマンドが登録されると
 、[以前のチュートリアル](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)で実行
-したように、IoT デバイスに直接 UltraLight 2.0 リクエストを送信するのではなく
+したように、IoT デバイスに直接 JSON リクエストを送信するのではなく
 、**ベル**を鳴らし、**スマート・ドア**を開閉し、**スマート・ランプ**をオン/オフ
 に切り替えることができます。
 
