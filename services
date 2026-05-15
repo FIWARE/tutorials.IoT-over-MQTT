@@ -14,7 +14,7 @@
 # This will force the script to use docker-compose which may be more reliable in 
 # some cases (or if an older version of Docker is being used)
 
-set -e
+set -eo pipefail
 
 dockerCmd="docker compose"
 if (( $# == 2 )); then
@@ -71,7 +71,7 @@ addDatabaseIndex () {
 
 waitForMongo () {
 	echo -e "\n⏳ Waiting for \033[1mMongoDB\033[0m to be available\n"
-	while ! [ `docker inspect --format='{{.State.Health.Status}}' db-mongo` == "healthy" ]
+	while ! [ "$(docker inspect --format='{{.State.Health.Status}}' db-mongo)" == "healthy" ]
 	do 
 		sleep 1
 	done
@@ -80,9 +80,9 @@ waitForMongo () {
 waitForOrion () {
 	echo -e "\n⏳ Waiting for \033[1;34mOrion\033[0m to be available\n"
 
-	while ! [ `docker inspect --format='{{.State.Health.Status}}' fiware-orion` == "healthy" ]
+	while ! [ "$(docker inspect --format='{{.State.Health.Status}}' fiware-orion)" == "healthy" ]
 	do
-	  echo -e "Context Broker HTTP state: " `curl -s -o /dev/null -w %{http_code} 'http://localhost:1026/version'` " (waiting for 200)"
+	  echo -e "Context Broker HTTP state: " $(curl -s -o /dev/null -w %{http_code} 'http://localhost:1026/version') " (waiting for 200)"
 	  sleep 1
 	done
 }
@@ -90,10 +90,10 @@ waitForOrion () {
 
 waitForIoTAgent () {
 	echo -e "\n⏳ Waiting for \033[1;36mIoT-Agent\033[0m to be available\n"
-	while ! [ `docker inspect --format='{{.State.Health.Status}}' fiware-iot-agent` == "healthy" ]
+	while ! [ "$(docker inspect --format='{{.State.Health.Status}}' fiware-iot-agent)" == "healthy" ]
 
 	do 
-	  echo -e "IoT Agent HTTP state: " `curl -s -o /dev/null -w %{http_code} 'http://localhost:4041/version'` " (waiting for 200)"
+	  echo -e "IoT Agent HTTP state: " $(curl -s -o /dev/null -w %{http_code} 'http://localhost:4041/version') " (waiting for 200)"
 	  sleep 1
 	done
 }
@@ -104,7 +104,7 @@ case "${command}" in
         echo "usage: services [create|start|stop]"
         ;;
 	"start")
-		export $(cat .env | grep "#" -v)
+		set -a; source .env; set +a
 		stoppingContainers
 		echo -e "Starting containers: \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m, \033[1mTutorial\033[0m, \033[1mMosquitto\033[0m MQTT broker and a \033[1mMongoDB\033[0m database."
 		echo -e "- \033[1;34mOrion\033[0m is the context broker"
@@ -121,11 +121,11 @@ case "${command}" in
 		echo -e "Now open \033[4mhttp://localhost:3000/device/monitor\033[0m"
 		;;
 	"stop")
-		export $(cat .env | grep "#" -v)
+		set -a; source .env; set +a
 		stoppingContainers
 		;;
 	"create")
-		export $(cat .env | grep "#" -v)
+		set -a; source .env; set +a
 		echo "Pulling Docker images"
 		docker pull -q quay.io/curl/curl
 		${dockerCmd} pull --ignore-pull-failures

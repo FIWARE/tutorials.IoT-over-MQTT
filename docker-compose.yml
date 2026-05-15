@@ -61,6 +61,14 @@ services:
       - "${IOTA_NORTH_PORT}"
     ports:
       - "${IOTA_NORTH_PORT}:${IOTA_NORTH_PORT}" # localhost:4041
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '2.0'
+        reservations:
+          memory: 512M
+          cpus: '1.0'
     environment:
       - IOTA_CB_HOST=orion # name of the context broker to update context
       - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
